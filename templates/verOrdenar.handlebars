@@ -1,0 +1,26 @@
+   <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item left half-quarter">
+            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.back();">
+                <span class="topcoat-icon topcoat-icon--back"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center less-half">
+           
+                <h1 class="topcoat-navigation-bar__title">Ordenar Frases</h1>
+            
+        </div>
+    </div>
+<div class="scroller">
+    <div class="topcoat-list">
+        <ul class="topcoat-list__container list" >
+            {{#.}}
+             <li class="topcoat-list__item">
+                 <p><span class="nomplato">{{texto}}</span> </p>
+              </li>
+            {{/.}}
+      </ul>
+    </div>
+    <footer>
+      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>
+    </footer>
+</div>
