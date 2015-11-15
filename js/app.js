@@ -36,8 +36,8 @@
         // comprobar si queremos ir a ordenar frases
         var match = hash.match(ordenarURL);
         if (match) {
-            adapter.encontrarFrasesOrdenar().done(function(frases) {
-                $('body').html(new VerOrdenar(adapter, frases).render());
+            adapter.encontrarFrasesOrdenar().done(function(datos) {
+                $('body').html(new VerOrdenar(adapter, datos).render());
             });
         }
         // comprobar si queremos ir a inventar
