@@ -145,9 +145,7 @@
 }
 
 /* clases de la vista ordenar */
-.salir {
-    
-}
+
 .conjunto {
     text-align: center;
     max-width: 100%;
@@ -201,6 +199,21 @@ footer {
     height: 3.969rem;
     vertical-align: middle;
 }
+.salir {
+    
+}
+.clearfix {
+    clear: both;
+    float: left;
+}
+.nivelesB {
+    margin: 0 auto;
+    max-width: 1024px;
+    max-height: 600px;
+    background-color: white;
+    border: 10px solid #f99f9f;
+    text-align: center;
+}
 .less-half {
     width: 37%;
 }
@@ -243,7 +256,7 @@ footer {
 /* fin clases generales */
 
 /* clases de topcoat modificadas por mi para personalizarlas */
-.topcoat-button-bar__button:hover, .topcoat-button-bar__item:hover, .imgracion:hover {
+.topcoat-button-bar__button:hover, .topcoat-button-bar__item:hover, {
     border-color: #58ACFA;
 }
 .topcoat-button-bar__item img {
@@ -251,6 +264,7 @@ footer {
     padding: 5%;
 }
 .topcoat-button-bar__item {
+    margin-left: 25%;
     text-align: center;
 }
 .topcoat-button--cta {

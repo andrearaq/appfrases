@@ -3,6 +3,7 @@
     /* ---------------------------------- Variables locales ---------------------------------- */
     var adapter = new WebSqlAdapter();
     var ordenarURL = /^#ordenar/;
+    var ordenarNivelURL = /^#ordenar\/(\d{1,})/;
     var inventarURL = /^#inventar/;
     
     adapter.inicializar().done(function () {
@@ -24,7 +25,7 @@
           };
         }
     }, false);
-  
+    
     $(window).on('hashchange', route);
     /* ---------------------------------- Funciones locales ---------------------------------- */    
       function route() {
@@ -33,10 +34,21 @@
             $('body').html(new HomeView(adapter).render());
             return;
         }
+          
         // comprobar si queremos ir a ordenar frases
         var match = hash.match(ordenarURL);
         if (match) {
-            adapter.encontrarFrasesOrdenar().done(function(datos) {
+            $('body').html(new VerNivelesOrden(adapter).render());
+            return;
+        }
+        // comprobar si queremos ir a ordenar frases elegido ya el nivel
+        var match = hash.match(ordenarNivelURL);
+          
+        var nivel = null;
+        if (match) {
+            nivel = match[1];
+            console.log("elegido nivel "+nivel);
+            adapter.encontrarFrasesOrdenar(nivel).done(function(datos) {
                 $('body').html(new VerOrdenar(adapter, datos).render());
             });
         }
