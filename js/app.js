@@ -3,9 +3,9 @@
     /* ---------------------------------- Variables locales ---------------------------------- */
     var adapter = new WebSqlAdapter();
     var ordenarURL = /^#ordenar/;
-    var ordenarNivelURL = /^#ordenar\/(\d{1,})/;
     var inventarURL = /^#inventar/;
-    
+    var ordenarNivelURL = /^#ordenar\/(\d{1,})/;
+        
     adapter.inicializar().done(function () {
         console.log("Inicializado: Adaptador de datos");
     route();
@@ -43,7 +43,6 @@
         }
         // comprobar si queremos ir a ordenar frases elegido ya el nivel
         var match = hash.match(ordenarNivelURL);
-          
         var nivel = null;
         if (match) {
             nivel = match[1];

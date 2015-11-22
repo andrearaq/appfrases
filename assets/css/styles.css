@@ -1,90 +1,23 @@
 /* media queries */
 @media all and (orientation: portrait) {       /* orientacion vertical */
         
-    .imginicio {
-       width: 570px;
-    }
-    .direccion {
-        display: none;
-    }
-    .idiomas img {
-        margin-top: 15px;
-        margin-left: 5px;
-        width: 40px;
-        height: 31px;
-    }
     .topcoat-navigation-bar__title {
       font-size: 1.2rem;
     }
-    #titcarta {
-      font-size: 21px;
-    }
+    
     .third {
         width: 28%;
     }
-    .vermenu {
-        padding: 0px;
-    }
+    
     .imgboton {
         width: 240px;
         height: 180px;
     }
-    .vermenu img {
-        padding: 7px;
-        max-width: 95%;
-    }
-    #alerrac {
-        margin-right: 10px;
-    }
-    #alergenos {
-       height: 35px;
-       margin-bottom: 95px;
-    }
-     #ale {
-        margin-left: 10px;
-     }
-    #precioplato {
-        font-size: 22px;
-        margin-right: 5%;
-    }
-    .platogrande {
-        border: 3px solid #D8D8D8;
-        padding: 0;
-        margin: 0;
-        max-width: 90%;
-        max-height: 100%;
-    }
-    .platoG {
-        width: 75%;
-        height: 380px;
-    }
-    .listaplatos{
-        width: 20%;
-        height: 375px;
-    }
+    
     .logo {
        display: none;
     }
-    #direcc {
-        display: inherit;
-    }
-    .precio3 {
-        font-size: 16px;
-        margin-left: 0;
-        margin-right: 0px;
-    }
-    .flagG{
-        max-width: 100%;
-    }
-    .nomplato {
-        font-size: 23px;
-    }
-    .precio {
-        font-size: 28px;
-    }
-    #textoplato {
-        font-size: 18px;
-    }
+    
     .conjunto {
         margin-left: 12px;
     }
@@ -95,11 +28,7 @@
         width: 700px;
         height: 250px;
     }   
-    .idiomas img {
-        margin-left: 7px;
-        margin-top: 15px;
-        max-width: 90%;
-    }
+    
     .imgboton {
         width: 280px;
         height: 200px;
@@ -144,7 +73,34 @@
     max-width: 100%;
 }
 
+/* clases de la vista niveles orden */
+.nivelesB {
+    margin: 0 auto;
+    max-width: 1024px;
+    max-height: 600px;
+    background-color: white;
+    border: 10px solid #f99f9f;
+    text-align: center;
+    padding: 5%;
+}
+.n1 {
+    background-color: #47A447;
+}
+.n2 {
+    background-color: #39B3D7;
+}
+.n3 {
+    background-color: #ED9C28;
+}
+.n4 {
+    background-color: #D2322D;
+}
+
+
+
 /* clases de la vista ordenar */
+
+
 
 .conjunto {
     text-align: center;
@@ -199,20 +155,16 @@ footer {
     height: 3.969rem;
     vertical-align: middle;
 }
+.fondo {
+    background-image: url("../../img/letras2.jpg");
+    background-repeat: repeat-x;
+}
 .salir {
     
 }
 .clearfix {
     clear: both;
     float: left;
-}
-.nivelesB {
-    margin: 0 auto;
-    max-width: 1024px;
-    max-height: 600px;
-    background-color: white;
-    border: 10px solid #f99f9f;
-    text-align: center;
 }
 .less-half {
     width: 37%;
@@ -319,4 +271,14 @@ footer {
 }
 .topcoat-list__item:first-child {
   border: 0;
+}
+
+.topcoat-button--large {
+    min-width: 400px;
+    max-width: 800px;
+    heigh: auto;
+    color: white;
+    font-size: 3.8rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

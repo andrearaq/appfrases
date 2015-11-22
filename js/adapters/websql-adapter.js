@@ -50,7 +50,8 @@ var WebSqlAdapter = function () {
         );
         return deferred.promise();
     };
-    // encontrar frases para ordenar
+    
+    // encontrar datos para inventar
     this.encontrarDatos = function () {
         var deferred = $.Deferred();
         this.db.transaction(
