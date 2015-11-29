@@ -6,7 +6,7 @@ var VerOrdenar= function (adapter, frases) {
     };
     this.render = function() {
        // n=1;
-        this.el.html(Handlebars.templates.verOrdenar());
+        this.el.html(Handlebars.templates.verOrdenar(frases));
         return this.el;
     };
         

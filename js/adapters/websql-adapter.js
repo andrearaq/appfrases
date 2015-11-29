@@ -39,6 +39,15 @@ var WebSqlAdapter = function () {
                         i = 0;
                     for (; i < len; i = i + 1) {
                         frases[i] = results.rows.item(i);
+                        var palabras = frases[i].texto.split(' ');
+                        console.log("palabras frase "+frases[i].id+" "+palabras);
+                        console.log("primera palabra: "+palabras[0]);
+                        for(j=0; j<palabras.length; j++) {
+                            eval("frases[i].p" + j + " = palabras[j];");
+                            
+                        }
+                        
+                        console.log("frase guardada: "+frases[i].id+"-"+frases[i].texto+"-"+frases[i].p0+"-"+frases[i].p1+"-"+frases[i].p2);
                     }
                     
                     deferred.resolve(frases);
@@ -65,8 +74,7 @@ var WebSqlAdapter = function () {
                         i = 0;
                     for (; i < len; i = i + 1) {
                         frases[i] = results.rows.item(i);
-                    }
-                    
+                    }                    
                     deferred.resolve(frases);
                 });
             },
@@ -98,11 +106,30 @@ var WebSqlAdapter = function () {
     var insertarDatosF = function (tx, frases) {
 
         var frases = [
-        {"id": 1, "texto": "El perro hace caca", "nivel": 2},
-        {"id": 2, "texto": "El perro salta y corre", "nivel": 3},
-        {"id": 3, "texto": "El perro negro salta y corre", "nivel": 4},
-        {"id": 4, "texto": "Yo tengo frio", "nivel": 1},
-        {"id": 5, "texto": "Yo duermo en la cama", "nivel": 3},
+        {"id": 1, "texto": "Yo tengo frio", "nivel": 1},
+        {"id": 2, "texto": "El perro corre", "nivel": 1},
+        {"id": 3, "texto": "Mama me besa", "nivel": 1},
+        {"id": 4, "texto": "Yo soy alta", "nivel": 1},
+        {"id": 5, "texto": "Yo como fruta", "nivel": 1},
+        {"id": 6, "texto": "Papa es alto", "nivel": 1},
+        {"id": 7, "texto": "El perro hace caca", "nivel": 2},
+        {"id": 8, "texto": "El niño come verdura", "nivel": 2},
+        {"id": 9, "texto": "Mi hermano es alto", "nivel": 2},
+        {"id": 10, "texto": "El gato tiene bigotes", "nivel": 2},
+        {"id": 11, "texto": "El colegio es grande", "nivel": 2},
+        {"id": 12, "texto": "El perro hace caca", "nivel": 2},
+        {"id": 13, "texto": "Mi mama hace la comida", "nivel": 3},
+        {"id": 14, "texto": "Yo duermo en la cama", "nivel": 3},
+        {"id": 15, "texto": "La mesa roja es cuadrada", "nivel": 3},
+        {"id": 16, "texto": "Yo duermo en la cama", "nivel": 3},
+        {"id": 17, "texto": "Yo duermo en la cama", "nivel": 3},
+        {"id": 18, "texto": "Yo duermo en la cama", "nivel": 3},
+        {"id": 19, "texto": "El perro negro salta y corre", "nivel": 4},
+        {"id": 20, "texto": "El perro negro salta y corre", "nivel": 4},
+        {"id": 21, "texto": "El perro negro salta y corre", "nivel": 4},
+        {"id": 22, "texto": "El perro negro salta y corre", "nivel": 4},
+        {"id": 23, "texto": "El perro negro salta y corre", "nivel": 4},
+        {"id": 24, "texto": "El perro negro salta y corre", "nivel": 4}
     ];
 
         var l = frases.length;

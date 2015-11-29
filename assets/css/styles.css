@@ -96,16 +96,31 @@
     background-color: #D2322D;
 }
 
-
-
-/* clases de la vista ordenar */
-
-
-
-.conjunto {
-    text-align: center;
-    max-width: 100%;
+.n1:hover {
+    background-color: #BCF5A9;
+    border: solid 3px #47A447;
+    color: #47A447;
 }
+.n2:hover {
+    background-color: #A9F5F2;
+    border: solid 3px #39B3D7;
+    color: #39B3D7;
+}
+.n3:hover {
+    background-color: #F3E2A9;
+    border: solid 3px #ED9C28;
+    color: #ED9C28;
+}
+.n4:hover {
+    background-color: #F6CECE;
+    border: solid 3px #D2322D;
+    color: #D2322D;
+}
+
+/* clases de la vista verOrdenar */
+
+
+
 /* flecha next */
 .chevron {
     background: transparent url(../img/next_blue.svg);
@@ -252,12 +267,12 @@ footer {
 }
 .topcoat-navigation-bar {
   position: static;
- /* height: 10.969rem;*/
-    height: 6rem;
+    height: 5rem;
 }
 .topcoat-navigation-bar__title {
-  font-size: 2.5rem;
-    color: #2E2EFE;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2E2EFE;
 }
 .topcoat-list {
   background-color: #F79F81;
@@ -281,4 +296,7 @@ footer {
     font-size: 3.8rem;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+topcoat-button--large:hover {
+    opacity: 0.5;
 }

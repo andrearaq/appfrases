@@ -4,7 +4,7 @@
     var adapter = new WebSqlAdapter();
     var ordenarURL = /^#ordenar/;
     var inventarURL = /^#inventar/;
-    var ordenarNivelURL = /^#ordenar\/(\d{1,})/;
+    var ordenarNivelURL = /^#nivelorden\/(\d{1,})/;
         
     adapter.inicializar().done(function () {
         console.log("Inicializado: Adaptador de datos");
