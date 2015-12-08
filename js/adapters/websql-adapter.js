@@ -26,9 +26,11 @@ var WebSqlAdapter = function () {
 
     
     // encontrar frases para ordenar según el nivel
-    this.encontrarFrasesOrdenar = function (niv) {
+    this.encontrarFrasesOrdenar = function (niv,fra) {
         var deferred = $.Deferred();
         localStorage['nivel'] = niv;
+        var idf = parseInt(fra);
+        console.log("numero frase: "+idf);
         this.db.transaction(
             function (tx) {
                 var sql="";
@@ -37,7 +39,7 @@ var WebSqlAdapter = function () {
                     var len = results.rows.length,
                         frases = [],
                         i = 0;
-                    for (; i < len; i = i + 1) {
+                    for (; i < len; i++) {
                         frases[i] = results.rows.item(i);
                         var palabras = frases[i].texto.split(' ');
                         console.log("palabras frase "+frases[i].id+" "+palabras);
@@ -47,10 +49,9 @@ var WebSqlAdapter = function () {
                             
                         }
                         
-                        console.log("frase guardada: "+frases[i].id+"-"+frases[i].texto+"-"+frases[i].p0+"-"+frases[i].p1+"-"+frases[i].p2);
                     }
                     
-                    deferred.resolve(frases);
+                    deferred.resolve(frases[idf]);
                 });
             },
             function (error) {
@@ -106,9 +107,9 @@ var WebSqlAdapter = function () {
     var insertarDatosF = function (tx, frases) {
 
         var frases = [
-        {"id": 1, "texto": "Yo tengo frio", "nivel": 1},
+        {"id": 1, "texto": "Yo tengo frío", "nivel": 1},
         {"id": 2, "texto": "El perro corre", "nivel": 1},
-        {"id": 3, "texto": "Mama me besa", "nivel": 1},
+        {"id": 3, "texto": "Mamá me besa", "nivel": 1},
         {"id": 4, "texto": "Yo soy alta", "nivel": 1},
         {"id": 5, "texto": "Yo como fruta", "nivel": 1},
         {"id": 6, "texto": "Papa es alto", "nivel": 1},
@@ -118,18 +119,18 @@ var WebSqlAdapter = function () {
         {"id": 10, "texto": "El gato tiene bigotes", "nivel": 2},
         {"id": 11, "texto": "El colegio es grande", "nivel": 2},
         {"id": 12, "texto": "El perro hace caca", "nivel": 2},
-        {"id": 13, "texto": "Mi mama hace la comida", "nivel": 3},
+        {"id": 13, "texto": "Mi mamá hace la comida", "nivel": 3},
         {"id": 14, "texto": "Yo duermo en la cama", "nivel": 3},
         {"id": 15, "texto": "La mesa roja es cuadrada", "nivel": 3},
         {"id": 16, "texto": "Yo duermo en la cama", "nivel": 3},
-        {"id": 17, "texto": "Yo duermo en la cama", "nivel": 3},
-        {"id": 18, "texto": "Yo duermo en la cama", "nivel": 3},
+        {"id": 17, "texto": "Mi abuela come mucha verdura", "nivel": 3},
+        {"id": 18, "texto": "Mi colegio es muy grande", "nivel": 3},
         {"id": 19, "texto": "El perro negro salta y corre", "nivel": 4},
-        {"id": 20, "texto": "El perro negro salta y corre", "nivel": 4},
-        {"id": 21, "texto": "El perro negro salta y corre", "nivel": 4},
-        {"id": 22, "texto": "El perro negro salta y corre", "nivel": 4},
-        {"id": 23, "texto": "El perro negro salta y corre", "nivel": 4},
-        {"id": 24, "texto": "El perro negro salta y corre", "nivel": 4}
+        {"id": 20, "texto": "El niño alto juega al baloncesto", "nivel": 4},
+        {"id": 21, "texto": "La niña lleva un vestido azul", "nivel": 4},
+        {"id": 22, "texto": "La gallina pone huevos y cacarea", "nivel": 4},
+        {"id": 23, "texto": "Mi hermano desayuna leche y galletas", "nivel": 4},
+        {"id": 24, "texto": "Me gusta mucho jugar al fútbol", "nivel": 4}
     ];
 
         var l = frases.length;

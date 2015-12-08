@@ -20,17 +20,38 @@
        </div>
     </div>
 <div class="scroller">
-    <div class="topcoat-list">
-        <ul class="topcoat-list__container list" >
-            {{#.}}
-             <li class="topcoat-list__item">
-                 <p><span>{{p0}} {{p1}} {{p2}} {{p3}} {{p4}} {{p5}} {{p6}}</span></p>
-                     
-              </li>
-            {{/.}}
-      </ul>
+   <div class="fraseordenada">
+      {{#.}}
+        <div class="clearfix">
+           <img  src="img/pictos/{{p0}}.png" alt="{{p0}}" />
+        </div>
+      {{/.}} 
+   </div>
+   <div class="listapalabras">
+        {{#.}}
+          <div class="pictos clearfix">
+              <img  src="img/pictos/{{p0}}.png" alt="{{p0}}" />
+              <img  src="img/pictos/{{p1}}.png" alt="{{p1}}" />
+              <img  src="img/pictos/{{p2}}.png" alt="{{p2}}" />
+              <img  src="img/pictos/{{p3}}.png" alt="{{p3}}" />
+              <img  src="img/pictos/{{p4}}.png" alt="{{p4}}" />
+              <img  src="img/pictos/{{p5}}.png" alt="{{p5}}" />
+          </div>
+          <div class="texto clearfix">
+            <span class="nomplato2">{{p0}}</span>
+            <span class="nomplato2">{{p1}}</span>
+            <span class="nomplato2">{{p2}}</span>
+            <span class="nomplato2">{{p3}}</span>
+            <span class="nomplato2">{{p4}}</span>
+            <span class="nomplato2">{{p5}}</span>
+         </div>
+        {{/.}}
     </div>
-    
+    <div class="clearfix next">
+        <button class="topcoat-icon-button--quiet next-button" href="">
+                <span class="topcoat-icon topcoat-icon--next"></span>
+            </button>
+    </div>
     <footer>
       <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>
     </footer>

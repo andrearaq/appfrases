@@ -44,10 +44,14 @@
         // comprobar si queremos ir a ordenar frases elegido ya el nivel
         var match = hash.match(ordenarNivelURL);
         var nivel = null;
+        var frase = null;
         if (match) {
+            localStorage['frase']="0";
+            frase = localStorage['frase'];
             nivel = match[1];
             console.log("elegido nivel "+nivel);
-            adapter.encontrarFrasesOrdenar(nivel).done(function(datos) {
+            localStorage['nivel']=nivel;
+            adapter.encontrarFrasesOrdenar(nivel,frase).done(function(datos) {
                 $('body').html(new VerOrdenar(adapter, datos).render());
             });
         }

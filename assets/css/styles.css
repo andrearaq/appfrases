@@ -118,9 +118,34 @@
 }
 
 /* clases de la vista verOrdenar */
-
-
-
+.fraseordenada {
+    max-width: 90%;
+    height: 160px;
+    overflow: hidden;
+    padding: 10px;
+    border: 5px solid #D2322D;
+    margin-left: 5%;
+}
+.fraseordenada img{
+    width: 155px;
+    height: 155px;
+}
+.listapalabras {
+    max-width: 90%;
+    height: 160px;
+    overflow: hidden;
+    padding: 10px;
+    padding-bottom: 10px;
+    border: 4px solid #F6CECE;
+    margin-left: 5%;
+}
+.listapalabras img {
+    width: 150px;
+    height: 150px;
+}
+.next {
+    float: right;
+}
 /* flecha next */
 .chevron {
     background: transparent url(../img/next_blue.svg);
@@ -132,12 +157,6 @@
     right: 12px;
     top: 18px;
 }
-/* tamaño y estilo imagen del botón */
-.imgboton {
-    border: 2px solid #D8D8D8;
-    border-radius: 6px;
-}
-/* clases  vista verMenus */
 .chevron2 {
     background: transparent url(../img/next_blue.svg);
     background-repeat: no-repeat;
@@ -147,6 +166,11 @@
     position: absolute;
     right:12px;
     top: 98px;
+}
+/* tamaño y estilo imagen del botón */
+.imgboton {
+    border: 2px solid #D8D8D8;
+    border-radius: 6px;
 }
 
 /* clases y elementos generales usados en varias vistas */
@@ -245,8 +269,18 @@ footer {
     position: absolute;
     top: 10px;
 }
+.next-button {
+    position: absolute;
+    top: 10px;
+}
 .topcoat-icon--back {
     background: url("../img/back.svg") no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+.topcoat-icon--next {
+    background: url("../img/next.svg") no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
