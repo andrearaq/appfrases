@@ -1,5 +1,6 @@
 var VerOrdenar= function (adapter, frases) {
     this.inicializar = function () {
+        
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
         this.el.on('click', '.next', this.cambiarFrase);
@@ -21,10 +22,20 @@ var VerOrdenar= function (adapter, frases) {
             });
     };   
     this.mostrarPicto = function() {
+        // comprobar cuantos pictos hay en la frase ordenada
+        var cuantos = $('#fraseC').children('img').size();
+        console.log("cuantos hay:"+cuantos);
         var id = $(this).attr('id');
-        var imagen = '<img class="imgFrase" src="'+$(this).attr('src')+'" />';
-        $('#fraseC').append(imagen);
-        $('#'+id).remove();
+        var numid = id.substr(1,1);
+        console.log("numero id:"+numid);
+        if (numid == cuantos){
+            var imagen = '<img class="imgFrase" src="'+$(this).attr('src')+'" />';
+            $('#fraseC').append(imagen);
+            $('#'+id).remove();
+        } else {
+            console.log("picto erroneo");
+        }
+        
         
     };
     
