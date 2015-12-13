@@ -22,28 +22,35 @@
 <div class="scroller">
    <div class="fraseordenada">
       {{#.}}
-        <div class="clearfix">
-           <img  src="img/pictos/{{p0}}.png" alt="{{p0}}" />
+        <div class="clearfix" id="fraseC">
+           <img  class="imgFrase" src="img/pictos/{{p0}}.png" alt="{{p0}}" id="0"/>
+           
         </div>
       {{/.}} 
    </div>
    <div class="listapalabras">
         {{#.}}
-          <div class="pictos clearfix">
-              <img  src="img/pictos/{{p0}}.png" alt="{{p0}}" />
-              <img  src="img/pictos/{{p1}}.png" alt="{{p1}}" />
-              <img  src="img/pictos/{{p2}}.png" alt="{{p2}}" />
-              <img  src="img/pictos/{{p3}}.png" alt="{{p3}}" />
-              <img  src="img/pictos/{{p4}}.png" alt="{{p4}}" />
-              <img  src="img/pictos/{{p5}}.png" alt="{{p5}}" />
+          <div class="pictos clearfix" id="pictos">
+              <img class="imgFrase" src="img/pictos/{{p2}}.png" alt="{{p2}}" id="p2"/>
+            {{#if p3}}
+              <img class="imgFrase" src="img/pictos/{{p3}}.png" alt="{{p3}}" id="p3"/>
+            {{/if}}
+            
+            {{#if p4}}
+              <img class="imgFrase" src="img/pictos/{{p4}}.png" alt="{{p4}}" id="p4"/>
+            {{/if}}
+            <img class="imgFrase" src="img/pictos/{{p1}}.png" alt="{{p1}}" id="p1" />
+            {{#if p5}}
+              <img class="imgFrase" src="img/pictos/{{p5}}.png" alt="{{p5}}" id="p5"/>
+            {{/if}}
           </div>
           <div class="texto clearfix">
-            <span class="nomplato2">{{p0}}</span>
-            <span class="nomplato2">{{p1}}</span>
-            <span class="nomplato2">{{p2}}</span>
-            <span class="nomplato2">{{p3}}</span>
-            <span class="nomplato2">{{p4}}</span>
-            <span class="nomplato2">{{p5}}</span>
+            <span class="">{{p0}}</span>
+            <span class="">{{p1}}</span>
+            <span class="">{{p2}}</span>
+            <span class="">{{p3}}</span>
+            <span class="">{{p4}}</span>
+            <span class="">{{p5}}</span>
          </div>
         {{/.}}
     </div>

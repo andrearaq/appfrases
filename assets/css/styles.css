@@ -143,6 +143,9 @@
     width: 150px;
     height: 150px;
 }
+.imgFrase {
+    margin-right: 15px;
+}
 .next {
     float: right;
 }
