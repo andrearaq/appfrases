@@ -14,6 +14,10 @@ var WebSqlAdapter = function () {
                 insertarDatosS(tx);
                 crearTablaA(tx);
                 insertarDatosA(tx);
+                crearTablaC(tx);
+                insertarDatosC(tx);
+                crearTablaN(tx);
+                insertarDatosN(tx);
             },
             function (error) {
                 console.log('Transacción Error: ' + error);
@@ -422,4 +426,143 @@ var WebSqlAdapter = function () {
                 });
         }
     } // fin insertar acciones
-}
+    
+    //insertar datos de Complementos
+    var insertarDatosC = function (tx, complementos) {
+
+        var complementos = [
+        {"id": 1, "tipo": "adjetivo", "picto": "mucho.png"},
+        {"id": 2, "tipo": "adjetivo", "picto": "poco.png"},
+        {"id": 3, "tipo": "adjetivo", "picto": "grande.png"},
+        {"id": 4, "tipo": "adjetivo", "picto": "pequeño.png"},
+        {"id": 5, "tipo": "adjetivo", "picto": "blanco.png"},
+        {"id": 6, "tipo": "adjetivo", "picto": "rojo.png"},
+        {"id": 7, "tipo": "adjetivo", "picto": "amarillo.png"},
+        {"id": 8, "tipo": "adjetivo", "picto": "verde.png"},
+        {"id": 9, "tipo": "adjetivo", "picto": "azul.png"},
+        {"id": 10, "tipo": "adjetivo", "picto": "marron.png"},
+        {"id": 11, "tipo": "adjetivo", "picto": "gris.png"},
+        {"id": 12, "tipo": "adjetivo", "picto": "negro.png"},
+        {"id": 13, "tipo": "adjetivo", "picto": "rosa.png"},
+        {"id": 14, "tipo": "adjetivo", "picto": "naranja.png"},
+        {"id": 15, "tipo": "adjetivo", "picto": "violeta.png"},
+        {"id": 16, "tipo": "adjetivo", "picto": "fuerte.png"},
+        {"id": 17, "tipo": "adjetivo", "picto": "suave.png"},
+        {"id": 18, "tipo": "adjetivo", "picto": "alto.png"},
+        {"id": 19, "tipo": "adjetivo", "picto": "alta.png"},
+        {"id": 20, "tipo": "adjetivo", "picto": "bajo.png"},
+        {"id": 21, "tipo": "adjetivo", "picto": "baja.png"},
+        {"id": 22, "tipo": "adjetivo", "picto": "ancho.png"},
+        {"id": 23, "tipo": "adjetivo", "picto": "ancha.png"},
+        {"id": 24, "tipo": "adjetivo", "picto": "estrecho.png"},
+        {"id": 25, "tipo": "adjetivo", "picto": "estrecha.png"},
+        {"id": 26, "tipo": "adjetivo", "picto": "largo.png"},
+        {"id": 27, "tipo": "adjetivo", "picto": "larga.png"},
+        {"id": 28, "tipo": "adjetivo", "picto": "corto.png"},
+        {"id": 29, "tipo": "adjetivo", "picto": "corta.png"},
+        {"id": 30, "tipo": "adjetivo", "picto": "sucio.png"},
+        {"id": 31, "tipo": "adjetivo", "picto": "sucia.png"},
+        {"id": 32, "tipo": "adjetivo", "picto": "limpio.png"},
+        {"id": 33, "tipo": "adjetivo", "picto": "limpia.png"},
+        {"id": 34, "tipo": "adjetivo", "picto": "sentado.png"},
+        {"id": 35, "tipo": "adjetivo", "picto": "sentada.png"},
+        {"id": 36, "tipo": "adjetivo", "picto": "salvaje.png"},
+        {"id": 37, "tipo": "sustantivo", "picto": "fruta.png"},
+        {"id": 38, "tipo": "sustantivo", "picto": "verdura.png"},
+        {"id": 39, "tipo": "sustantivo", "picto": "carne.png"},
+        {"id": 40, "tipo": "sustantivo", "picto": "pescado.png"},    
+        {"id": 41, "tipo": "sustantivo", "picto": "leche.png"},
+        {"id": 42, "tipo": "sustantivo", "picto": "agua.png"},
+        {"id": 43, "tipo": "sustantivo", "picto": "zumo.png"},
+        {"id": 44, "tipo": "sustantivo", "picto": "vino.png"},
+        {"id": 45, "tipo": "sustantivo", "picto": "cerveza.png"},
+        {"id": 46, "tipo": "sustantivo", "picto": "refresco.png"},
+        {"id": 47, "tipo": "sustantivo", "picto": "madera.png"},
+        {"id": 48, "tipo": "sustantivo", "picto": "plastico.png"},
+        {"id": 49, "tipo": "sustantivo", "picto": "tela.png"},
+        {"id": 50, "tipo": "sustantivo", "picto": "ropa.png"},
+        {"id": 51, "tipo": "sustantivo", "picto": "campo.png"},
+        {"id": 52, "tipo": "sustantivo", "picto": "acera.png"},
+        {"id": 53, "tipo": "sustantivo", "picto": "carretera.png"},
+        {"id": 54, "tipo": "sustantivo", "picto": "pan.png"},
+        {"id": 55, "tipo": "sustantivo", "picto": "mantequilla.png"},
+        {"id": 56, "tipo": "sustantivo", "picto": "playa.png"},
+        {"id": 57, "tipo": "sustantivo", "picto": "mar.png"},
+        {"id": 58, "tipo": "sustantivo", "picto": "cielo.png"},
+        {"id": 59, "tipo": "sustantivo", "picto": "montaña.png"},
+        {"id": 60, "tipo": "sustantivo", "picto": "lunes.png"},
+        {"id": 61, "tipo": "sustantivo", "picto": "martes.png"},
+        {"id": 62, "tipo": "sustantivo", "picto": "miercoles.png"},
+        {"id": 63, "tipo": "sustantivo", "picto": "jueves.png"},
+        {"id": 64, "tipo": "sustantivo", "picto": "viernes.png"},
+        {"id": 65, "tipo": "sustantivo", "picto": "sabado.png"},
+        {"id": 66, "tipo": "sustantivo", "picto": "domingo.png"},
+        {"id": 67, "tipo": "sustantivo", "picto": "dia.png"},
+        {"id": 68, "tipo": "sustantivo", "picto": "semana.png"},
+        {"id": 69, "tipo": "sustantivo", "picto": "mes.png"},
+        {"id": 70, "tipo": "sustantivo", "picto": "año.png"}  
+    ];
+
+        var l = complementos.length;
+        var sql = "INSERT OR REPLACE INTO complementos " +
+            "(id, tipo, picto) " +
+            "VALUES (?, ?, ?)";
+        var e;
+        for (var i = 0; i < l; i++) {
+            e = complementos[i];
+            tx.executeSql(sql, [e.id, e.tipo, e.picto],
+                function () {
+                    console.log('INSERT complementos OK');
+                },
+                function (tx, error) {
+                    alert('INSERT complementos error: ' + error.message);
+                });
+        }
+    } // fin insertar complementos
+    
+    //insertar datos de Nexos
+    var insertarDatosN = function (tx, nexos) {
+
+        var nexos = [
+        {"id": 1, "tipo": "articulo", "picto": "el.png"},
+        {"id": 2, "tipo": "articulo", "picto": "la.png"},
+        {"id": 3, "tipo": "articulo", "picto": "los.png"},
+        {"id": 4, "tipo": "articulo", "picto": "las.png"},
+        {"id": 5, "tipo": "articulo", "picto": "un.png"},
+        {"id": 6, "tipo": "articulo", "picto": "una.png"},
+        {"id": 7, "tipo": "articulo", "picto": "unos.png"},
+        {"id": 8, "tipo": "articulo", "picto": "unas.png"},
+        {"id": 9, "tipo": "preposicion", "picto": "en.png"},
+        {"id": 10, "tipo": "preposicion", "picto": "de.png"},
+        {"id": 11, "tipo": "preposicion", "picto": "a.png"},
+        {"id": 12, "tipo": "preposicion", "picto": "con.png"},
+        {"id": 13, "tipo": "preposicion", "picto": "del.png"},
+        {"id": 14, "tipo": "preposicion", "picto": "al.png"},
+        {"id": 15, "tipo": "preposicion", "picto": "por.png"},
+        {"id": 16, "tipo": "preposicion", "picto": "entre.png"},
+        {"id": 17, "tipo": "preposicion", "picto": "para.png"},
+        {"id": 18, "tipo": "preposicion", "picto": "sobre.png"}
+                    
+    ];
+
+        var l = nexos.length;
+        var sql = "INSERT OR REPLACE INTO nexos " +
+            "(id, tipo, picto) " +
+            "VALUES (?, ?, ?)";
+        var e;
+        for (var i = 0; i < l; i++) {
+            e = nexos[i];
+            tx.executeSql(sql, [e.id, e.tipo, e.picto],
+                function () {
+                    console.log('INSERT nexos OK');
+                },
+                function (tx, error) {
+                    alert('INSERT nexos error: ' + error.message);
+                });
+        }
+    } // fin insertar nexos
+    
+    
+    
+    
+} // fin websql-adapter
