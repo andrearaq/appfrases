@@ -42,7 +42,7 @@ var WebSqlAdapter = function () {
         this.db.transaction(
             function (tx) {
                 var sql="";
-                sql = "SELECT id, texto FROM frases WHERE nivel=? ORDER BY id";
+                sql = "SELECT id, texto, nivel FROM frases WHERE nivel=? ORDER BY id";
                 tx.executeSql(sql, [niv], function (tx, results) {
                     var len = results.rows.length,
                         frases = [],
@@ -56,7 +56,6 @@ var WebSqlAdapter = function () {
                             eval("frases[i].p" + j + " = palabras[j];");
                             
                         }
-                        
                     }
                     
                     deferred.resolve(frases[idf]);
