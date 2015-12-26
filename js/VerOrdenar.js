@@ -22,7 +22,7 @@ var VerOrdenar= function (adapter, frases) {
                 $('body').html(new VerOrdenar(adapter, datos).render());
             }); 
         } else {
-            window.alert('Nivel terminado');
+            window.alert('NIVEL TERMINADO');
             window.history.back();
         }
         
@@ -30,22 +30,18 @@ var VerOrdenar= function (adapter, frases) {
     this.mostrarPicto = function() {
         // comprobar cuantos pictos hay en la frase ordenada
         var cuantos = $('#fraseC').children('img').size();
-        console.log("cuantos hay:"+cuantos);
         var id = $(this).attr('id');
         var numid = id.substr(1,1);
-        console.log("numero id:"+numid);
         if (numid == cuantos){
             var imagen = '<img class="imgFrase" src="'+$(this).attr('src')+'" />';
             $('#fraseC').append(imagen);
             $('#'+id).remove();
         } else {
-            console.log("picto erroneo");
-            navigator.notification.beep(20);
+            navigator.notification.beep(3);
         }    
     };
     
     this.exitFromApp = function() {
-        console.log("pulsado boton salir");
 	    navigator.app.exitApp();
     };
     

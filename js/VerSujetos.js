@@ -29,7 +29,6 @@ var VerSujetos= function (adapter, sujetos) {
     };*/
     
     this.exitFromApp = function() {
-        console.log("pulsado boton salir");
 	    navigator.app.exitApp();
     };
     

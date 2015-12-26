@@ -1,6 +1,30 @@
 /* media queries */
-@media all and (orientation: portrait) {       /* orientacion vertical */
-        
+@media all and (max-width: 1280px) {       /* tablet con resolucion 1280x800 */
+    .botones {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+    .topcoat-button--large {
+        font-size: 3.8rem;
+    }
+    .nivelesB {
+        max-width: 1024px;
+        max-height: 600px;
+    }
+    .listapalabras img {
+        width: 160px;
+        height: 160px;
+    }
+    .fraseordenada {
+        height: 190px;
+    }
+    .fraseordenada img{
+        width: 185px;
+        height: 185px;
+    }
+    
+    
+    
     .topcoat-navigation-bar__title {
       font-size: 1.2rem;
     }
@@ -14,26 +38,39 @@
         height: 180px;
     }
     
-    .logo {
-       display: none;
-    }
     
-    .conjunto {
-        margin-left: 12px;
-    }
 }
-@media all  and (orientation: landscape) {   /* orientacion horizontal */
-        
-    .imginicio {
-        width: 700px;
-        height: 250px;
-    }   
-    
-    .imgboton {
-        width: 280px;
-        height: 200px;
+@media all and (max-width: 1024px) {   /* tablet con resolucion 1024x768 o 1024x600 */
+    .topcoat-button--cta {
+        width: 45%;
     }
- 
+    .imgHome {
+        width: 90%;
+        margin-top: 3%;
+    }    
+    .botones {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    .nivelesB {
+        max-width: 980px;
+        max-height: 540px;
+    }
+    .topcoat-button--large {
+        font-size: 3.4rem;
+    }
+    .listapalabras img {
+        width: 130px;
+        height: 130px;
+    }
+    .fraseordenada {
+        height: 160px;
+    }
+    .fraseordenada img{
+        width: 145px;
+        height: 145px;
+    }
+    
 }
 
 /*Añadimos para que el header no haga scroll:*/
@@ -49,10 +86,8 @@
     right: 0px;
     margin: auto;
 }
-/* clases de la vista home */
+/* clases de la vista Home */
 .botones {
-    padding-top: 70px;
-    padding-bottom: 70px;
     background-image: url("../../img/letras2.jpg");
     background-repeat: repeat-x;
 }
@@ -65,18 +100,16 @@
 .imgHome {
     max-width: 100%;
     margin-top: 5%;
-   
+    border-radius: 6px;
 }
 .inicio {
     text-align: center;
     max-width: 100%;
 }
 
-/* clases de la vista niveles orden */
+/* clases de la vista Niveles Orden */
 .nivelesB {
     margin: 0 auto;
-    max-width: 1024px;
-    max-height: 600px;
     background-color: white;
     border: 10px solid #f99f9f;
     text-align: center;
@@ -126,19 +159,14 @@
 }
 .fraseordenada {
     max-width: 90%;
-    height: 160px;
     overflow: hidden;
     padding: 7px;
     border: 5px solid white;
     margin-left: 1%;
 }
-.fraseordenada img{
-    width: 145px;
-    height: 145px;
-}
 .listapalabras {
     max-width: 90%;
-    height: 160px;
+    height: 180px;
     overflow: hidden;
     padding: 7px;
     padding-bottom: 7px;
@@ -146,12 +174,9 @@
     margin-left: 1%;
     margin-top: 2%;
 }
-.listapalabras img {
-    width: 130px;
-    height: 130px;
-}
 .imgFrase {
     margin-right: 10px;
+    border-radius: 6px;
 }
 .next {
     float: right;
@@ -208,28 +233,23 @@
     margin-top: 5px;
 }
 
+/* clases de la vista verSujetos */
+.listapictos {
+    max-width: 90%;
+    height: 260px;
+    overflow: hidden;
+    padding: 7px;
+    padding-bottom: 7px;
+    border: 4px solid white;
+    margin-left: 1%;
+    margin-top: 2%;
+    border-radius: 6px;
+}
+.listapictos img {
+    width: 130px;
+    height: 130px;
+}
 
-/* flecha next */
-.chevron {
-    background: transparent url(../img/next_blue.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 21px;
-    height: 21px;
-    position: absolute;
-    right: 12px;
-    top: 18px;
-}
-.chevron2 {
-    background: transparent url(../img/next_blue.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 33px;
-    height: 33px;
-    position: absolute;
-    right:12px;
-    top: 98px;
-}
 /* tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;
@@ -261,9 +281,7 @@ footer {
     background-image: url("../../img/letras2.jpg");
     background-repeat: repeat-x;
 }
-.salir {
-    
-}
+
 .clearfix {
     clear: both;
     float: left;
@@ -360,13 +378,16 @@ footer {
 }
 .topcoat-icon--home {
     background: url("../img/home.svg") no-repeat;
+    width: 42px;
+    height: 42px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
 }
 .topcoat-navigation-bar {
   position: static;
-    height: 5rem;
+  height: 5rem;
+  vertical-align: middle;
 }
 .topcoat-navigation-bar__title {
   font-size: 3rem;
@@ -386,13 +407,11 @@ footer {
 .topcoat-list__item:first-child {
   border: 0;
 }
-
 .topcoat-button--large {
     min-width: 400px;
     max-width: 800px;
     heigh: auto;
     color: white;
-    font-size: 3.8rem;
     margin-top: 5px;
     margin-bottom: 5px;
 }
