@@ -68,22 +68,22 @@ var WebSqlAdapter = function () {
         return deferred.promise();
     };
     
-    // encontrar datos para inventar
-    this.encontrarDatos = function () {
+    // encontrar datos para inventar frases
+    // encontrar sujetos
+    this.encontrarSujetos = function () {
         var deferred = $.Deferred();
         this.db.transaction(
             function (tx) {
                 var sql="";
-              //  sql = "SELECT id, texto FROM frases WHERE id=?";
-                sql = "SELECT id, texto FROM frases";
+                sql = "SELECT id, tipo, picto FROM sujetos";
                 tx.executeSql(sql, [], function (tx, results) {
                     var len = results.rows.length,
-                        frases = [],
+                        sujetos = [],
                         i = 0;
                     for (; i < len; i = i + 1) {
-                        frases[i] = results.rows.item(i);
+                        sujetos[i] = results.rows.item(i);
                     }                    
-                    deferred.resolve(frases);
+                    deferred.resolve(sujetos);
                 });
             },
             function (error) {

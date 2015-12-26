@@ -5,6 +5,9 @@
     var ordenarURL = /^#ordenar/;
     var inventarURL = /^#inventar/;
     var ordenarNivelURL = /^#nivelorden\/(\d{1,})/;
+    var sujetoURL = /^#sujetos/;
+    var accionURL = /^#acciones/;
+    var complementoURL = /^#complementos/;
         
     adapter.inicializar().done(function () {
         console.log("Inicializado: Adaptador de datos");
@@ -19,13 +22,13 @@
                     navigator.notification.alert(
                     message,    // mensaje
                     null,       // función de callback
-                    "Workshop", // título
+                    "Aviso", // título
                     'OK'        // Nombre botón
             );
           };
         }
     }, false);
-    
+        
     $(window).on('hashchange', route);
     /* ---------------------------------- Funciones locales ---------------------------------- */    
       function route() {
@@ -54,14 +57,39 @@
             adapter.encontrarFrasesOrdenar(nivel,frase).done(function(datos) {
                 $('body').html(new VerOrdenar(adapter, datos).render());
             });
-        }
-        // comprobar si queremos ir a inventar
+        } 
+        
+          // comprobar si queremos ir a inventar
         var match = hash.match(inventarURL); 
         if (match) {
-                adapter.encontrarDatos().done(function(datos) {
-                    $('body').html(new VerDatosInventar(adapter, datos).render());
+                $('body').html(new VerDatosInventar(adapter).render());           
+        }          
+         
+          // comprobar si queremos ir a sujetos
+        var match = hash.match(sujetoURL); 
+        if (match) {
+                adapter.encontrarSujetos().done(function(datos) {
+                    $('body').html(new VerSujetos(adapter, datos).render());
+                });            
+        }
+  /*        
+        // comprobar si queremos ir a acciones
+        var match = hash.match(accionURL); 
+        if (match) {
+                adapter.encontrarAcciones().done(function(datos) {
+                    $('body').html(new VerAcciones(adapter, datos).render());
+                });            
+        }  
+          
+        // comprobar si queremos ir a complementos
+        var match = hash.match(complementoURL); 
+        if (match) {
+                adapter.encontrarComplementos().done(function(datos) {
+                    $('body').html(new VerComplementos(adapter, datos).render());
                 });            
         } 
+          */
+                  
       }
                                                 
 }());

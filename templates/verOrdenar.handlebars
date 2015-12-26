@@ -20,10 +20,10 @@
                 <span class="topcoat-icon topcoat-icon--exit"></span>
             </buton>
        </div>
-    </div>
+  </div>
 <div class="scroller">
   {{#.}}
-   <div class="nivel{{nivel}}">
+   <div class="nivel{{nivel}}" id="cajaNivel">
        <div class="fraseordenada">
           {{#.}}
             <div class="clearfix" id="fraseC">
@@ -38,7 +38,6 @@
                 {{#if p5}}
                   <img class="imgFrase" src="img/pictos/{{p5}}.png" alt="{{p5}}" id="p5"/>
                 {{/if}}
-
                 {{#if p3}}
                   <img class="imgFrase" src="img/pictos/{{p3}}.png" alt="{{p3}}" id="p3"/>
                 {{/if}}
@@ -57,12 +56,13 @@
              </div>
             {{/.}}
         </div>
-        <div class="clearfix next">
+        
+    </div>
+    <div class="clearfix next nivel{{nivel}}">
             <button class="topcoat-icon-button--quiet next-button" href="">
                     <span class="topcoat-icon topcoat-icon--next"></span>
                 </button>
         </div>
-    </div>
     {{/.}}
     <footer>
       <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>

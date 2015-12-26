@@ -43,8 +43,7 @@
 /*iOS 4 or lower required an esoteric two finger gesture to scroll elements but normality was achieved from iOS 5. Unlike other browsers, while overflow:auto works, momentum scrolling is disabled unless you also add -webkit-overflow-scrolling: touch.*/
     -webkit-overflow-scrolling: touch;
     position: absolute;
-   /* top: 141px;*/
-    top: 100px;
+    top: 80px;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -118,13 +117,20 @@
 }
 
 /* clases de la vista verOrdenar */
+#cajaNivel {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 5px;
+}
 .fraseordenada {
     max-width: 90%;
     height: 160px;
     overflow: hidden;
     padding: 7px;
-    border: 5px solid #D2322D;
-    margin-left: 5%;
+    border: 5px solid white;
+    margin-left: 1%;
 }
 .fraseordenada img{
     width: 145px;
@@ -136,8 +142,8 @@
     overflow: hidden;
     padding: 7px;
     padding-bottom: 7px;
-    border: 4px solid #F6CECE;
-    margin-left: 5%;
+    border: 4px solid white;
+    margin-left: 1%;
     margin-top: 2%;
 }
 .listapalabras img {
@@ -145,7 +151,7 @@
     height: 130px;
 }
 .imgFrase {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 .next {
     float: right;
@@ -162,6 +168,47 @@
 .nivel4 {
     background-color: #D2322D;
 }
+
+
+/* clases de la vista verDatosInventar */
+.cajaInventar {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 5px;
+    background-color: #F4FA58;
+}
+.e1 {
+    background-color: #47A447;
+}
+.e3 {
+    background-color: #39B3D7;
+}
+.e2 {
+    background-color: #D2322D;
+}
+
+.e1:hover {
+    background-color: #BCF5A9;
+    border: solid 3px #47A447;
+    color: #47A447;
+}
+.e3:hover {
+    background-color: #A9F5F2;
+    border: solid 3px #39B3D7;
+    color: #39B3D7;
+}
+.e2:hover {
+    background-color: #F6CECE;
+    border: solid 3px #D2322D;
+    color: #D2322D;
+}
+.botonG{
+    max-width: 100%;
+    width: 100%;
+    margin-top: 5px;
+}
+
+
 /* flecha next */
 .chevron {
     background: transparent url(../img/next_blue.svg);
@@ -287,7 +334,9 @@ footer {
 }
 .next-button {
     position: absolute;
-    top: 10px;
+    top: 340px;
+    right: 18px;
+    background-color: #0040FF;
 }
 .topcoat-icon--back {
     background: url("../img/back.svg") no-repeat;
@@ -296,7 +345,7 @@ footer {
     background-size: cover;
 }
 .topcoat-icon--next {
-    background: url("../img/next.svg") no-repeat;
+    background: url("../img/next_blue.svg") no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
