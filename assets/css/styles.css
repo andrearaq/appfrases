@@ -19,8 +19,8 @@
         height: 190px;
     }
     .fraseordenada img{
-        width: 185px;
-        height: 185px;
+        width: 175px;
+        height: 175px;
     }
     
     
@@ -175,6 +175,12 @@
     margin-top: 2%;
 }
 .imgFrase {
+    padding: 3px;
+    margin-right: 10px;
+    border: 3px solid #A9F5F2;
+    border-radius: 6px;
+}
+.imgFrase2 {
     margin-right: 10px;
     border-radius: 6px;
 }
@@ -229,8 +235,7 @@
 }
 .botonG{
     max-width: 100%;
-    width: 100%;
-    margin-top: 5px;
+   /* margin-top: 5px;*/
 }
 
 /* clases de la vista verSujetos */
@@ -333,10 +338,10 @@ footer {
 }
 .topcoat-button-bar__item img {
     vertical-align: middle;
-    padding: 5%;
+    padding: 1%;
 }
 .topcoat-button-bar__item {
-    margin-left: 25%;
+    
     text-align: center;
 }
 .topcoat-button--cta {

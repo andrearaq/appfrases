@@ -33,7 +33,7 @@ var VerOrdenar= function (adapter, frases) {
         var id = $(this).attr('id');
         var numid = id.substr(1,1);
         if (numid == cuantos){
-            var imagen = '<img class="imgFrase" src="'+$(this).attr('src')+'" />';
+            var imagen = '<img class="imgFrase2" src="'+$(this).attr('src')+'" />';
             $('#fraseC').append(imagen);
             $('#'+id).remove();
         } else {

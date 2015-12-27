@@ -251,7 +251,7 @@ var WebSqlAdapter = function () {
         var sujetos = [
         {"id": 1, "tipo": "persona", "picto": "yo.png"},
         {"id": 2, "tipo": "persona", "picto": "tu.png"},
-        {"id": 3, "tipo": "persona", "picto": "él.png"},
+        {"id": 3, "tipo": "persona", "picto": "eel.png"},
         {"id": 4, "tipo": "persona", "picto": "ella.png"},
         {"id": 5, "tipo": "persona", "picto": "nosotros.png"},
         {"id": 6, "tipo": "persona", "picto": "vosotros.png"},

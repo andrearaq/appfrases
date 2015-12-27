@@ -14,7 +14,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center half\">\r\n            <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases</h1>\r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n</div>\r\n<div class=\"scroller\">\r\n  <div class=\"cajaInventar\">\r\n    <div class=\"fraseordenada\">\r\n      \r\n        <div class=\"clearfix\" id=\"fraseC\">\r\n           \r\n        </div>\r\n     \r\n   </div>\r\n   <div class=\"listapalabras\">\r\n       <div class=\"topcoat-button-bar full\">\r\n           <div class=\"topcoat-button-bar__item e1\">\r\n            <a href='#sujetos'><img class=\"botonG\" src=\"img/sujeto.png\"/></a>\r\n           </div>\r\n           <div class=\"topcoat-button-bar__item e2\">\r\n             <a href='#acciones'><img class=\"botonG\" src=\"img/accion.png\"/></a>\r\n           </div>\r\n           <div class=\"topcoat-button-bar__item e3\">\r\n             <a href='#complementos'><img class=\"botonG\" src=\"img/complemento.png\"/></a>\r\n           </div> \r\n        </div>\r\n   </div>\r\n    \r\n    </div> \r\n    <footer>\r\n     <h2>Copyright @Andrea Gutiérrez Muñoz 2015</h2>\r\n     <h4>Autor pictogramas: Sergio Palao. Procedencia: ARASAAC http://catedu.es/arasaac/Licencia: CC (BY-NC-SA). </h4>\r\n    </footer>\r\n</div>";
+  return "<div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center half\">\r\n            <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases</h1>\r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n</div>\r\n<div class=\"scroller\">\r\n  <div class=\"cajaInventar\">\r\n    <div class=\"fraseordenada\">\r\n      \r\n        <div class=\"clearfix\" id=\"fraseC\">\r\n           \r\n        </div>\r\n     \r\n   </div>\r\n   \r\n   <div class=\"listapalabras\">\r\n       <div class=\"topcoat-button-bar full\">\r\n           <div class=\"topcoat-button-bar__item e1\">\r\n                <a href='#sujetos'><button class=\"topcoat-button-bar__button full e1\" id=\"su\"><img class=\"botonG\" src=\"img/sujeto.png\"/></button></a>\r\n           </div>\r\n           <div class=\"topcoat-button-bar__item e2\">\r\n             <a href='#acciones'><button class=\"topcoat-button-bar__button full e2\" id=\"ac\"><img class=\"botonG\" src=\"img/accion.png\"/></button></a>\r\n           </div>\r\n           <div class=\"topcoat-button-bar__item e3\">\r\n             <a href='#complementos'><button class=\"topcoat-button-bar__button full e3\" id=\"co\"><img class=\"botonG\" src=\"img/complemento.png\"/></button></a>\r\n           </div> \r\n        </div>\r\n   </div>\r\n    \r\n    </div> </button>\r\n    <footer>\r\n     <h2>Copyright @Andrea Gutiérrez Muñoz 2015</h2>\r\n     <h4>Autor pictogramas: Sergio Palao. Procedencia: ARASAAC http://catedu.es/arasaac/Licencia: CC (BY-NC-SA). </h4>\r\n    </footer>\r\n</div>";
   });
 templates['verNivelesOrden'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -67,7 +67,7 @@ function program3(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n            <div class=\"clearfix\" id=\"fraseC\">\r\n               <img  class=\"imgFrase\" src=\"img/pictos/";
+  buffer += "\r\n            <div class=\"clearfix\" id=\"fraseC\">\r\n               <img  class=\"imgFrase2\" src=\"img/frases/";
   if (helper = helpers.p0) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.p0); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -82,7 +82,7 @@ function program4(depth0,data) {
 function program6(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n              <div class=\"pictos clearfix\" id=\"pictos\">\r\n                  <img class=\"imgFrase\" src=\"img/pictos/";
+  buffer += "\r\n              <div class=\"pictos clearfix\" id=\"pictos\">\r\n                  <img class=\"imgFrase\" src=\"img/frases/";
   if (helper = helpers.p2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.p2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -96,7 +96,7 @@ function program6(depth0,data) {
   buffer += "\r\n                ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.p3), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                <img class=\"imgFrase\" src=\"img/pictos/";
+  buffer += "\r\n                <img class=\"imgFrase\" src=\"img/frases/";
   if (helper = helpers.p1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.p1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -107,37 +107,13 @@ function program6(depth0,data) {
     + "\" id=\"p1\" />\r\n                ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.p4), {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n              </div>\r\n              <div class=\"texto clearfix\">\r\n                <span class=\"\">";
-  if (helper = helpers.p0) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p0); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\r\n                <span class=\"\">";
-  if (helper = helpers.p1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\r\n                <span class=\"\">";
-  if (helper = helpers.p2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\r\n                <span class=\"\">";
-  if (helper = helpers.p3) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p3); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\r\n                <span class=\"\">";
-  if (helper = helpers.p4) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p4); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\r\n                <span class=\"\">";
-  if (helper = helpers.p5) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p5); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\r\n             </div>\r\n            ";
+  buffer += "\r\n              </div>\r\n            ";
   return buffer;
   }
 function program7(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n                  <img class=\"imgFrase\" src=\"img/pictos/";
+  buffer += "\r\n                  <img class=\"imgFrase\" src=\"img/frases/";
   if (helper = helpers.p5) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.p5); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -152,7 +128,7 @@ function program7(depth0,data) {
 function program9(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n                  <img class=\"imgFrase\" src=\"img/pictos/";
+  buffer += "\r\n                  <img class=\"imgFrase\" src=\"img/frases/";
   if (helper = helpers.p3) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.p3); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -167,7 +143,7 @@ function program9(depth0,data) {
 function program11(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n                  <img class=\"imgFrase\" src=\"img/pictos/";
+  buffer += "\r\n                  <img class=\"imgFrase\" src=\"img/frases/";
   if (helper = helpers.p4) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.p4); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
