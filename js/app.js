@@ -18,11 +18,11 @@
     document.addEventListener('deviceready', function () {
         FastClick.attach(document.body);
         if (navigator.notification) { // Si disponemos de notificaciones nativas, sobreescribimos el alert del navegador:
-            window.alert = function (message) {
+            window.alert = function (message, titulo) {
                     navigator.notification.alert(
                     message,    // mensaje
                     null,       // función de callback
-                    "Aviso", // título
+                    titulo, // título
                     'OK'        // Nombre botón
             );
           };

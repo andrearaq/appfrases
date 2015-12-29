@@ -54,7 +54,6 @@ var WebSqlAdapter = function () {
                         console.log("primera palabra: "+palabras[0]);
                         for(j=0; j<palabras.length; j++) {
                             eval("frases[i].p" + j + " = palabras[j];");
-                            
                         }
                     }
                     
@@ -76,15 +75,73 @@ var WebSqlAdapter = function () {
             function (tx) {
                 var sql="";
                 sql = "SELECT id, tipo, picto FROM sujetos";
+                console.log("buscados sujetos");
+                var sujetos = [];
                 tx.executeSql(sql, [], function (tx, results) {
                     var len = results.rows.length,
-                        sujetos = [],
                         i = 0;
+                    console.log("longitud sujetos encontrados: "+len);
                     for (; i < len; i = i + 1) {
                         sujetos[i] = results.rows.item(i);
+                        console.log("valor sujetos: "+sujetos[i].tipo+" detalles: "+sujetos[i].detalles);
                     }                    
-                    deferred.resolve(sujetos);
+              //      deferred.resolve(sujetos);
                 });
+                
+                sql = "SELECT id, tipo, picto FROM nexos WHERE tipo='articulo'";
+                console.log("buscados nexos");
+                var nexos = [];
+                tx.executeSql(sql, [], function (tx, results) {
+                    var len = results.rows.length,
+                        i = 0;
+                    console.log("longitud nexos encontrados: "+len);
+                    for (; i < len; i = i + 1) {
+                        nexos[i] = results.rows.item(i);
+                        console.log("valor nexos: "+nexos[i].tipo);
+                    }                    
+              //      deferred.resolve(sujetos);
+                });
+                
+                var Detalles = function(id, picto){
+                    this.id = id;
+                    this.picto = picto;
+                }
+                var Sujeto = function(tipo){
+                    this.tipo = tipo;
+                    this.detalles = new Array();
+                }
+                Sujeto.prototype.addDetalles = function(detalles){
+                   this.picto.push(detalles);
+                }                
+                
+               function getFormJson(tipo, lista){
+                   console.log("creando datos tipo: "+tipo);
+                    var sujetoObj = new Sujeto(tipo);
+                   console.log("sujetoObj "+sujetoObj);
+                    var len = lista.length,
+                        i = 0;
+                   console.log("longitud lista: "+len);
+                    for (; i < len; i = i + 1) {
+                       if(lista[i].tipo == tipo) {
+                          sujetoObj.addDetalles(new Detalles(lista[i].id, lista[i].picto)); 
+                           console.table("sujetoObj "+sujetoObj);
+                       }
+                    }               
+                    return sujetoObj;
+                };
+                
+                var suj = [];
+                var tipo = "articulo";
+                suj[0] = getFormJson(tipo, nexos);
+                tipo = "persona";
+                suj[1] = getFormJson(tipo, sujetos);
+                tipo = "animal";
+                suj[2] = getFormJson(tipo, sujetos);
+                tipo = "cosa";
+                suj[3] = getFormJson(tipo, sujetos);                
+                console.table("sujetos: "+ suj[0]);
+                deferred.resolve(suj);            
+                
             },
             function (error) {
                 deferred.reject("Transacción Error: " + error.message);
@@ -93,7 +150,7 @@ var WebSqlAdapter = function () {
         return deferred.promise();
     };
      
-    
+        
     //crear tabla Frases
     var crearTablaF = function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS frases');

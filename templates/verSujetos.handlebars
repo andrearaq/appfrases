@@ -5,10 +5,10 @@
             </a>
         </div>
         <div class="topcoat-navigation-bar__item center half">
-           <h1 class="topcoat-navigation-bar__title">Inventar Frases - Sujetos</h1>
+           <h1 class="topcoat-navigation-bar__title">Inventar Frases - Sujeto</h1>
         </div>
        <div class="topcoat-navigation-bar__item right half-quarter" >
-            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.back();">
+            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.go(-2);">
                 <span class="topcoat-icon topcoat-icon--home"></span>
             </a>
             
@@ -29,8 +29,18 @@
           
        </div>
        <div class="listapictos">
-            
+         {{#.}}
+           <div class="tipoPicto">
+            <p>{{tipo}}</p>
+            {{#detalles}}
+              <div class="picto2">
+                  <img class="pictoP" src="img/{{picto}}" alt="{{picto}}" />
+              </div>
+            {{/detalles}}
+
         </div>
+         {{/.}}
+      </div>
     </div>    
     <footer>
       <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>

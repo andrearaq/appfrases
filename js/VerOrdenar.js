@@ -22,7 +22,7 @@ var VerOrdenar= function (adapter, frases) {
                 $('body').html(new VerOrdenar(adapter, datos).render());
             }); 
         } else {
-            window.alert('NIVEL TERMINADO');
+            window.alert('NIVEL TERMINADO','Aviso');
             window.history.back();
         }
         

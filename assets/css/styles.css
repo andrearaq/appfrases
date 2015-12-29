@@ -254,8 +254,30 @@
     width: 130px;
     height: 130px;
 }
-
-/* tamaño y estilo imagen del botón */
+.picto2 {
+    padding: 6px;
+    clear: both;
+    text-align: left;
+    position: relative;
+}
+.picto2 img {
+    width: 110px;
+    height: 100px;
+    padding: 1px;
+    margin: 0px;
+    border: 2px solid #D8D8D8;
+}
+.pictoP {
+    opacity: 0.8;
+}
+.picto2 img:hover {
+    border-color: #58ACFA;
+    opacity: 1;
+}
+.tipoPicto {
+    float: left;
+}
+/*tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;
     border-radius: 6px;
