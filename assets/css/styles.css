@@ -242,28 +242,34 @@
 .listapictos {
     max-width: 90%;
     height: 260px;
-    overflow: hidden;
     padding: 7px;
     padding-bottom: 7px;
     border: 4px solid white;
     margin-left: 1%;
     margin-top: 2%;
     border-radius: 6px;
+    overflow: auto;
 }
-.listapictos img {
-    width: 130px;
-    height: 130px;
+.tipoPicto {
+    padding: 1px;
+    margin-top: 0px;
+    margin-left: 30px;
+    text-align: center;
+    float: left;
+    border: 3px solid blue;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.5rem;
 }
 .picto2 {
-    padding: 6px;
+    padding: 0px 20px 0px 20px;
     clear: both;
     text-align: left;
-    position: relative;
 }
 .picto2 img {
-    width: 110px;
-    height: 100px;
-    padding: 1px;
+    width: 140px;
+    height: 140px;
+    padding: 2px;
     margin: 0px;
     border: 2px solid #D8D8D8;
 }
@@ -274,9 +280,24 @@
     border-color: #58ACFA;
     opacity: 1;
 }
-.tipoPicto {
-    float: left;
+.articulo {
+    background-color: darkorange;
 }
+.persona {
+    background-color: seagreen;
+}
+.animal {
+    background-color: blueviolet;
+}
+.cosa {
+    background-color: coral;
+}
+
+/* clases de la vista verSujetos */
+.accion {
+    background-color: darksalmon;
+}
+
 /*tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;

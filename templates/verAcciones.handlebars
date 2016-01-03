@@ -1,0 +1,48 @@
+   <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item left half-quarter">
+            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.back();">
+                <span class="topcoat-icon topcoat-icon--back"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+           <h1 class="topcoat-navigation-bar__title">Inventar Frases - Acción</h1>
+        </div>
+       <div class="topcoat-navigation-bar__item right half-quarter" >
+            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.go(-2);">
+                <span class="topcoat-icon topcoat-icon--home"></span>
+            </a>
+            
+        </div>
+       <div class="topcoat-navigation-bar__item right half-quarter">
+           <button class="topcoat-icon-button--quiet back-button salir"  >
+                <span class="topcoat-icon topcoat-icon--exit"></span>
+            </buton>
+       </div>
+  </div>
+<div class="scroller">
+  <div class="cajaInventar">
+       <div class="fraseordenada">
+          {{#.}}
+            <div class="clearfix" id="fraseI">
+              {{#if art}}
+               <img class="pictoP" src="{{art}}" alt="{{art}}" />
+              {{/if}}
+               <img class="pictoP" src="{{suj}}" alt="{{suj}}" />
+            </div>
+          {{/.}}
+       </div>
+       <div class="listapictos">
+         {{#.}}
+           <div class="tipoPicto accion" id="accion">
+              <div class="picto2">
+                  <img class="pictoP" src="img/pictos/acciones/{{picto}}" alt="{{picto}}" />
+              </div>
+           </div>
+         {{/.}}
+      </div>
+    </div>    
+    <footer>
+      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>
+      <h4>Autor pictogramas: Sergio Palao. Procedencia: ARASAAC http://catedu.es/arasaac/Licencia: CC (BY-NC-SA). </h4>
+    </footer>
+</div>

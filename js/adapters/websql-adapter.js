@@ -75,73 +75,48 @@ var WebSqlAdapter = function () {
             function (tx) {
                 var sql="";
                 sql = "SELECT id, tipo, picto FROM sujetos";
-                console.log("buscados sujetos");
-                var sujetos = [];
+                
                 tx.executeSql(sql, [], function (tx, results) {
                     var len = results.rows.length,
+                       sujetos = [],
                         i = 0;
-                    console.log("longitud sujetos encontrados: "+len);
-                    for (; i < len; i = i + 1) {
+                    for (; i < len; i++) {
                         sujetos[i] = results.rows.item(i);
-                        console.log("valor sujetos: "+sujetos[i].tipo+" detalles: "+sujetos[i].detalles);
-                    }                    
-              //      deferred.resolve(sujetos);
+                    } 
+                    var Detalles = function(id, picto){
+                        this.id = id;
+                        this.picto = picto;
+                    }
+                    var Sujeto = function(tipo){
+                        this.tipo = tipo;
+                        this.detalles = new Array();
+                    }
+                    Sujeto.prototype.addDetalles = function(detalles){
+                       this.detalles.push(detalles);
+                    }
+                    function getFormJson(tipo, lista){
+                        var sujetoObj = new Sujeto(tipo);
+                        var leng = lista.length,
+                            i = 0;
+                        for (; i < leng; i = i + 1) {
+                           if(lista[i].tipo == tipo) {
+                              sujetoObj.addDetalles(new Detalles(lista[i].id, lista[i].picto)); 
+                           }
+                        }               
+                        return sujetoObj;
+                    };
+                    var suj = [];
+                    var tipo = "articulo";
+                    suj[0] = getFormJson(tipo, sujetos);
+                    tipo = "persona";
+                    suj[1] = getFormJson(tipo, sujetos);
+                    tipo = "animal";
+                    suj[2] = getFormJson(tipo, sujetos);
+                    tipo = "cosa";
+                    suj[3] = getFormJson(tipo, sujetos);                
+                                        
+                    deferred.resolve(suj);
                 });
-                
-                sql = "SELECT id, tipo, picto FROM nexos WHERE tipo='articulo'";
-                console.log("buscados nexos");
-                var nexos = [];
-                tx.executeSql(sql, [], function (tx, results) {
-                    var len = results.rows.length,
-                        i = 0;
-                    console.log("longitud nexos encontrados: "+len);
-                    for (; i < len; i = i + 1) {
-                        nexos[i] = results.rows.item(i);
-                        console.log("valor nexos: "+nexos[i].tipo);
-                    }                    
-              //      deferred.resolve(sujetos);
-                });
-                
-                var Detalles = function(id, picto){
-                    this.id = id;
-                    this.picto = picto;
-                }
-                var Sujeto = function(tipo){
-                    this.tipo = tipo;
-                    this.detalles = new Array();
-                }
-                Sujeto.prototype.addDetalles = function(detalles){
-                   this.picto.push(detalles);
-                }                
-                
-               function getFormJson(tipo, lista){
-                   console.log("creando datos tipo: "+tipo);
-                    var sujetoObj = new Sujeto(tipo);
-                   console.log("sujetoObj "+sujetoObj);
-                    var len = lista.length,
-                        i = 0;
-                   console.log("longitud lista: "+len);
-                    for (; i < len; i = i + 1) {
-                       if(lista[i].tipo == tipo) {
-                          sujetoObj.addDetalles(new Detalles(lista[i].id, lista[i].picto)); 
-                           console.table("sujetoObj "+sujetoObj);
-                       }
-                    }               
-                    return sujetoObj;
-                };
-                
-                var suj = [];
-                var tipo = "articulo";
-                suj[0] = getFormJson(tipo, nexos);
-                tipo = "persona";
-                suj[1] = getFormJson(tipo, sujetos);
-                tipo = "animal";
-                suj[2] = getFormJson(tipo, sujetos);
-                tipo = "cosa";
-                suj[3] = getFormJson(tipo, sujetos);                
-                console.table("sujetos: "+ suj[0]);
-                deferred.resolve(suj);            
-                
             },
             function (error) {
                 deferred.reject("Transacción Error: " + error.message);
@@ -149,7 +124,39 @@ var WebSqlAdapter = function () {
         );
         return deferred.promise();
     };
-     
+    
+    // encontrar datos para inventar frases
+    // encontrar acciones
+    this.encontrarAcciones = function (tipo) {
+        var deferred = $.Deferred();
+        this.db.transaction(
+            function (tx) {
+                var sql="";
+                if (tipo=='cosa') {
+                   sql = "SELECT id, tipo, picto FROM acciones WHERE tipo=?"; 
+                } else {
+                    sql = "SELECT id, tipo, picto FROM acciones WHERE tipo=? OR tipo='ambos'";    
+                }
+                
+                tx.executeSql(sql, [tipo], function (tx, results) {
+                    var len = results.rows.length,
+                       acciones = [],
+                        i = 0;
+                    for (; i < len; i++) {
+                        acciones[i] = results.rows.item(i);
+                        acciones[i].art = localStorage['articulo'];
+                        acciones[i].suj = localStorage['sujeto'];
+                    }                
+                                       
+                    deferred.resolve(acciones);
+                });
+            },
+            function (error) {
+                deferred.reject("Transacción Error: " + error.message);
+            }
+        );
+        return deferred.promise();
+    };
         
     //crear tabla Frases
     var crearTablaF = function (tx) {
@@ -256,9 +263,9 @@ var WebSqlAdapter = function () {
         {"id": 19, "texto": "la silla esta rota", "nivel": 2},
         {"id": 20, "texto": "mi hermana es delgada", "nivel": 2},
         {"id": 21, "texto": "el hielo es frio", "nivel": 2},
-        {"id": 22, "texto": "tu abuela es guapa", "nivel": 2},
+        {"id": 22, "texto": "tuu abuela es guapa", "nivel": 2},
         {"id": 23, "texto": "el mar es azul", "nivel": 2},
-        {"id": 24, "texto": "mi prima hace gimnasia", "nivel": 2},
+        {"id": 24, "texto": "mi amiga hace gimnasia", "nivel": 2},
         {"id": 25, "texto": "mi mama hace la comida", "nivel": 3},
         {"id": 26, "texto": "yo duermo en la cama", "nivel": 3},
         {"id": 27, "texto": "la mesa roja es cuadrada", "nivel": 3},
@@ -306,100 +313,118 @@ var WebSqlAdapter = function () {
     var insertarDatosS = function (tx, sujetos) {
 
         var sujetos = [
-        {"id": 1, "tipo": "persona", "picto": "yo.png"},
-        {"id": 2, "tipo": "persona", "picto": "tu.png"},
-        {"id": 3, "tipo": "persona", "picto": "eel.png"},
-        {"id": 4, "tipo": "persona", "picto": "ella.png"},
-        {"id": 5, "tipo": "persona", "picto": "nosotros.png"},
-        {"id": 6, "tipo": "persona", "picto": "vosotros.png"},
-        {"id": 7, "tipo": "persona", "picto": "ellos.png"},
-        {"id": 8, "tipo": "persona", "picto": "ellas.png"},
-        {"id": 9, "tipo": "persona", "picto": "nino.png"},
-        {"id": 10, "tipo": "persona", "picto": "nina.png"},
-        {"id": 11, "tipo": "persona", "picto": "abuela.png"},
-        {"id": 12, "tipo": "persona", "picto": "abuelo.png"},
-        {"id": 13, "tipo": "persona", "picto": "tio.png"},
-        {"id": 14, "tipo": "persona", "picto": "tia.png"},
-        {"id": 15, "tipo": "persona", "picto": "mama.png"},
-        {"id": 16, "tipo": "persona", "picto": "papa.png"},
-        {"id": 17, "tipo": "persona", "picto": "hermano.png"},
-        {"id": 18, "tipo": "persona", "picto": "hermana.png"},
-        {"id": 19, "tipo": "persona", "picto": "primo.png"},
-        {"id": 20, "tipo": "persona", "picto": "prima.png"},
-        {"id": 21, "tipo": "persona", "picto": "profesor.png"},
-        {"id": 22, "tipo": "persona", "picto": "profesora.png"},
-        {"id": 23, "tipo": "persona", "picto": "cocinero.png"},
-        {"id": 24, "tipo": "persona", "picto": "cocinera.png"},
-        {"id": 25, "tipo": "persona", "picto": "bombero.png"},
-        {"id": 26, "tipo": "persona", "picto": "policia.png"},
-        {"id": 27, "tipo": "persona", "picto": "conductor.png"},
-        {"id": 28, "tipo": "persona", "picto": "conductora.png"},
-        {"id": 29, "tipo": "animal", "picto": "perro.png"},
-        {"id": 30, "tipo": "animal", "picto": "gato.png"},
-        {"id": 31, "tipo": "animal", "picto": "paloma.png"},
-        {"id": 32, "tipo": "animal", "picto": "mosca.png"},
-        {"id": 33, "tipo": "animal", "picto": "mosquito.png"},
-        {"id": 34, "tipo": "animal", "picto": "arana.png"},
-        {"id": 35, "tipo": "animal", "picto": "gallina.png"},
-        {"id": 36, "tipo": "animal", "picto": "gallo.png"},
-        {"id": 37, "tipo": "animal", "picto": "pato.png"},
-        {"id": 38, "tipo": "animal", "picto": "pata.png"},
-        {"id": 39, "tipo": "animal", "picto": "cisne.png"},
-        {"id": 40, "tipo": "animal", "picto": "vaca.png"},
-        {"id": 41, "tipo": "animal", "picto": "toro.png"},
-        {"id": 42, "tipo": "animal", "picto": "oveja.png"},
-        {"id": 43, "tipo": "animal", "picto": "cordero.png"},
-        {"id": 44, "tipo": "animal", "picto": "caballo.png"},
-        {"id": 45, "tipo": "animal", "picto": "yegua.png"},
-        {"id": 46, "tipo": "animal", "picto": "delfin.png"},
-        {"id": 47, "tipo": "animal", "picto": "serpiente.png"},
-        {"id": 48, "tipo": "animal", "picto": "rana.png"},
-        {"id": 49, "tipo": "animal", "picto": "raton.png"},
-        {"id": 50, "tipo": "animal", "picto": "rata.png"},
-        {"id": 51, "tipo": "animal", "picto": "elefante.png"},
-        {"id": 52, "tipo": "animal", "picto": "jirafa.png"},
-        {"id": 53, "tipo": "animal", "picto": "leon.png"},
-        {"id": 54, "tipo": "animal", "picto": "leona.png"},
-        {"id": 55, "tipo": "animal", "picto": "tigre.png"},
-        {"id": 56, "tipo": "cosa", "picto": "mesa.png"},    
-        {"id": 57, "tipo": "cosa", "picto": "silla.png"}, 
-        {"id": 58, "tipo": "cosa", "picto": "pizarra.png"}, 
-        {"id": 59, "tipo": "cosa", "picto": "lapiz.png"}, 
-        {"id": 60, "tipo": "cosa", "picto": "goma.png"}, 
-        {"id": 61, "tipo": "cosa", "picto": "boligrafo.png"}, 
-        {"id": 62, "tipo": "cosa", "picto": "pintura.png"}, 
-        {"id": 63, "tipo": "cosa", "picto": "mueble.png"}, 
-        {"id": 64, "tipo": "cosa", "picto": "cama.png"}, 
-        {"id": 65, "tipo": "cosa", "picto": "almohada.png"}, 
-        {"id": 66, "tipo": "cosa", "picto": "cocina.png"}, 
-        {"id": 67, "tipo": "cosa", "picto": "bano.png"}, 
-        {"id": 68, "tipo": "cosa", "picto": "ducha.png"}, 
-        {"id": 69, "tipo": "cosa", "picto": "comedor.png"}, 
-        {"id": 70, "tipo": "cosa", "picto": "sofa.png"}, 
-        {"id": 71, "tipo": "cosa", "picto": "dormitorio.png"}, 
-        {"id": 72, "tipo": "cosa", "picto": "juguete.png"}, 
-        {"id": 73, "tipo": "cosa", "picto": "muneca.png"}, 
-        {"id": 74, "tipo": "cosa", "picto": "coche.png"}, 
-        {"id": 75, "tipo": "cosa", "picto": "bicicleta.png"}, 
-        {"id": 76, "tipo": "cosa", "picto": "moto.png"}, 
-        {"id": 77, "tipo": "cosa", "picto": "avion.png"}, 
-        {"id": 78, "tipo": "cosa", "picto": "tren.png"}, 
-        {"id": 79, "tipo": "cosa", "picto": "barco.png"}, 
-        {"id": 80, "tipo": "cosa", "picto": "falda.png"}, 
-        {"id": 81, "tipo": "cosa", "picto": "blusa.png"}, 
-        {"id": 82, "tipo": "cosa", "picto": "pantalon.png"},
-        {"id": 83, "tipo": "cosa", "picto": "zapatos.png"},
-        {"id": 84, "tipo": "cosa", "picto": "jersey.png"},
-        {"id": 85, "tipo": "cosa", "picto": "bufanda.png"},
-        {"id": 86, "tipo": "cosa", "picto": "gorro.png"},
-        {"id": 87, "tipo": "cosa", "picto": "chaqueta.png"},
-        {"id": 88, "tipo": "cosa", "picto": "abrigo.png"},
-        {"id": 89, "tipo": "cosa", "picto": "television.png"},
-        {"id": 90, "tipo": "cosa", "picto": "cielo.png"},
-        {"id": 91, "tipo": "cosa", "picto": "mar.png"},
-        {"id": 92, "tipo": "cosa", "picto": "luz.png"},
-        {"id": 93, "tipo": "cosa", "picto": "fuego.png"},
-        {"id": 94, "tipo": "cosa", "picto": "fuego.png"}
+        {"id": 1, "tipo": "articulo", "picto": "el.png"},
+        {"id": 2, "tipo": "articulo", "picto": "la.png"},
+        {"id": 3, "tipo": "articulo", "picto": "los.png"},
+        {"id": 4, "tipo": "articulo", "picto": "las.png"},
+        {"id": 5, "tipo": "articulo", "picto": "un.png"},
+        {"id": 6, "tipo": "articulo", "picto": "una.png"},
+        {"id": 7, "tipo": "articulo", "picto": "unos.png"},
+        {"id": 8, "tipo": "articulo", "picto": "unas.png"},
+        {"id": 9, "tipo": "preposicion", "picto": "en.png"},
+        {"id": 10, "tipo": "preposicion", "picto": "de.png"},
+        {"id": 11, "tipo": "preposicion", "picto": "a.png"},
+        {"id": 12, "tipo": "preposicion", "picto": "con.png"},
+        {"id": 13, "tipo": "preposicion", "picto": "del.png"},
+        {"id": 14, "tipo": "preposicion", "picto": "al.png"},
+        {"id": 15, "tipo": "preposicion", "picto": "por.png"},
+        {"id": 16, "tipo": "preposicion", "picto": "entre.png"},
+        {"id": 17, "tipo": "preposicion", "picto": "para.png"},
+        {"id": 18, "tipo": "preposicion", "picto": "sobre.png"},
+        {"id": 19, "tipo": "persona", "picto": "yo.png"},
+        {"id": 20, "tipo": "persona", "picto": "tu.png"},
+        {"id": 21, "tipo": "persona", "picto": "eel.png"},
+        {"id": 22, "tipo": "persona", "picto": "ella.png"},
+        {"id": 23, "tipo": "persona", "picto": "nosotros.png"},
+        {"id": 24, "tipo": "persona", "picto": "vosotros.png"},
+        {"id": 25, "tipo": "persona", "picto": "ellos.png"},
+        {"id": 26, "tipo": "persona", "picto": "ellas.png"},
+        {"id": 27, "tipo": "persona", "picto": "nino.png"},
+        {"id": 28, "tipo": "persona", "picto": "nina.png"},
+        {"id": 29, "tipo": "persona", "picto": "abuela.png"},
+        {"id": 30, "tipo": "persona", "picto": "abuelo.png"},
+        {"id": 31, "tipo": "persona", "picto": "mama.png"},
+        {"id": 32, "tipo": "persona", "picto": "papa.png"},
+        {"id": 33, "tipo": "persona", "picto": "hermano.png"},
+        {"id": 34, "tipo": "persona", "picto": "hermana.png"},
+        {"id": 35, "tipo": "persona", "picto": "profesor.png"},
+        {"id": 36, "tipo": "persona", "picto": "profesora.png"},
+        {"id": 37, "tipo": "persona", "picto": "cocinero.png"},
+        {"id": 38, "tipo": "persona", "picto": "cocinera.png"},
+        {"id": 39, "tipo": "persona", "picto": "bombero.png"},
+        {"id": 40, "tipo": "persona", "picto": "policia.png"},
+        {"id": 41, "tipo": "persona", "picto": "conductor.png"},
+        {"id": 42, "tipo": "persona", "picto": "coductora.png"},
+        {"id": 43, "tipo": "persona", "picto": "medico.png"},
+        {"id": 44, "tipo": "persona", "picto": "enfermero.png"},
+        {"id": 45, "tipo": "persona", "picto": "enfermera.png"},
+        {"id": 46, "tipo": "persona", "picto": "barrendero.png"},
+        {"id": 47, "tipo": "animal", "picto": "perro.png"},
+        {"id": 48, "tipo": "animal", "picto": "gato.png"},
+        {"id": 49, "tipo": "animal", "picto": "paloma.png"},
+        {"id": 50, "tipo": "animal", "picto": "mosca.png"},
+        {"id": 51, "tipo": "animal", "picto": "mosquito.png"},
+        {"id": 52, "tipo": "animal", "picto": "arana.png"},
+        {"id": 53, "tipo": "animal", "picto": "gallina.png"},
+        {"id": 54, "tipo": "animal", "picto": "gallo.png"},
+        {"id": 55, "tipo": "animal", "picto": "pato.png"},
+        {"id": 56, "tipo": "animal", "picto": "pata.png"},
+        {"id": 57, "tipo": "animal", "picto": "cisne.png"},
+        {"id": 58, "tipo": "animal", "picto": "vaca.png"},
+        {"id": 59, "tipo": "animal", "picto": "toro.png"},
+        {"id": 60, "tipo": "animal", "picto": "oveja.png"},
+        {"id": 61, "tipo": "animal", "picto": "cordero.png"},
+        {"id": 62, "tipo": "animal", "picto": "caballo.png"},
+        {"id": 63, "tipo": "animal", "picto": "yegua.png"},
+        {"id": 64, "tipo": "animal", "picto": "delfin.png"},
+        {"id": 65, "tipo": "animal", "picto": "serpiente.png"},
+        {"id": 66, "tipo": "animal", "picto": "rana.png"},
+        {"id": 67, "tipo": "animal", "picto": "raton.png"},
+        {"id": 68, "tipo": "animal", "picto": "rata.png"},
+        {"id": 69, "tipo": "animal", "picto": "elefante.png"},
+        {"id": 70, "tipo": "animal", "picto": "jirafa.png"},
+        {"id": 71, "tipo": "animal", "picto": "leon.png"},
+        {"id": 72, "tipo": "animal", "picto": "leona.png"},
+        {"id": 73, "tipo": "animal", "picto": "tigre.png"},
+        {"id": 74, "tipo": "cosa", "picto": "mesa.png"},    
+        {"id": 75, "tipo": "cosa", "picto": "silla.png"}, 
+        {"id": 76, "tipo": "cosa", "picto": "pizarra.png"}, 
+        {"id": 77, "tipo": "cosa", "picto": "lapiz.png"}, 
+        {"id": 78, "tipo": "cosa", "picto": "goma.png"}, 
+        {"id": 79, "tipo": "cosa", "picto": "boligrafo.png"}, 
+        {"id": 80, "tipo": "cosa", "picto": "pintura.png"}, 
+        {"id": 81, "tipo": "cosa", "picto": "mueble.png"}, 
+        {"id": 82, "tipo": "cosa", "picto": "cama.png"}, 
+        {"id": 83, "tipo": "cosa", "picto": "almohada.png"}, 
+        {"id": 84, "tipo": "cosa", "picto": "cocina.png"}, 
+        {"id": 85, "tipo": "cosa", "picto": "bano.png"}, 
+        {"id": 86, "tipo": "cosa", "picto": "ducha.png"}, 
+        {"id": 87, "tipo": "cosa", "picto": "comedor.png"}, 
+        {"id": 88, "tipo": "cosa", "picto": "sofa.png"}, 
+        {"id": 89, "tipo": "cosa", "picto": "dormitorio.png"}, 
+        {"id": 90, "tipo": "cosa", "picto": "juguete.png"}, 
+        {"id": 91, "tipo": "cosa", "picto": "muneca.png"}, 
+        {"id": 92, "tipo": "cosa", "picto": "coche.png"}, 
+        {"id": 93, "tipo": "cosa", "picto": "bicicleta.png"}, 
+        {"id": 94, "tipo": "cosa", "picto": "moto.png"}, 
+        {"id": 95, "tipo": "cosa", "picto": "avion.png"}, 
+        {"id": 96, "tipo": "cosa", "picto": "tren.png"}, 
+        {"id": 97, "tipo": "cosa", "picto": "barco.png"}, 
+        {"id": 98, "tipo": "cosa", "picto": "falda.png"}, 
+        {"id": 99, "tipo": "cosa", "picto": "blusa.png"}, 
+        {"id": 100, "tipo": "cosa", "picto": "pantalon.png"},
+        {"id": 101, "tipo": "cosa", "picto": "zapatos.png"},
+        {"id": 102, "tipo": "cosa", "picto": "jersey.png"},
+        {"id": 103, "tipo": "cosa", "picto": "bufanda.png"},
+        {"id": 104, "tipo": "cosa", "picto": "gorro.png"},
+        {"id": 105, "tipo": "cosa", "picto": "chaqueta.png"},
+        {"id": 106, "tipo": "cosa", "picto": "abrigo.png"},
+        {"id": 107, "tipo": "cosa", "picto": "television.png"},
+        {"id": 108, "tipo": "cosa", "picto": "cielo.png"},
+        {"id": 109, "tipo": "cosa", "picto": "mar.png"},
+        {"id": 110, "tipo": "cosa", "picto": "luz.png"},
+        {"id": 111, "tipo": "cosa", "picto": "fuego.png"},
+        {"id": 112, "tipo": "cosa", "picto": "luna.png"}
     ];
 
         var l = sujetos.length;

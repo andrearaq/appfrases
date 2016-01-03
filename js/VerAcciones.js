@@ -1,17 +1,17 @@
-var VerSujetos= function (adapter, sujetos) {
+var VerAcciones= function (adapter, acciones) {
     this.inicializar = function () {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
-        this.el.on('click', '.tipoPicto', this.mostrarPicto);
+      //  this.el.on('click', '.tipoPicto', this.mostrarPicto);
         this.el.on('click', '.salir', this.exitFromApp);
     };
     this.render = function() {
-        this.el.html(Handlebars.templates.verSujetos(sujetos));
+        this.el.html(Handlebars.templates.verAcciones(acciones));
         return this.el;
     };
       
-    this.mostrarPicto = function() {
+  /*  this.mostrarPicto = function() {
         // comprobar tipo pictos elegido
         var tipo = $(this).attr('id');
         var elem = $(this).attr('class');
@@ -21,16 +21,17 @@ var VerSujetos= function (adapter, sujetos) {
         
         $('#fraseI').append(imagen);
         if (tipo=='articulo') {
+            $('#persona').css('display', 'none');
             $('#articulo').css('display', 'none');
             localStorage['articulo']=src;
         }
         if (tipo=='persona' || tipo=='animal' || tipo=='cosa') {
             localStorage['sujeto']=src;
-             adapter.encontrarAcciones(tipo).done(function(datos) {
+             adapter.encontrarComplementos(tipo).done(function(datos) {
                     $('body').html(new VerAcciones(adapter, datos).render());
                 }); 
         }
-    };
+    };*/
     
     this.exitFromApp = function() {
 	    navigator.app.exitApp();
