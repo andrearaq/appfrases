@@ -293,11 +293,35 @@
     background-color: coral;
 }
 
-/* clases de la vista verSujetos */
+/* clases de la vista verAcciones */
 .accion {
-    background-color: darksalmon;
+    background-color: #C42F2F;
 }
-
+.sujeto {
+    border: 4px solid #A5FF7F;
+    float: left;
+}
+.imgFrase3 {
+    padding: 3px;
+    margin-right: 10px;
+    border: 3px solid white;
+    border-radius: 6px;
+}   
+.pictosAccion {
+    padding: 3px;
+    float: left;
+}
+.pictosAccion img {
+    width: 140px;
+    height: 140px;
+    padding: 2px;
+    margin: 0px;
+    border: 2px solid #D8D8D8;
+}
+.accion2 {
+    border: 4px solid #ED1C24; 
+    float: left;
+}
 /*tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;

@@ -1,4 +1,4 @@
-var VerSujetos= function (adapter, sujetos) {
+var VerComplementos= function (adapter, complementos) {
     this.inicializar = function () {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.

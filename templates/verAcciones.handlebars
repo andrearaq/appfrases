@@ -8,7 +8,7 @@
            <h1 class="topcoat-navigation-bar__title">Inventar Frases - Acción</h1>
         </div>
        <div class="topcoat-navigation-bar__item right half-quarter" >
-            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.go(-2);">
+            <a class="topcoat-icon-button--quiet back-button" href="javascript:window.history.back();">
                 <span class="topcoat-icon topcoat-icon--home"></span>
             </a>
             
@@ -23,20 +23,21 @@
   <div class="cajaInventar">
        <div class="fraseordenada">
           {{#.}}
-            <div class="clearfix" id="fraseI">
-              {{#if art}}
-               <img class="pictoP" src="{{art}}" alt="{{art}}" />
-              {{/if}}
-               <img class="pictoP" src="{{suj}}" alt="{{suj}}" />
+            <div class="clearfix" id="fraseIn">
+              <div class="sujeto">
+                 {{#if arti}}
+                   <img class="imgFrase3" src="{{arti}}" alt="{{arti}}" />
+                 {{/if}}
+                   <img class="imgFrase3" src="{{suj}}" alt="{{suj}}" /> 
+              </div>
+              
             </div>
           {{/.}}
        </div>
        <div class="listapictos">
          {{#.}}
-           <div class="tipoPicto accion" id="accion">
-              <div class="picto2">
-                  <img class="pictoP" src="img/pictos/acciones/{{picto}}" alt="{{picto}}" />
-              </div>
+           <div class="accion pictosAccion" id="{{tipo}}">
+              <img class="pictoP" src="img/pictos/acciones/{{picto}}" alt="{{picto}}" /> 
            </div>
          {{/.}}
       </div>

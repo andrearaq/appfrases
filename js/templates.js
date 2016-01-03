@@ -16,10 +16,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n            <div class=\"clearfix\" id=\"fraseI\">\n              ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.art), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  buffer += "\n            <div class=\"clearfix\" id=\"fraseIn\">\n              <div class=\"sujeto\">\n                 ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.arti), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n               <img class=\"pictoP\" src=\"";
+  buffer += "\n                   <img class=\"imgFrase3\" src=\"";
   if (helper = helpers.suj) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.suj); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -27,28 +27,32 @@ function program1(depth0,data) {
   if (helper = helpers.suj) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.suj); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\n            </div>\n          ";
+    + "\" /> \n              </div>\n              \n            </div>\n          ";
   return buffer;
   }
 function program2(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n               <img class=\"pictoP\" src=\"";
-  if (helper = helpers.art) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.art); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += "\n                   <img class=\"imgFrase3\" src=\"";
+  if (helper = helpers.arti) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.arti); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\" alt=\"";
-  if (helper = helpers.art) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.art); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.arti) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.arti); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\n              ";
+    + "\" />\n                 ";
   return buffer;
   }
 
 function program4(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n           <div class=\"tipoPicto accion\" id=\"accion\">\n              <div class=\"picto2\">\n                  <img class=\"pictoP\" src=\"img/pictos/acciones/";
+  buffer += "\n           <div class=\"accion pictosAccion\" id=\"";
+  if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">\n              <img class=\"pictoP\" src=\"img/pictos/acciones/";
   if (helper = helpers.picto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.picto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -56,11 +60,11 @@ function program4(depth0,data) {
   if (helper = helpers.picto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.picto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\n              </div>\n           </div>\n         ";
+    + "\" /> \n           </div>\n         ";
   return buffer;
   }
 
-  buffer += "   <div class=\"topcoat-navigation-bar\">\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\n            </a>\n        </div>\n        <div class=\"topcoat-navigation-bar__item center half\">\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Acción</h1>\n        </div>\n       <div class=\"topcoat-navigation-bar__item right half-quarter\" >\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.go(-2);\">\n                <span class=\"topcoat-icon topcoat-icon--home\"></span>\n            </a>\n            \n        </div>\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\n            </buton>\n       </div>\n  </div>\n<div class=\"scroller\">\n  <div class=\"cajaInventar\">\n       <div class=\"fraseordenada\">\n          ";
+  buffer += "   <div class=\"topcoat-navigation-bar\">\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\n            </a>\n        </div>\n        <div class=\"topcoat-navigation-bar__item center half\">\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Acción</h1>\n        </div>\n       <div class=\"topcoat-navigation-bar__item right half-quarter\" >\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\n                <span class=\"topcoat-icon topcoat-icon--home\"></span>\n            </a>\n            \n        </div>\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\n            </buton>\n       </div>\n  </div>\n<div class=\"scroller\">\n  <div class=\"cajaInventar\">\n       <div class=\"fraseordenada\">\n          ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n       </div>\n       <div class=\"listapictos\">\n         ";
@@ -269,7 +273,7 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  buffer += "   <div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center half\">\r\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Sujeto</h1>\r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\" >\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.go(-2);\">\r\n                <span class=\"topcoat-icon topcoat-icon--home\"></span>\r\n            </a>\r\n            \r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n  </div>\r\n<div class=\"scroller\">\r\n  <div class=\"cajaInventar\">\r\n       <div class=\"fraseordenada\">\r\n          \r\n            <div class=\"clearfix\" id=\"fraseI\">\r\n               \r\n            </div>\r\n          \r\n       </div>\r\n       <div class=\"listapictos\">\r\n         ";
+  buffer += "   <div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center half\">\r\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Sujeto</h1>\r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n  </div>\r\n<div class=\"scroller\">\r\n  <div class=\"cajaInventar\">\r\n       <div class=\"fraseordenada\">\r\n            <div class=\"clearfix\" id=\"fraseI\">\r\n               \r\n            </div>\r\n       </div>\r\n       <div class=\"listapictos\">\r\n         ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n      </div>\r\n    </div>    \r\n    <footer>\r\n      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>\r\n      <h4>Autor pictogramas: Sergio Palao. Procedencia: ARASAAC http://catedu.es/arasaac/Licencia: CC (BY-NC-SA). </h4>\r\n    </footer>\r\n</div>";

@@ -144,8 +144,16 @@ var WebSqlAdapter = function () {
                         i = 0;
                     for (; i < len; i++) {
                         acciones[i] = results.rows.item(i);
-                        acciones[i].art = localStorage['articulo'];
-                        acciones[i].suj = localStorage['sujeto'];
+                        var palabras =  localStorage.getItem('palabras');
+                        console.log("valor de palabras "+palabras);
+                        
+                        if (palabras == 2) {  // hay articulo y sujeto
+                            acciones[i].arti = localStorage.getItem('articulo');
+                        } else {              // solo hay sujeto
+                           acciones[i].arti = '';
+                        }
+                        
+                        acciones[i].suj = localStorage.getItem('sujeto');
                     }                
                                        
                     deferred.resolve(acciones);
@@ -157,6 +165,50 @@ var WebSqlAdapter = function () {
         );
         return deferred.promise();
     };
+    
+    // encontrar datos para inventar frases
+    // encontrar complementos
+    this.encontrarComplementos = function (tipo) {
+        console.log("dentro de encontrar complementos");
+        var deferred = $.Deferred();
+        this.db.transaction(
+            function (tx) {
+                var sql="";
+                if (tipo=='cosa') {
+                   sql = "SELECT id, tipo, picto FROM complementos WHERE tipo=?"; 
+                } else {
+                    sql = "SELECT id, tipo, picto FROM complementos WHERE tipo=? OR tipo='ambos'";    
+                }
+                
+                tx.executeSql(sql, [tipo], function (tx, results) {
+                    var len = results.rows.length,
+                       acciones = [],
+                        i = 0;
+                    for (; i < len; i++) {
+                        acciones[i] = results.rows.item(i);
+                        var palabras =  localStorage.getItem('palabras');
+                        console.log("valor de palabras "+palabras);
+                        
+                        if (palabras == 2) {  // hay articulo y sujeto
+                            acciones[i].arti = localStorage.getItem('articulo');
+                        } else {              // solo hay sujeto
+                           acciones[i].arti = '';
+                        }
+                        
+                        acciones[i].suj = localStorage.getItem('sujeto');
+                        console.log("valor arti: "+acciones[i].arti+" valor suj: "+acciones[i].suj);
+                    }                
+                                       
+                    deferred.resolve(acciones);
+                });
+            },
+            function (error) {
+                deferred.reject("Transacción Error: " + error.message);
+            }
+        );
+        return deferred.promise();
+    };
+    
         
     //crear tabla Frases
     var crearTablaF = function (tx) {
@@ -472,23 +524,25 @@ var WebSqlAdapter = function () {
         {"id": 22, "tipo": "ambos", "picto": "hacer.png"},
         {"id": 23, "tipo": "ambos", "picto": "parar.png"},
         {"id": 24, "tipo": "ambos", "picto": "chillar.png"},
-        {"id": 25, "tipo": "ambos", "picto": "manchar.png"},
+        {"id": 25, "tipo": "ambos", "picto": "silbar.png"},
         {"id": 26, "tipo": "ambos", "picto": "ver.png"},
         {"id": 27, "tipo": "ambos", "picto": "dormir.png"},
         {"id": 28, "tipo": "ambos", "picto": "ir.png"},
         {"id": 29, "tipo": "ambos", "picto": "subir.png"},
         {"id": 30, "tipo": "ambos", "picto": "bajar.png"},
-        {"id": 31, "tipo": "animal", "picto": "trotar.png"},
-        {"id": 32, "tipo": "animal", "picto": "ladrar.png"},
-        {"id": 33, "tipo": "animal", "picto": "maullar.png"},
-        {"id": 34, "tipo": "animal", "picto": "volar.png"},
-        {"id": 35, "tipo": "animal", "picto": "picar.png"},
-        {"id": 36, "tipo": "animal", "picto": "croar.png"},
-        {"id": 37, "tipo": "animal", "picto": "mugir.png"},
-        {"id": 38, "tipo": "animal", "picto": "relinchar.png"},
-        {"id": 39, "tipo": "animal", "picto": "rugir.png"},
-        {"id": 40, "tipo": "cosa", "picto": "ser.png"},    
-        {"id": 41, "tipo": "cosa", "picto": "estar.png"}
+        {"id": 31, "tipo": "ambos", "picto": "ser.png"},    
+        {"id": 32, "tipo": "ambos", "picto": "estar.png"},
+        {"id": 33, "tipo": "animal", "picto": "balar.png"},
+        {"id": 34, "tipo": "animal", "picto": "ladrar.png"},
+        {"id": 35, "tipo": "animal", "picto": "maullar.png"},
+        {"id": 36, "tipo": "animal", "picto": "volar.png"},
+        {"id": 37, "tipo": "animal", "picto": "picar.png"},
+        {"id": 38, "tipo": "animal", "picto": "croar.png"},
+        {"id": 39, "tipo": "animal", "picto": "mugir.png"},
+        {"id": 40, "tipo": "animal", "picto": "relinchar.png"},
+        {"id": 41, "tipo": "animal", "picto": "rugir.png"},
+        {"id": 42, "tipo": "cosa", "picto": "ser.png"},    
+        {"id": 43, "tipo": "cosa", "picto": "estar.png"}
             
     ];
 
