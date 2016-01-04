@@ -19,6 +19,7 @@ var VerAcciones= function (adapter, acciones) {
         var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         localStorage.setItem('accion',src);
         $('#fraseIn').append('<div class="accion2">'+imagen+'</div>');
+        localStorage['palabras'] =parseInt(localStorage['palabras'])+1;
         adapter.encontrarComplementos(tipo).done(function(datos) {
             $('body').html(new VerComplementos(adapter, datos).render());
         }); 

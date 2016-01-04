@@ -16,8 +16,6 @@ var WebSqlAdapter = function () {
                 insertarDatosA(tx);
                 crearTablaC(tx);
                 insertarDatosC(tx);
-                crearTablaN(tx);
-                insertarDatosN(tx);
             },
             function (error) {
                 console.log('Transacción Error: ' + error);
@@ -132,6 +130,7 @@ var WebSqlAdapter = function () {
         this.db.transaction(
             function (tx) {
                 var sql="";
+                
                 if (tipo=='cosa') {
                    sql = "SELECT id, tipo, picto FROM acciones WHERE tipo=?"; 
                 } else {
@@ -174,32 +173,69 @@ var WebSqlAdapter = function () {
         this.db.transaction(
             function (tx) {
                 var sql="";
-                if (tipo=='cosa') {
-                   sql = "SELECT id, tipo, picto FROM complementos WHERE tipo=?"; 
-                } else {
-                    sql = "SELECT id, tipo, picto FROM complementos WHERE tipo=? OR tipo='ambos'";    
-                }
-                
-                tx.executeSql(sql, [tipo], function (tx, results) {
+                sql = "SELECT id, tipo, picto FROM complementos";
+                tx.executeSql(sql, [], function (tx, results) {
                     var len = results.rows.length,
-                       acciones = [],
+                       complementos = [],
                         i = 0;
                     for (; i < len; i++) {
-                        acciones[i] = results.rows.item(i);
-                        var palabras =  localStorage.getItem('palabras');
-                        console.log("valor de palabras "+palabras);
+                        complementos[i] = results.rows.item(i);
+                    } 
+                    var Detalles = function(id, picto){
+                        this.id = id;
+                        this.picto = picto;
+                    }
+                    var Complemento = function(tipo, arti, suj, accion){
+                        this.arti = arti;
+                        this.suj = suj;
+                        this.accion = accion;
+                        this.tipo = tipo;
+                        this.detalles = new Array();
+                    }
+                    Complemento.prototype.addDetalles = function(detalles){
+                       this.detalles.push(detalles);
+                    }
+                    function getFormJson(tipo, lista){
+                        var arti = '';
+                        var palabras = localStorage.getItem('palabras');
+                        if (palabras == 3) {  // hay articulo y sujeto y accion
+                            arti = localStorage.getItem('articulo');
+                        } else {              // solo hay sujeto y accion
+                           arti = '';
+                        }   
+                        var suj = localStorage.getItem('sujeto');
+                        var accion = localStorage.getItem('accion');
+                        var compObj = new Complemento(tipo, arti, suj, accion);
+                        var leng = lista.length,
+                            i = 0;
+                        for (; i < leng; i = i + 1) {
+                           if(lista[i].tipo == tipo) {
+                              compObj.addDetalles(new Detalles(lista[i].id, lista[i].picto)); 
+                           }
+                        }               
+                        return compObj;
+                    };
+                    
+                    var comp = [];
+                    var accion = localStorage.getItem('accion');
+                    var partes = accion.split('/');
+                    var verbo = partes[3].split('.');
+                    var tipo = "";
+                    if (verbo[0]=='ser' || verbo[0]=='estar' ) {
+                        console.log('verbo ser o estar:'+verbo[0]);
+                        tipo = "adjetivo";
+                        comp[0] = getFormJson(tipo, complementos);
                         
-                        if (palabras == 2) {  // hay articulo y sujeto
-                            acciones[i].arti = localStorage.getItem('articulo');
-                        } else {              // solo hay sujeto
-                           acciones[i].arti = '';
-                        }
-                        
-                        acciones[i].suj = localStorage.getItem('sujeto');
-                        console.log("valor arti: "+acciones[i].arti+" valor suj: "+acciones[i].suj);
-                    }                
-                                       
-                    deferred.resolve(acciones);
+                    } else {
+                        tipo = "adjetivo";
+                        comp[0] = getFormJson(tipo, complementos);
+                        tipo = "sustantivo";
+                        comp[1] = getFormJson(tipo, complementos);
+                        tipo = "nexo";
+                        comp[2] = getFormJson(tipo, complementos);                       
+                    }            
+                                        
+                    deferred.resolve(comp);
                 });
             },
             function (error) {
@@ -274,21 +310,6 @@ var WebSqlAdapter = function () {
             });
     }
     
-    //crear tabla Nexos
-    var crearTablaN = function (tx) {
-        tx.executeSql('DROP TABLE IF EXISTS nexos');
-        var sql = "CREATE TABLE IF NOT EXISTS nexos ( " +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +    
-            "tipo VARCHAR(20), "+
-            "picto VARCHAR(30))";
-        tx.executeSql(sql, null,
-            function () {
-                console.log('Crear tabla nexos OK');
-            },
-            function (tx, error) {
-                alert('Crear tabla error: ' + error.message);
-            });
-    }
    
     //insertar datos de Frases
     var insertarDatosF = function (tx, frases) {
@@ -373,110 +394,101 @@ var WebSqlAdapter = function () {
         {"id": 6, "tipo": "articulo", "picto": "una.png"},
         {"id": 7, "tipo": "articulo", "picto": "unos.png"},
         {"id": 8, "tipo": "articulo", "picto": "unas.png"},
-        {"id": 9, "tipo": "preposicion", "picto": "en.png"},
-        {"id": 10, "tipo": "preposicion", "picto": "de.png"},
-        {"id": 11, "tipo": "preposicion", "picto": "a.png"},
-        {"id": 12, "tipo": "preposicion", "picto": "con.png"},
-        {"id": 13, "tipo": "preposicion", "picto": "del.png"},
-        {"id": 14, "tipo": "preposicion", "picto": "al.png"},
-        {"id": 15, "tipo": "preposicion", "picto": "por.png"},
-        {"id": 16, "tipo": "preposicion", "picto": "entre.png"},
-        {"id": 17, "tipo": "preposicion", "picto": "para.png"},
-        {"id": 18, "tipo": "preposicion", "picto": "sobre.png"},
-        {"id": 19, "tipo": "persona", "picto": "yo.png"},
-        {"id": 20, "tipo": "persona", "picto": "tu.png"},
-        {"id": 21, "tipo": "persona", "picto": "eel.png"},
-        {"id": 22, "tipo": "persona", "picto": "ella.png"},
-        {"id": 23, "tipo": "persona", "picto": "nosotros.png"},
-        {"id": 24, "tipo": "persona", "picto": "vosotros.png"},
-        {"id": 25, "tipo": "persona", "picto": "ellos.png"},
-        {"id": 26, "tipo": "persona", "picto": "ellas.png"},
-        {"id": 27, "tipo": "persona", "picto": "nino.png"},
-        {"id": 28, "tipo": "persona", "picto": "nina.png"},
-        {"id": 29, "tipo": "persona", "picto": "abuela.png"},
-        {"id": 30, "tipo": "persona", "picto": "abuelo.png"},
-        {"id": 31, "tipo": "persona", "picto": "mama.png"},
-        {"id": 32, "tipo": "persona", "picto": "papa.png"},
-        {"id": 33, "tipo": "persona", "picto": "hermano.png"},
-        {"id": 34, "tipo": "persona", "picto": "hermana.png"},
-        {"id": 35, "tipo": "persona", "picto": "profesor.png"},
-        {"id": 36, "tipo": "persona", "picto": "profesora.png"},
-        {"id": 37, "tipo": "persona", "picto": "cocinero.png"},
-        {"id": 38, "tipo": "persona", "picto": "cocinera.png"},
-        {"id": 39, "tipo": "persona", "picto": "bombero.png"},
-        {"id": 40, "tipo": "persona", "picto": "policia.png"},
-        {"id": 41, "tipo": "persona", "picto": "conductor.png"},
-        {"id": 42, "tipo": "persona", "picto": "coductora.png"},
-        {"id": 43, "tipo": "persona", "picto": "medico.png"},
-        {"id": 44, "tipo": "persona", "picto": "enfermero.png"},
-        {"id": 45, "tipo": "persona", "picto": "enfermera.png"},
-        {"id": 46, "tipo": "persona", "picto": "barrendero.png"},
-        {"id": 47, "tipo": "animal", "picto": "perro.png"},
-        {"id": 48, "tipo": "animal", "picto": "gato.png"},
-        {"id": 49, "tipo": "animal", "picto": "paloma.png"},
-        {"id": 50, "tipo": "animal", "picto": "mosca.png"},
-        {"id": 51, "tipo": "animal", "picto": "mosquito.png"},
-        {"id": 52, "tipo": "animal", "picto": "arana.png"},
-        {"id": 53, "tipo": "animal", "picto": "gallina.png"},
-        {"id": 54, "tipo": "animal", "picto": "gallo.png"},
-        {"id": 55, "tipo": "animal", "picto": "pato.png"},
-        {"id": 56, "tipo": "animal", "picto": "pata.png"},
-        {"id": 57, "tipo": "animal", "picto": "cisne.png"},
-        {"id": 58, "tipo": "animal", "picto": "vaca.png"},
-        {"id": 59, "tipo": "animal", "picto": "toro.png"},
-        {"id": 60, "tipo": "animal", "picto": "oveja.png"},
-        {"id": 61, "tipo": "animal", "picto": "cordero.png"},
-        {"id": 62, "tipo": "animal", "picto": "caballo.png"},
-        {"id": 63, "tipo": "animal", "picto": "yegua.png"},
-        {"id": 64, "tipo": "animal", "picto": "delfin.png"},
-        {"id": 65, "tipo": "animal", "picto": "serpiente.png"},
-        {"id": 66, "tipo": "animal", "picto": "rana.png"},
-        {"id": 67, "tipo": "animal", "picto": "raton.png"},
-        {"id": 68, "tipo": "animal", "picto": "rata.png"},
-        {"id": 69, "tipo": "animal", "picto": "elefante.png"},
-        {"id": 70, "tipo": "animal", "picto": "jirafa.png"},
-        {"id": 71, "tipo": "animal", "picto": "leon.png"},
-        {"id": 72, "tipo": "animal", "picto": "leona.png"},
-        {"id": 73, "tipo": "animal", "picto": "tigre.png"},
-        {"id": 74, "tipo": "cosa", "picto": "mesa.png"},    
-        {"id": 75, "tipo": "cosa", "picto": "silla.png"}, 
-        {"id": 76, "tipo": "cosa", "picto": "pizarra.png"}, 
-        {"id": 77, "tipo": "cosa", "picto": "lapiz.png"}, 
-        {"id": 78, "tipo": "cosa", "picto": "goma.png"}, 
-        {"id": 79, "tipo": "cosa", "picto": "boligrafo.png"}, 
-        {"id": 80, "tipo": "cosa", "picto": "pintura.png"}, 
-        {"id": 81, "tipo": "cosa", "picto": "mueble.png"}, 
-        {"id": 82, "tipo": "cosa", "picto": "cama.png"}, 
-        {"id": 83, "tipo": "cosa", "picto": "almohada.png"}, 
-        {"id": 84, "tipo": "cosa", "picto": "cocina.png"}, 
-        {"id": 85, "tipo": "cosa", "picto": "bano.png"}, 
-        {"id": 86, "tipo": "cosa", "picto": "ducha.png"}, 
-        {"id": 87, "tipo": "cosa", "picto": "comedor.png"}, 
-        {"id": 88, "tipo": "cosa", "picto": "sofa.png"}, 
-        {"id": 89, "tipo": "cosa", "picto": "dormitorio.png"}, 
-        {"id": 90, "tipo": "cosa", "picto": "juguete.png"}, 
-        {"id": 91, "tipo": "cosa", "picto": "muneca.png"}, 
-        {"id": 92, "tipo": "cosa", "picto": "coche.png"}, 
-        {"id": 93, "tipo": "cosa", "picto": "bicicleta.png"}, 
-        {"id": 94, "tipo": "cosa", "picto": "moto.png"}, 
-        {"id": 95, "tipo": "cosa", "picto": "avion.png"}, 
-        {"id": 96, "tipo": "cosa", "picto": "tren.png"}, 
-        {"id": 97, "tipo": "cosa", "picto": "barco.png"}, 
-        {"id": 98, "tipo": "cosa", "picto": "falda.png"}, 
-        {"id": 99, "tipo": "cosa", "picto": "blusa.png"}, 
-        {"id": 100, "tipo": "cosa", "picto": "pantalon.png"},
-        {"id": 101, "tipo": "cosa", "picto": "zapatos.png"},
-        {"id": 102, "tipo": "cosa", "picto": "jersey.png"},
-        {"id": 103, "tipo": "cosa", "picto": "bufanda.png"},
-        {"id": 104, "tipo": "cosa", "picto": "gorro.png"},
-        {"id": 105, "tipo": "cosa", "picto": "chaqueta.png"},
-        {"id": 106, "tipo": "cosa", "picto": "abrigo.png"},
-        {"id": 107, "tipo": "cosa", "picto": "television.png"},
-        {"id": 108, "tipo": "cosa", "picto": "cielo.png"},
-        {"id": 109, "tipo": "cosa", "picto": "mar.png"},
-        {"id": 110, "tipo": "cosa", "picto": "luz.png"},
-        {"id": 111, "tipo": "cosa", "picto": "fuego.png"},
-        {"id": 112, "tipo": "cosa", "picto": "luna.png"}
+        {"id": 9, "tipo": "persona", "picto": "yo.png"},
+        {"id": 10, "tipo": "persona", "picto": "tu.png"},
+        {"id": 11, "tipo": "persona", "picto": "eel.png"},
+        {"id": 12, "tipo": "persona", "picto": "ella.png"},
+        {"id": 13, "tipo": "persona", "picto": "nosotros.png"},
+        {"id": 14, "tipo": "persona", "picto": "vosotros.png"},
+        {"id": 15, "tipo": "persona", "picto": "ellos.png"},
+        {"id": 16, "tipo": "persona", "picto": "ellas.png"},
+        {"id": 17, "tipo": "persona", "picto": "nino.png"},
+        {"id": 18, "tipo": "persona", "picto": "nina.png"},
+        {"id": 19, "tipo": "persona", "picto": "abuela.png"},
+        {"id": 20, "tipo": "persona", "picto": "abuelo.png"},
+        {"id": 21, "tipo": "persona", "picto": "mama.png"},
+        {"id": 22, "tipo": "persona", "picto": "papa.png"},
+        {"id": 23, "tipo": "persona", "picto": "hermano.png"},
+        {"id": 24, "tipo": "persona", "picto": "hermana.png"},
+        {"id": 25, "tipo": "persona", "picto": "profesor.png"},
+        {"id": 26, "tipo": "persona", "picto": "profesora.png"},
+        {"id": 27, "tipo": "persona", "picto": "cocinero.png"},
+        {"id": 28, "tipo": "persona", "picto": "cocinera.png"},
+        {"id": 29, "tipo": "persona", "picto": "bombero.png"},
+        {"id": 30, "tipo": "persona", "picto": "policia.png"},
+        {"id": 31, "tipo": "persona", "picto": "conductor.png"},
+        {"id": 32, "tipo": "persona", "picto": "conductora.png"},
+        {"id": 33, "tipo": "persona", "picto": "medico.png"},
+        {"id": 34, "tipo": "persona", "picto": "enfermero.png"},
+        {"id": 35, "tipo": "persona", "picto": "enfermera.png"},
+        {"id": 36, "tipo": "persona", "picto": "barrendero.png"},
+        {"id": 37, "tipo": "animal", "picto": "perro.png"},
+        {"id": 38, "tipo": "animal", "picto": "gato.png"},
+        {"id": 39, "tipo": "animal", "picto": "paloma.png"},
+        {"id": 40, "tipo": "animal", "picto": "mosca.png"},
+        {"id": 41, "tipo": "animal", "picto": "mosquito.png"},
+        {"id": 42, "tipo": "animal", "picto": "arana.png"},
+        {"id": 43, "tipo": "animal", "picto": "gallina.png"},
+        {"id": 44, "tipo": "animal", "picto": "gallo.png"},
+        {"id": 45, "tipo": "animal", "picto": "pato.png"},
+        {"id": 46, "tipo": "animal", "picto": "pata.png"},
+        {"id": 47, "tipo": "animal", "picto": "cisne.png"},
+        {"id": 48, "tipo": "animal", "picto": "vaca.png"},
+        {"id": 49, "tipo": "animal", "picto": "toro.png"},
+        {"id": 50, "tipo": "animal", "picto": "oveja.png"},
+        {"id": 51, "tipo": "animal", "picto": "cordero.png"},
+        {"id": 52, "tipo": "animal", "picto": "caballo.png"},
+        {"id": 53, "tipo": "animal", "picto": "yegua.png"},
+        {"id": 54, "tipo": "animal", "picto": "delfin.png"},
+        {"id": 55, "tipo": "animal", "picto": "serpiente.png"},
+        {"id": 56, "tipo": "animal", "picto": "rana.png"},
+        {"id": 57, "tipo": "animal", "picto": "raton.png"},
+        {"id": 58, "tipo": "animal", "picto": "rata.png"},
+        {"id": 59, "tipo": "animal", "picto": "elefante.png"},
+        {"id": 60, "tipo": "animal", "picto": "jirafa.png"},
+        {"id": 61, "tipo": "animal", "picto": "leon.png"},
+        {"id": 62, "tipo": "animal", "picto": "leona.png"},
+        {"id": 63, "tipo": "animal", "picto": "tigre.png"},
+        {"id": 64, "tipo": "cosa", "picto": "mesa.png"},    
+        {"id": 65, "tipo": "cosa", "picto": "silla.png"}, 
+        {"id": 66, "tipo": "cosa", "picto": "pizarra.png"}, 
+        {"id": 67, "tipo": "cosa", "picto": "lapiz.png"}, 
+        {"id": 68, "tipo": "cosa", "picto": "goma.png"}, 
+        {"id": 69, "tipo": "cosa", "picto": "boli.png"}, 
+        {"id": 70, "tipo": "cosa", "picto": "pintura.png"}, 
+        {"id": 71, "tipo": "cosa", "picto": "mueble.png"}, 
+        {"id": 72, "tipo": "cosa", "picto": "cama.png"}, 
+        {"id": 73, "tipo": "cosa", "picto": "almohada.png"}, 
+        {"id": 74, "tipo": "cosa", "picto": "cocina.png"}, 
+        {"id": 75, "tipo": "cosa", "picto": "bano.png"}, 
+        {"id": 76, "tipo": "cosa", "picto": "ducha.png"}, 
+        {"id": 77, "tipo": "cosa", "picto": "comedor.png"}, 
+        {"id": 78, "tipo": "cosa", "picto": "sofa.png"}, 
+        {"id": 79, "tipo": "cosa", "picto": "dormitorio.png"}, 
+        {"id": 80, "tipo": "cosa", "picto": "juguete.png"}, 
+        {"id": 81, "tipo": "cosa", "picto": "muneca.png"}, 
+        {"id": 82, "tipo": "cosa", "picto": "coche.png"}, 
+        {"id": 83, "tipo": "cosa", "picto": "bici.png"}, 
+        {"id": 84, "tipo": "cosa", "picto": "moto.png"}, 
+        {"id": 85, "tipo": "cosa", "picto": "avion.png"}, 
+        {"id": 86, "tipo": "cosa", "picto": "tren.png"}, 
+        {"id": 87, "tipo": "cosa", "picto": "barco.png"}, 
+        {"id": 88, "tipo": "cosa", "picto": "falda.png"}, 
+        {"id": 89, "tipo": "cosa", "picto": "blusa.png"}, 
+        {"id": 90, "tipo": "cosa", "picto": "pantalon.png"},
+        {"id": 91, "tipo": "cosa", "picto": "zapatos.png"},
+        {"id": 92, "tipo": "cosa", "picto": "jersey.png"},
+        {"id": 93, "tipo": "cosa", "picto": "bufanda.png"},
+        {"id": 94, "tipo": "cosa", "picto": "gorro.png"},
+        {"id": 95, "tipo": "cosa", "picto": "chaqueta.png"},
+        {"id": 96, "tipo": "cosa", "picto": "abrigo.png"},
+        {"id": 97, "tipo": "cosa", "picto": "tele.png"},
+        {"id": 98, "tipo": "cosa", "picto": "cielo.png"},
+        {"id": 99, "tipo": "cosa", "picto": "mar.png"},
+        {"id": 100, "tipo": "cosa", "picto": "luz.png"},
+        {"id": 101, "tipo": "cosa", "picto": "fuego.png"},
+        {"id": 102, "tipo": "cosa", "picto": "luna.png"},
+        {"id": 103, "tipo": "cosa", "picto": "pinturas.png"}
     ];
 
         var l = sujetos.length;
@@ -610,18 +622,18 @@ var WebSqlAdapter = function () {
         {"id": 41, "tipo": "sustantivo", "picto": "leche.png"},
         {"id": 42, "tipo": "sustantivo", "picto": "agua.png"},
         {"id": 43, "tipo": "sustantivo", "picto": "zumo.png"},
-        {"id": 44, "tipo": "sustantivo", "picto": "vino.png"},
-        {"id": 45, "tipo": "sustantivo", "picto": "cerveza.png"},
-        {"id": 46, "tipo": "sustantivo", "picto": "refresco.png"},
-        {"id": 47, "tipo": "sustantivo", "picto": "madera.png"},
-        {"id": 48, "tipo": "sustantivo", "picto": "plastico.png"},
-        {"id": 49, "tipo": "sustantivo", "picto": "tela.png"},
-        {"id": 50, "tipo": "sustantivo", "picto": "ropa.png"},
-        {"id": 51, "tipo": "sustantivo", "picto": "campo.png"},
-        {"id": 52, "tipo": "sustantivo", "picto": "acera.png"},
-        {"id": 53, "tipo": "sustantivo", "picto": "carretera.png"},
-        {"id": 54, "tipo": "sustantivo", "picto": "pan.png"},
-        {"id": 55, "tipo": "sustantivo", "picto": "mantequilla.png"},
+        {"id": 44, "tipo": "sustantivo", "picto": "pan.png"},
+        {"id": 45, "tipo": "sustantivo", "picto": "mantequilla.png"},
+        {"id": 46, "tipo": "sustantivo", "picto": "vino.png"},
+        {"id": 47, "tipo": "sustantivo", "picto": "cerveza.png"},
+        {"id": 48, "tipo": "sustantivo", "picto": "refresco.png"},
+        {"id": 49, "tipo": "sustantivo", "picto": "madera.png"},
+        {"id": 50, "tipo": "sustantivo", "picto": "plastico.png"},
+        {"id": 51, "tipo": "sustantivo", "picto": "tela.png"},
+        {"id": 52, "tipo": "sustantivo", "picto": "ropa.png"},
+        {"id": 53, "tipo": "sustantivo", "picto": "campo.png"},
+        {"id": 54, "tipo": "sustantivo", "picto": "acera.png"},
+        {"id": 55, "tipo": "sustantivo", "picto": "carretera.png"},
         {"id": 56, "tipo": "sustantivo", "picto": "playa.png"},
         {"id": 57, "tipo": "sustantivo", "picto": "mar.png"},
         {"id": 58, "tipo": "sustantivo", "picto": "cielo.png"},
@@ -636,7 +648,26 @@ var WebSqlAdapter = function () {
         {"id": 67, "tipo": "sustantivo", "picto": "dia.png"},
         {"id": 68, "tipo": "sustantivo", "picto": "semana.png"},
         {"id": 69, "tipo": "sustantivo", "picto": "mes.png"},
-        {"id": 70, "tipo": "sustantivo", "picto": "ano.png"}  
+        {"id": 70, "tipo": "sustantivo", "picto": "ano.png"},
+        {"id": 71, "tipo": "nexo", "picto": "el.png"},
+        {"id": 72, "tipo": "nexo", "picto": "la.png"},
+        {"id": 73, "tipo": "nexo", "picto": "los.png"},
+        {"id": 74, "tipo": "nexo", "picto": "las.png"},
+        {"id": 75, "tipo": "nexo", "picto": "un.png"},
+        {"id": 76, "tipo": "nexo", "picto": "una.png"},
+        {"id": 77, "tipo": "nexo", "picto": "unos.png"},
+        {"id": 78, "tipo": "nexo", "picto": "unas.png"},
+        {"id": 79, "tipo": "nexo", "picto": "en.png"},
+        {"id": 80, "tipo": "nexo", "picto": "de.png"},
+        {"id": 81, "tipo": "nexo", "picto": "a.png"},
+        {"id": 82, "tipo": "nexo", "picto": "con.png"},
+        {"id": 83, "tipo": "nexo", "picto": "del.png"},
+        {"id": 84, "tipo": "nexo", "picto": "al.png"},
+        {"id": 85, "tipo": "nexo", "picto": "por.png"},
+        {"id": 86, "tipo": "nexo", "picto": "entre.png"},
+        {"id": 87, "tipo": "nexo", "picto": "para.png"},
+        {"id": 88, "tipo": "nexo", "picto": "sobre.png"},
+        {"id": 89, "tipo": "nexo", "picto": "y.png"}   
     ];
 
         var l = complementos.length;
@@ -655,49 +686,6 @@ var WebSqlAdapter = function () {
                 });
         }
     } // fin insertar complementos
-    
-    //insertar datos de Nexos
-    var insertarDatosN = function (tx, nexos) {
-
-        var nexos = [
-        {"id": 1, "tipo": "articulo", "picto": "el.png"},
-        {"id": 2, "tipo": "articulo", "picto": "la.png"},
-        {"id": 3, "tipo": "articulo", "picto": "los.png"},
-        {"id": 4, "tipo": "articulo", "picto": "las.png"},
-        {"id": 5, "tipo": "articulo", "picto": "un.png"},
-        {"id": 6, "tipo": "articulo", "picto": "una.png"},
-        {"id": 7, "tipo": "articulo", "picto": "unos.png"},
-        {"id": 8, "tipo": "articulo", "picto": "unas.png"},
-        {"id": 9, "tipo": "preposicion", "picto": "en.png"},
-        {"id": 10, "tipo": "preposicion", "picto": "de.png"},
-        {"id": 11, "tipo": "preposicion", "picto": "a.png"},
-        {"id": 12, "tipo": "preposicion", "picto": "con.png"},
-        {"id": 13, "tipo": "preposicion", "picto": "del.png"},
-        {"id": 14, "tipo": "preposicion", "picto": "al.png"},
-        {"id": 15, "tipo": "preposicion", "picto": "por.png"},
-        {"id": 16, "tipo": "preposicion", "picto": "entre.png"},
-        {"id": 17, "tipo": "preposicion", "picto": "para.png"},
-        {"id": 18, "tipo": "preposicion", "picto": "sobre.png"}
-                    
-    ];
-
-        var l = nexos.length;
-        var sql = "INSERT OR REPLACE INTO nexos " +
-            "(id, tipo, picto) " +
-            "VALUES (?, ?, ?)";
-        var e;
-        for (var i = 0; i < l; i++) {
-            e = nexos[i];
-            tx.executeSql(sql, [e.id, e.tipo, e.picto],
-                function () {
-                    console.log('INSERT nexos OK');
-                },
-                function (tx, error) {
-                    alert('INSERT nexos error: ' + error.message);
-                });
-        }
-    } // fin insertar nexos
-    
     
     
     

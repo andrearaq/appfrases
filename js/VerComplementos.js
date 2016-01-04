@@ -3,16 +3,16 @@ var VerComplementos= function (adapter, complementos) {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
-        this.el.on('click', '.pictoP', this.mostrarPicto);
+    //    this.el.on('click', '.pictoP', this.mostrarPicto);
         this.el.on('click', '.salir', this.exitFromApp);
         localStorage.setItem('palabras','0');
     };
     this.render = function() {
-        this.el.html(Handlebars.templates.verSujetos(sujetos));
+        this.el.html(Handlebars.templates.verComplementos(complementos));
         return this.el;
     };
       
-    this.mostrarPicto = function() {
+/*    this.mostrarPicto = function() {
         // comprobar tipo picto elegido
         var tipo =$(this).parent().parent().attr('id');
         // picto elegido
@@ -32,7 +32,7 @@ var VerComplementos= function (adapter, complementos) {
                     $('body').html(new VerAcciones(adapter, datos).render());
                 }); 
         }
-    };
+    };*/
     
     this.exitFromApp = function() {
 	    navigator.app.exitApp();

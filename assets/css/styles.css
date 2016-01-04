@@ -322,6 +322,18 @@
     border: 4px solid #ED1C24; 
     float: left;
 }
+
+/* clases de la vista verComplementos */
+.adjetivo {
+    background-color: blueviolet;
+}
+.sustantivo {
+    background-color: seagreen;
+}
+.nexo {
+   background-color: darkorange; 
+}
+
 /*tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;
