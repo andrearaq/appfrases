@@ -16,7 +16,6 @@ var VerComplementos= function (adapter, complementos) {
         var tipo =$(this).parent().parent().attr('id');
         // picto elegido
         var src = $(this).attr('src');
-        console.log("src imagen complementos:"+src);
         var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         
         $('#fraseInv').append('<div class="comple">'+imagen+'</div>');

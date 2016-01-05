@@ -36,7 +36,6 @@ var WebSqlAdapter = function () {
         var deferred = $.Deferred();
         localStorage['nivel'] = niv;
         var idf = parseInt(fra);
-        console.log("numero frase: "+idf);
         this.db.transaction(
             function (tx) {
                 var sql="";
@@ -48,8 +47,6 @@ var WebSqlAdapter = function () {
                     for (; i < len; i++) {
                         frases[i] = results.rows.item(i);
                         var palabras = frases[i].texto.split(' ');
-                        console.log("palabras frase "+frases[i].id+" "+palabras);
-                        console.log("primera palabra: "+palabras[0]);
                         for(j=0; j<palabras.length; j++) {
                             eval("frases[i].p" + j + " = palabras[j];");
                         }
@@ -168,8 +165,6 @@ var WebSqlAdapter = function () {
     // encontrar datos para inventar frases
     // encontrar complementos
     this.encontrarComplementos = function (tipoAc) {
-        console.log("dentro de encontrar complementos");
-        console.log("valor tipoAc:"+tipoAc);
         var deferred = $.Deferred();
         this.db.transaction(
             function (tx) {
