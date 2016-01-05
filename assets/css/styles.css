@@ -333,7 +333,10 @@
 .nexo {
    background-color: darkorange; 
 }
-
+.comple {
+   border: 4px solid blue; 
+   float: left; 
+}
 /*tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;

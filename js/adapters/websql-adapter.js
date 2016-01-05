@@ -167,8 +167,9 @@ var WebSqlAdapter = function () {
     
     // encontrar datos para inventar frases
     // encontrar complementos
-    this.encontrarComplementos = function (tipo) {
+    this.encontrarComplementos = function (tipoAc) {
         console.log("dentro de encontrar complementos");
+        console.log("valor tipoAc:"+tipoAc);
         var deferred = $.Deferred();
         this.db.transaction(
             function (tx) {
@@ -181,6 +182,7 @@ var WebSqlAdapter = function () {
                     for (; i < len; i++) {
                         complementos[i] = results.rows.item(i);
                     } 
+                   
                     var Detalles = function(id, picto){
                         this.id = id;
                         this.picto = picto;
@@ -208,6 +210,7 @@ var WebSqlAdapter = function () {
                         var compObj = new Complemento(tipo, arti, suj, accion);
                         var leng = lista.length,
                             i = 0;
+                        console.log("longitud lista:"+leng);
                         for (; i < leng; i = i + 1) {
                            if(lista[i].tipo == tipo) {
                               compObj.addDetalles(new Detalles(lista[i].id, lista[i].picto)); 
@@ -225,7 +228,20 @@ var WebSqlAdapter = function () {
                         console.log('verbo ser o estar:'+verbo[0]);
                         tipo = "adjetivo";
                         comp[0] = getFormJson(tipo, complementos);
-                        
+                        if (tipoAc == 'cosa') {
+                            tipo = "sustantivo";
+                            comp[1] = getFormJson(tipo, complementos);
+                            tipo = "nexo";
+                            comp[2] = getFormJson(tipo, complementos); 
+                        } else {
+                            var palabras = localStorage.getItem('palabras');
+                            if (palabras == 2) {
+                                tipo = "nexo";
+                                var nexo = complementos.slice(94);
+                                comp[1] = getFormJson(tipo, nexo);  
+                            }
+                        }
+
                     } else {
                         tipo = "adjetivo";
                         comp[0] = getFormJson(tipo, complementos);
@@ -608,66 +624,72 @@ var WebSqlAdapter = function () {
         {"id": 27, "tipo": "adjetivo", "picto": "larga.png"},
         {"id": 28, "tipo": "adjetivo", "picto": "corto.png"},
         {"id": 29, "tipo": "adjetivo", "picto": "corta.png"},
-        {"id": 30, "tipo": "adjetivo", "picto": "sucio.png"},
-        {"id": 31, "tipo": "adjetivo", "picto": "sucia.png"},
-        {"id": 32, "tipo": "adjetivo", "picto": "limpio.png"},
-        {"id": 33, "tipo": "adjetivo", "picto": "limpia.png"},
-        {"id": 34, "tipo": "adjetivo", "picto": "sentado.png"},
-        {"id": 35, "tipo": "adjetivo", "picto": "sentada.png"},
-        {"id": 36, "tipo": "adjetivo", "picto": "salvaje.png"},
-        {"id": 37, "tipo": "sustantivo", "picto": "fruta.png"},
-        {"id": 38, "tipo": "sustantivo", "picto": "verdura.png"},
-        {"id": 39, "tipo": "sustantivo", "picto": "carne.png"},
-        {"id": 40, "tipo": "sustantivo", "picto": "pescado.png"},    
-        {"id": 41, "tipo": "sustantivo", "picto": "leche.png"},
-        {"id": 42, "tipo": "sustantivo", "picto": "agua.png"},
-        {"id": 43, "tipo": "sustantivo", "picto": "zumo.png"},
-        {"id": 44, "tipo": "sustantivo", "picto": "pan.png"},
-        {"id": 45, "tipo": "sustantivo", "picto": "mantequilla.png"},
-        {"id": 46, "tipo": "sustantivo", "picto": "vino.png"},
-        {"id": 47, "tipo": "sustantivo", "picto": "cerveza.png"},
-        {"id": 48, "tipo": "sustantivo", "picto": "refresco.png"},
-        {"id": 49, "tipo": "sustantivo", "picto": "madera.png"},
-        {"id": 50, "tipo": "sustantivo", "picto": "plastico.png"},
-        {"id": 51, "tipo": "sustantivo", "picto": "tela.png"},
-        {"id": 52, "tipo": "sustantivo", "picto": "ropa.png"},
-        {"id": 53, "tipo": "sustantivo", "picto": "campo.png"},
-        {"id": 54, "tipo": "sustantivo", "picto": "acera.png"},
-        {"id": 55, "tipo": "sustantivo", "picto": "carretera.png"},
-        {"id": 56, "tipo": "sustantivo", "picto": "playa.png"},
-        {"id": 57, "tipo": "sustantivo", "picto": "mar.png"},
-        {"id": 58, "tipo": "sustantivo", "picto": "cielo.png"},
-        {"id": 59, "tipo": "sustantivo", "picto": "montana.png"},
-        {"id": 60, "tipo": "sustantivo", "picto": "lunes.png"},
-        {"id": 61, "tipo": "sustantivo", "picto": "martes.png"},
-        {"id": 62, "tipo": "sustantivo", "picto": "miercoles.png"},
-        {"id": 63, "tipo": "sustantivo", "picto": "jueves.png"},
-        {"id": 64, "tipo": "sustantivo", "picto": "viernes.png"},
-        {"id": 65, "tipo": "sustantivo", "picto": "sabado.png"},
-        {"id": 66, "tipo": "sustantivo", "picto": "domingo.png"},
-        {"id": 67, "tipo": "sustantivo", "picto": "dia.png"},
-        {"id": 68, "tipo": "sustantivo", "picto": "semana.png"},
-        {"id": 69, "tipo": "sustantivo", "picto": "mes.png"},
-        {"id": 70, "tipo": "sustantivo", "picto": "ano.png"},
-        {"id": 71, "tipo": "nexo", "picto": "el.png"},
-        {"id": 72, "tipo": "nexo", "picto": "la.png"},
-        {"id": 73, "tipo": "nexo", "picto": "los.png"},
-        {"id": 74, "tipo": "nexo", "picto": "las.png"},
-        {"id": 75, "tipo": "nexo", "picto": "un.png"},
-        {"id": 76, "tipo": "nexo", "picto": "una.png"},
-        {"id": 77, "tipo": "nexo", "picto": "unos.png"},
-        {"id": 78, "tipo": "nexo", "picto": "unas.png"},
-        {"id": 79, "tipo": "nexo", "picto": "en.png"},
-        {"id": 80, "tipo": "nexo", "picto": "de.png"},
-        {"id": 81, "tipo": "nexo", "picto": "a.png"},
-        {"id": 82, "tipo": "nexo", "picto": "con.png"},
-        {"id": 83, "tipo": "nexo", "picto": "del.png"},
-        {"id": 84, "tipo": "nexo", "picto": "al.png"},
-        {"id": 85, "tipo": "nexo", "picto": "por.png"},
-        {"id": 86, "tipo": "nexo", "picto": "entre.png"},
-        {"id": 87, "tipo": "nexo", "picto": "para.png"},
-        {"id": 88, "tipo": "nexo", "picto": "sobre.png"},
-        {"id": 89, "tipo": "nexo", "picto": "y.png"}   
+        {"id": 30, "tipo": "adjetivo", "picto": "cuadrado.png"},
+        {"id": 31, "tipo": "adjetivo", "picto": "cuadrada.png"},
+        {"id": 32, "tipo": "adjetivo", "picto": "redondo.png"},
+        {"id": 33, "tipo": "adjetivo", "picto": "redonda.png"},
+        {"id": 34, "tipo": "adjetivo", "picto": "sucio.png"},
+        {"id": 35, "tipo": "adjetivo", "picto": "sucia.png"},
+        {"id": 36, "tipo": "adjetivo", "picto": "limpio.png"},
+        {"id": 37, "tipo": "adjetivo", "picto": "limpia.png"},
+        {"id": 38, "tipo": "adjetivo", "picto": "delgado.png"},
+        {"id": 39, "tipo": "adjetivo", "picto": "delgada.png"},
+        {"id": 40, "tipo": "adjetivo", "picto": "sentado.png"},
+        {"id": 41, "tipo": "adjetivo", "picto": "sentada.png"},
+        {"id": 42, "tipo": "adjetivo", "picto": "salvaje.png"},
+        {"id": 43, "tipo": "sustantivo", "picto": "fruta.png"},
+        {"id": 44, "tipo": "sustantivo", "picto": "verdura.png"},
+        {"id": 45, "tipo": "sustantivo", "picto": "carne.png"},
+        {"id": 46, "tipo": "sustantivo", "picto": "pescado.png"},    
+        {"id": 47, "tipo": "sustantivo", "picto": "leche.png"},
+        {"id": 48, "tipo": "sustantivo", "picto": "agua.png"},
+        {"id": 49, "tipo": "sustantivo", "picto": "zumo.png"},
+        {"id": 50, "tipo": "sustantivo", "picto": "pan.png"},
+        {"id": 51, "tipo": "sustantivo", "picto": "mantequilla.png"},
+        {"id": 52, "tipo": "sustantivo", "picto": "vino.png"},
+        {"id": 53, "tipo": "sustantivo", "picto": "cerveza.png"},
+        {"id": 54, "tipo": "sustantivo", "picto": "refresco.png"},
+        {"id": 55, "tipo": "sustantivo", "picto": "madera.png"},
+        {"id": 56, "tipo": "sustantivo", "picto": "plastico.png"},
+        {"id": 57, "tipo": "sustantivo", "picto": "tela.png"},
+        {"id": 58, "tipo": "sustantivo", "picto": "ropa.png"},
+        {"id": 59, "tipo": "sustantivo", "picto": "campo.png"},
+        {"id": 60, "tipo": "sustantivo", "picto": "acera.png"},
+        {"id": 61, "tipo": "sustantivo", "picto": "carretera.png"},
+        {"id": 62, "tipo": "sustantivo", "picto": "playa.png"},
+        {"id": 63, "tipo": "sustantivo", "picto": "mar.png"},
+        {"id": 64, "tipo": "sustantivo", "picto": "cielo.png"},
+        {"id": 65, "tipo": "sustantivo", "picto": "montana.png"},
+        {"id": 66, "tipo": "sustantivo", "picto": "lunes.png"},
+        {"id": 67, "tipo": "sustantivo", "picto": "martes.png"},
+        {"id": 68, "tipo": "sustantivo", "picto": "miercoles.png"},
+        {"id": 69, "tipo": "sustantivo", "picto": "jueves.png"},
+        {"id": 70, "tipo": "sustantivo", "picto": "viernes.png"},
+        {"id": 71, "tipo": "sustantivo", "picto": "sabado.png"},
+        {"id": 72, "tipo": "sustantivo", "picto": "domingo.png"},
+        {"id": 73, "tipo": "sustantivo", "picto": "dia.png"},
+        {"id": 74, "tipo": "sustantivo", "picto": "semana.png"},
+        {"id": 75, "tipo": "sustantivo", "picto": "mes.png"},
+        {"id": 76, "tipo": "sustantivo", "picto": "ano.png"},
+        {"id": 77, "tipo": "nexo", "picto": "el.png"},
+        {"id": 78, "tipo": "nexo", "picto": "la.png"},
+        {"id": 79, "tipo": "nexo", "picto": "los.png"},
+        {"id": 80, "tipo": "nexo", "picto": "las.png"},
+        {"id": 81, "tipo": "nexo", "picto": "un.png"},
+        {"id": 82, "tipo": "nexo", "picto": "una.png"},
+        {"id": 83, "tipo": "nexo", "picto": "unos.png"},
+        {"id": 84, "tipo": "nexo", "picto": "unas.png"},
+        {"id": 85, "tipo": "nexo", "picto": "en.png"},
+        {"id": 86, "tipo": "nexo", "picto": "de.png"},
+        {"id": 87, "tipo": "nexo", "picto": "a.png"},
+        {"id": 88, "tipo": "nexo", "picto": "con.png"},
+        {"id": 89, "tipo": "nexo", "picto": "del.png"},
+        {"id": 90, "tipo": "nexo", "picto": "al.png"},
+        {"id": 91, "tipo": "nexo", "picto": "por.png"},
+        {"id": 92, "tipo": "nexo", "picto": "entre.png"},
+        {"id": 93, "tipo": "nexo", "picto": "para.png"},
+        {"id": 94, "tipo": "nexo", "picto": "sobre.png"},
+        {"id": 95, "tipo": "nexo", "picto": "y.png"}   
     ];
 
         var l = complementos.length;

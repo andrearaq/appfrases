@@ -3,36 +3,31 @@ var VerComplementos= function (adapter, complementos) {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
-    //    this.el.on('click', '.pictoP', this.mostrarPicto);
+        this.el.on('click', '.pictoP', this.mostrarPicto);
         this.el.on('click', '.salir', this.exitFromApp);
-        localStorage.setItem('palabras','0');
     };
     this.render = function() {
         this.el.html(Handlebars.templates.verComplementos(complementos));
         return this.el;
     };
       
-/*    this.mostrarPicto = function() {
+    this.mostrarPicto = function() {
         // comprobar tipo picto elegido
         var tipo =$(this).parent().parent().attr('id');
         // picto elegido
         var src = $(this).attr('src');
-        var imagen = '<img class="imgFrase" src="'+src+'" />'; 
+        console.log("src imagen complementos:"+src);
+        var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         
-        $('#fraseI').append(imagen);
-        if (tipo=='articulo') {
-            $('#articulo').css('display', 'none');
-            localStorage.setItem('articulo',src);
-            localStorage['palabras'] =parseInt(localStorage['palabras'])+1;
+        $('#fraseInv').append('<div class="comple">'+imagen+'</div>');
+        localStorage['palabras'] =parseInt(localStorage['palabras'])+1;
+        var palabras = parseInt(localStorage['palabras']);
+        if (palabras == 6) {
+            window.alert('FRASE COMPLETA','Aviso');
+            $('.listapictos').css('display', 'none');
         }
-        if (tipo=='persona' || tipo=='animal' || tipo=='cosa') {
-            localStorage['sujeto']=src;
-            localStorage['palabras']=parseInt(localStorage['palabras'])+1;
-             adapter.encontrarAcciones(tipo).done(function(datos) {
-                    $('body').html(new VerAcciones(adapter, datos).render());
-                }); 
-        }
-    };*/
+        
+    };
     
     this.exitFromApp = function() {
 	    navigator.app.exitApp();
