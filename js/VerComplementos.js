@@ -4,6 +4,7 @@ var VerComplementos= function (adapter, complementos) {
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
         this.el.on('click', '.pictoP', this.mostrarPicto);
+        this.el.on('click', '.new', this.iraSujetos);
         this.el.on('click', '.salir', this.exitFromApp);
     };
     this.render = function() {
@@ -16,7 +17,7 @@ var VerComplementos= function (adapter, complementos) {
         var tipo =$(this).parent().parent().attr('id');
         // picto elegido
         var src = $(this).attr('src');
-        var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
+        var imagen = '<img src="'+src+'" />'; 
         
         $('#fraseInv').append('<div class="comple">'+imagen+'</div>');
         localStorage['palabras'] =parseInt(localStorage['palabras'])+1;
@@ -26,6 +27,11 @@ var VerComplementos= function (adapter, complementos) {
             $('.listapictos').css('display', 'none');
         }
         
+    };
+    this.iraSujetos = function() {
+        adapter.encontrarSujetos().done(function(datos) {
+            $('body').html(new VerSujetos(adapter, datos).render());
+        }); 
     };
     
     this.exitFromApp = function() {

@@ -71,23 +71,6 @@
                     $('body').html(new VerSujetos(adapter, datos).render());
                 });            
         }
-  /*        
-        // comprobar si queremos ir a acciones
-        var match = hash.match(accionURL); 
-        if (match) {
-                adapter.encontrarAcciones().done(function(datos) {
-                    $('body').html(new VerAcciones(adapter, datos).render());
-                });            
-        }  
-          
-        // comprobar si queremos ir a complementos
-        var match = hash.match(complementoURL); 
-        if (match) {
-                adapter.encontrarComplementos().done(function(datos) {
-                    $('body').html(new VerComplementos(adapter, datos).render());
-                });            
-        } 
-          */
                   
       }
                                                 

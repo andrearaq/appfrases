@@ -566,8 +566,9 @@ var WebSqlAdapter = function () {
         {"id": 41, "tipo": "animal", "picto": "mugir.png"},
         {"id": 42, "tipo": "animal", "picto": "relinchar.png"},
         {"id": 43, "tipo": "animal", "picto": "rugir.png"},
-        {"id": 44, "tipo": "cosa", "picto": "ser.png"},    
-        {"id": 45, "tipo": "cosa", "picto": "estar.png"}
+        {"id": 44, "tipo": "animal", "picto": "cacarear.png"},   
+        {"id": 45, "tipo": "cosa", "picto": "ser.png"},    
+        {"id": 46, "tipo": "cosa", "picto": "estar.png"}
             
     ];
 

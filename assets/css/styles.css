@@ -8,23 +8,45 @@
         font-size: 3.8rem;
     }
     .nivelesB {
+        margin-top: 25px;
+        margin-bottom: 25px;
         max-width: 1024px;
         max-height: 600px;
     }
-    .listapalabras img {
-        width: 160px;
-        height: 160px;
-    }
     .fraseordenada {
+        max-width: 92%;
+        padding: 7px;
+        margin-left: 1%;
+        height: 195px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .listapalabras {
+        max-width: 92%;
         height: 185px;
+        padding: 7px;
+        padding-bottom: 7px;
+        margin-left: 1%;
+        margin-top: 1%;
+        margin-bottom: 10px;
+    }
+    .listapalabras img {
+        width: 170px;
+        height: 170px;
     }
     .fraseordenada img{
-        width: 175px;
-        height: 175px;
+        width: 180px;
+        height: 190px;
     }
     .bien {
-        font-size: 6rem;
-        color: #FFF;
+        margin-left: 450px;
+        padding: 3px;
+    }
+    .next-button {
+        top: 360px;
+    }
+    .new-button {
+        top: 160px;
     }
     .topcoat-navigation-bar__title {
       font-size: 1.2rem;
@@ -38,7 +60,32 @@
         width: 240px;
         height: 180px;
     }
-    
+    .fraseordenada2 {
+        max-width: 92%;
+        padding: 5px;
+        margin-left: 1%;
+        height: 180px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .fraseordenada2 img{
+        width: 160px;
+        height: 160x;
+    }
+    .sujeto img {
+        border: 0;
+        width: 155px;
+    }
+    .accion2 img {
+        border: 0;
+        width: 155px;
+        height: 155px;
+    }
+    .comple img {
+        padding: 2px;
+        border: 0;
+        width: 155px;
+    }
 }
 @media all and (max-width: 1024px) {   /* tablet con resolucion 1024x768 o 1024x600 */
     .topcoat-button--cta {
@@ -53,26 +100,74 @@
         padding-bottom: 60px;
     }
     .nivelesB {
+        margin-top: 25px;
+        margin-bottom: 25px;
         max-width: 980px;
         max-height: 540px;
     }
     .topcoat-button--large {
         font-size: 3.4rem;
     }
+    .fraseordenada {
+        max-width: 90%;
+        height: 160px;
+        padding: 5px;
+        margin-left: 1%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .listapalabras {
+        max-width: 90%;
+        height: 160px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-left: 1%;
+        margin-top: 2%;
+    }
     .listapalabras img {
         width: 130px;
         height: 130px;
     }
-    .fraseordenada {
-        height: 160px;
-    }
     .fraseordenada img{
-        width: 145px;
-        height: 145px;
+        width: 140px;
+        height: 140px;
     }
     .bien {
-        font-size: 5rem;
-        color: #FFF;
+        margin-top: 10px;
+        margin-left: 400px;
+        padding: 3px;
+    }
+    .next-button {
+        top: 330px;
+    }
+    .new-button {
+        top: 160px;
+    }
+    .fraseordenada2 {
+        max-width: 90%;
+        height: 152px;
+        padding: 3px;
+        margin-left: 1%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .fraseordenada2 img{
+        width: 130px;
+        height: 130x;
+    }
+    .sujeto img {
+        border: 0;
+        width: 130px;
+    }
+    .accion2 img {
+        border: 0;
+        width: 130px;
+        height: 130px;
+    }
+    .comple img {
+        padding: 2px;
+        border: 0;
+        width: 130px;
     }
 }
 
@@ -83,11 +178,11 @@
 /*iOS 4 or lower required an esoteric two finger gesture to scroll elements but normality was achieved from iOS 5. Unlike other browsers, while overflow:auto works, momentum scrolling is disabled unless you also add -webkit-overflow-scrolling: touch.*/
     -webkit-overflow-scrolling: touch;
     position: absolute;
-    top: 80px;
+    top: 75px;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    margin: auto;
+    margin: 0 auto;
 }
 /* clases de la vista Home */
 .botones {
@@ -161,25 +256,17 @@
     padding: 5px;
 }
 .fraseordenada {
-    max-width: 90%;
     overflow: hidden;
-    padding: 7px;
     border: 5px solid white;
-    margin-left: 1%;
 }
 .listapalabras {
-    max-width: 90%;
-    height: 175px;
     overflow: hidden;
-    padding: 7px;
-    padding-bottom: 7px;
     border: 4px solid white;
-    margin-left: 1%;
-    margin-top: 1%;
+    text-align: center;
 }
 .imgFrase {
     padding: 3px;
-    margin-right: 10px;
+    margin-right: 20px;
     border: 3px solid #A9F5F2;
     border-radius: 6px;
 }
@@ -188,6 +275,9 @@
     border-radius: 6px;
 }
 .next {
+    float: right;
+}
+.new {
     float: right;
 }
 .nivel1 {
@@ -202,14 +292,32 @@
 .nivel4 {
     background-color: #D2322D;
 }
-
-
+.next-button {
+    position: absolute;
+    right: 10px;
+    background-color: #0040FF;
+}
+.new-button {
+    position: absolute;
+    right: 0px;
+    background-color: #EFF2FB;
+}
+.new-button:hover {
+    border-color: #58ACFA;
+}
+.pictos {
+    text-align: center;
+}
+.bien img {
+   border: 3px solid #0040FF;
+   border-radius: 4px; 
+}
 /* clases de la vista verDatosInventar */
 .cajaInventar {
     margin-top: 0;
     margin-bottom: 0;
     padding: 5px;
-    background-color: #F4FA58;
+    background-color: #81BEF7;
 }
 .e1 {
     background-color: #47A447;
@@ -242,46 +350,60 @@
 }
 
 /* clases de la vista verSujetos */
+.fraseordenada2 {
+    overflow: hidden;
+    border: 5px solid white;
+}
 .listapictos {
-    max-width: 90%;
+    max-width: 92%;
     height: 260px;
     padding: 7px;
     padding-bottom: 7px;
     border: 4px solid white;
     margin-left: 1%;
-    margin-top: 2%;
+    margin-top: 5px;
     border-radius: 6px;
-    overflow: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .tipoPicto {
     padding: 1px;
-    margin-top: 0px;
-    margin-left: 30px;
-    text-align: center;
-    float: left;
+    text-align: left;
+    max-width: 100%;
+    height: 140px;
+    clear: both;
     border: 3px solid blue;
     border-radius: 4px;
     color: white;
     font-size: 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .picto2 {
-    padding: 0px 20px 0px 20px;
-    clear: both;
-    text-align: left;
+    padding: 3px;
+    float: left;
 }
 .picto2 img {
-    width: 140px;
-    height: 140px;
-    padding: 2px;
+    width: 120px;
+    height: 120px;
+    padding: 1px;
     margin: 0px;
     border: 2px solid #D8D8D8;
 }
 .pictoP {
     opacity: 0.8;
 }
+.pictoP:hover {
+    border-color: #58ACFA;
+    opacity: 1;
+}
 .picto2 img:hover {
     border-color: #58ACFA;
     opacity: 1;
+}
+.texto {
+    float: left;
+    margin: 0;
 }
 .articulo {
     background-color: darkorange;
@@ -298,15 +420,17 @@
 
 /* clases de la vista verAcciones */
 .accion {
-    background-color: #C42F2F;
+   background-color: #C42F2F;
 }
 .sujeto {
     border: 4px solid #A5FF7F;
     float: left;
+    padding: 2px;
+    margin-bottom: 10px;
 }
 .imgFrase3 {
     padding: 3px;
-    margin-right: 10px;
+  /*  margin-right: 10px;*/
     border: 3px solid white;
     border-radius: 6px;
 }   
@@ -315,18 +439,20 @@
     float: left;
 }
 .pictosAccion img {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     padding: 2px;
     margin: 0px;
     border: 2px solid #D8D8D8;
 }
+
+/* clases de la vista verComplementos */
 .accion2 {
     border: 4px solid #ED1C24; 
     float: left;
+    margin-left: 5px;
 }
 
-/* clases de la vista verComplementos */
 .adjetivo {
     background-color: blueviolet;
 }
@@ -339,7 +465,9 @@
 .comple {
    border: 4px solid blue; 
    float: left; 
+   margin-left: 5px;
 }
+
 /*tamaño y estilo imagen del botón */
 .imgboton {
     border: 2px solid #D8D8D8;
@@ -357,6 +485,15 @@ a {
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0);
 }
+h2, h3, h4 {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+h4 span {
+    margin-left: 6px;
+    margin-right: 10px;
+    color: blue;
+}
 footer {
     position: static;
     text-align: center;
@@ -364,7 +501,8 @@ footer {
     clear: both;
     margin-top: 1px;
     border-top: 1px solid #595b5b;
-    height: 3.969rem;
+    
+  /*  height: 3.969rem;*/
     vertical-align: middle;
 }
 .fondo {
@@ -390,42 +528,11 @@ footer {
     list-style-type: none;
     border-top: none !important;
 }
-/* clases para BORRAR 
-.list > li {
-    position: relative;
-    clear: both;
-    padding: 5px;
-    margin: 5px;
-    border-top: 1px solid #616363;
-    vertical-align: bottom;
-}
-.list > li  p {
-    color: #D8D8D8;
-    font-size: 24px;
-}*/
 
-/*Las imágenes en la lista, con un ancho fijo, y el texto a su derecha:*/
-/*
-.list > li img {
-    width: 230px;
-    height: 160px;
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 3px;
-    border: 2px solid #D8D8D8;
-    padding: 4px;
-    border-radius: 6px;
-}*/
-
-/*Cuando pulsamos en un elemento de la lista, le cambiamos el color*/
-/*
-.list li:active {
-    background-color: #d6d6d6;
-}*/
 /* fin clases generales */
 
 /* clases de topcoat modificadas por mi para personalizarlas */
-.topcoat-button-bar__button:hover, .topcoat-button-bar__item:hover, {
+.topcoat-button-bar__button:hover, .topcoat-button-bar__item:hover, topcoat-icon-button--quiet:hover {
     border-color: #58ACFA;
 }
 .topcoat-button-bar__item img {
@@ -433,7 +540,6 @@ footer {
     padding: 1%;
 }
 .topcoat-button-bar__item {
-    
     text-align: center;
 }
 .topcoat-button--cta {
@@ -447,12 +553,7 @@ footer {
     position: absolute;
     top: 10px;
 }
-.next-button {
-    position: absolute;
-    top: 340px;
-    right: 18px;
-    background-color: #0040FF;
-}
+
 .topcoat-icon--back {
     background: url("../img/back.svg") no-repeat;
     -webkit-background-size: cover;
@@ -489,6 +590,14 @@ footer {
     -moz-background-size: cover;
     background-size: cover;
 }
+.topcoat-icon--new {
+    background: url("../img/new.svg") no-repeat;
+    width: 40px;
+    height: 40px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
 .topcoat-navigation-bar {
   position: static;
  /* height: 5rem;*/
@@ -503,29 +612,13 @@ footer {
 .topcoat-button-bar__item {
   vertical-align: middle;
 }
-
-/* CLASES PARA BORRAR 
-.topcoat-list {
-  background-color: #F79F81;
-  border: 0;
-}
-.topcoat-list__container {
- border: 0;
-}
-.topcoat-list__item {
-  border: 0;
-}
-.topcoat-list__item:first-child {
-  border: 0;
-}
-*/
 .topcoat-button--large {
     min-width: 400px;
     max-width: 800px;
     heigh: auto;
     color: white;
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 topcoat-button--large:hover {
     opacity: 0.5;
