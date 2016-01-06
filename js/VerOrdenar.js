@@ -39,7 +39,9 @@ var VerOrdenar= function (adapter, frases) {
             var c = $('#pictos').children('img').size();
             console.log("valor c:"+c);
             if (c==0){  // frase terminada correctamente
-                $('.bien').html("!! BIEN !!");
+                var bien = '<span class="bien">!! BIEN !!</span>';
+                $('#pictos').append(bien);
+               
             }
         } else {
             navigator.notification.beep(3);

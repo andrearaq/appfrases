@@ -23,15 +23,8 @@
         height: 175px;
     }
     .bien {
-        margin-top: 12px;
-        clear: both;
-        width: 50%;
-        height: 40px;
-        display: table-cell;
-        text-align: center;
-        background-color: #FFFFFF;
-        color: #0040FF;
-        font-size: 2.2rem ;
+        font-size: 6rem;
+        color: #FFF;
     }
     .topcoat-navigation-bar__title {
       font-size: 1.2rem;
@@ -77,7 +70,10 @@
         width: 145px;
         height: 145px;
     }
-    
+    .bien {
+        font-size: 5rem;
+        color: #FFF;
+    }
 }
 
 /*Añadimos para que el header no haga scroll:*/

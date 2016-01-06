@@ -212,7 +212,7 @@ function program3(depth0,data) {
     + "\" id=\"cajaNivel\">\r\n       <div class=\"fraseordenada\">\r\n          ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " \r\n       </div>\r\n       <div class=\"bien\">\r\n           \r\n       </div>\r\n       <div class=\"listapalabras\">\r\n            ";
+  buffer += " \r\n       </div>\r\n       <div class=\"listapalabras\">\r\n            ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"clearfix next nivel";
