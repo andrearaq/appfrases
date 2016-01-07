@@ -121,7 +121,7 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\r\n           <div class=\"tipoPicto ";
+  buffer += "\r\n                 <li class=\"topcoat-list__item\">\r\n                        <div class=\"tipoPicto ";
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -129,23 +129,23 @@ function program4(depth0,data) {
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">\r\n            <p>";
+    + "\">\r\n                        <div class=\"texto\"><img src=\"img/";
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</p>\r\n            ";
+    + ".png\" /></div>\r\n                        ";
   options={hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data}
   if (helper = helpers.detalles) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.detalles); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
   if (!helpers.detalles) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n\r\n           </div>\r\n           \r\n         ";
+  buffer += "\r\n\r\n                       </div> \r\n                  </li>\r\n                ";
   return buffer;
   }
 function program5(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n              <div class=\"picto2\">\r\n                  <img class=\"pictoP\" src=\"img/pictos/";
+  buffer += "\r\n                          <div class=\"picto2\">\r\n                              <img class=\"pictoP\" src=\"img/pictos/";
   if (helper = helpers.picto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.picto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -153,17 +153,17 @@ function program5(depth0,data) {
   if (helper = helpers.picto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.picto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\r\n              </div>\r\n            ";
+    + "\" />\r\n                          </div>\r\n                        ";
   return buffer;
   }
 
   buffer += "   <div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center two-third\">\r\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Complementos</h1>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item right half-quarter\" >\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--home\"></span>\r\n            </a>\r\n            \r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n  </div>\r\n<div class=\"scroller\">\r\n  <div class=\"cajaInventar\">\r\n       <div class=\"fraseordenada2\">\r\n          <div class=\"clearfix new\">\r\n              <button class=\"topcoat-icon-button--quiet new-button\" href=\"\">\r\n                    <span class=\"topcoat-icon topcoat-icon--new\"></span>\r\n              </button>\r\n           </div>\r\n           ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n       </div>\r\n       <div class=\"listapictos\">\r\n         ";
+  buffer += "\r\n       </div>\r\n       <div class=\"listapictos\">\r\n           <div class=\"topcoat-list\">\r\n            <ul class=\"topcoat-list__container list\" >\r\n                ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n      </div>\r\n      \r\n    </div> \r\n    <footer>\r\n      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>\r\n      <h4><em>Autor pictogramas:</em> <span>Sergio Palao.</span> <em>Procedencia:</em> <span>ARASAAC http://catedu.es/arasaac/</span>  <em>Licencia:</em> <span><strong>CC (BY-NC-SA).</strong></span> </h4>\r\n    </footer>\r\n</div>";
+  buffer += "\r\n          </ul>\r\n        </div>\r\n      </div>\r\n    </div> \r\n    <footer>\r\n      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>\r\n      <h4><em>Autor pictogramas:</em> <span>Sergio Palao.</span> <em>Procedencia:</em> <span>ARASAAC http://catedu.es/arasaac/</span>  <em>Licencia:</em> <span><strong>CC (BY-NC-SA).</strong></span> </h4>\r\n    </footer>\r\n</div>";
   return buffer;
   });
 templates['verDatosInventar'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -330,7 +330,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\r\n           <div class=\"tipoPicto ";
+  buffer += "\r\n                 <li class=\"topcoat-list__item\">\r\n                        <div class=\"tipoPicto ";
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -338,23 +338,23 @@ function program1(depth0,data) {
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">\r\n            <div class=\"texto\"><img src=\"img/";
+    + "\">\r\n                        <div class=\"texto\"><img src=\"img/";
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ".png\" /></div>\r\n            ";
+    + ".png\" /></div>\r\n                        ";
   options={hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data}
   if (helper = helpers.detalles) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.detalles); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
   if (!helpers.detalles) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n\r\n           </div>\r\n         ";
+  buffer += "\r\n\r\n                       </div>\r\n                  </li>\r\n                ";
   return buffer;
   }
 function program2(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n              <div class=\"picto2\">\r\n                  <img class=\"pictoP\" src=\"img/pictos/";
+  buffer += "\r\n                          <div class=\"picto2\">\r\n                              <img class=\"pictoP\" src=\"img/pictos/";
   if (helper = helpers.picto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.picto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -362,14 +362,14 @@ function program2(depth0,data) {
   if (helper = helpers.picto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.picto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" />\r\n              </div>\r\n            ";
+    + "\" />\r\n                          </div>\r\n                        ";
   return buffer;
   }
 
-  buffer += "   <div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center two-third\">\r\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Sujeto</h1>\r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n  </div>\r\n<div class=\"scroller\">\r\n  <div class=\"cajaInventar\">\r\n       <div class=\"fraseordenada2\">\r\n            <div class=\"clearfix\" id=\"fraseI\">\r\n               \r\n            </div>\r\n       </div>\r\n       <div class=\"listapictos\">\r\n         ";
+  buffer += "   <div class=\"topcoat-navigation-bar\">\r\n        <div class=\"topcoat-navigation-bar__item left half-quarter\">\r\n            <a class=\"topcoat-icon-button--quiet back-button\" href=\"javascript:window.history.back();\">\r\n                <span class=\"topcoat-icon topcoat-icon--back\"></span>\r\n            </a>\r\n        </div>\r\n        <div class=\"topcoat-navigation-bar__item center two-third\">\r\n           <h1 class=\"topcoat-navigation-bar__title\">Inventar Frases - Sujeto</h1>\r\n        </div>\r\n       <div class=\"topcoat-navigation-bar__item right half-quarter\">\r\n           <button class=\"topcoat-icon-button--quiet back-button salir\"  >\r\n                <span class=\"topcoat-icon topcoat-icon--exit\"></span>\r\n            </buton>\r\n       </div>\r\n  </div>\r\n  \r\n<div class=\"scroller\">\r\n     <div class=\"cajaInventar\">\r\n       <div class=\"fraseordenada2\">\r\n            <div class=\"clearfix\" id=\"fraseI\">\r\n               \r\n            </div>\r\n       </div>\r\n       <div class=\"listapictos\">\r\n           <div class=\"topcoat-list\">\r\n            <ul class=\"topcoat-list__container list\" >\r\n                ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n      </div>\r\n    </div>    \r\n    <footer>\r\n      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>\r\n      <h4><em>Autor pictogramas:</em> <span>Sergio Palao.</span> <em>Procedencia:</em> <span>ARASAAC http://catedu.es/arasaac/</span>  <em>Licencia:</em> <span><strong>CC (BY-NC-SA).</strong></span> </h4>\r\n    </footer>\r\n</div>";
+  buffer += "\r\n          </ul>\r\n        </div>\r\n     </div>  \r\n    </div>    \r\n    <footer>\r\n      <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>\r\n      <h4><em>Autor pictogramas:</em> <span>Sergio Palao.</span> <em>Procedencia:</em> <span>ARASAAC http://catedu.es/arasaac/</span>  <em>Licencia:</em> <span><strong>CC (BY-NC-SA).</strong></span> </h4>\r\n    </footer>\r\n</div>";
   return buffer;
   });
 })();

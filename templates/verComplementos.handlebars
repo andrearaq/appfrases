@@ -44,20 +44,24 @@
            {{/.}}
        </div>
        <div class="listapictos">
-         {{#.}}
-           <div class="tipoPicto {{tipo}}" id="{{tipo}}">
-            <p>{{tipo}}</p>
-            {{#detalles}}
-              <div class="picto2">
-                  <img class="pictoP" src="img/pictos/{{picto}}" alt="{{picto}}" />
-              </div>
-            {{/detalles}}
+           <div class="topcoat-list">
+            <ul class="topcoat-list__container list" >
+                {{#.}}
+                 <li class="topcoat-list__item">
+                        <div class="tipoPicto {{tipo}}" id="{{tipo}}">
+                        <div class="texto"><img src="img/{{tipo}}.png" /></div>
+                        {{#detalles}}
+                          <div class="picto2">
+                              <img class="pictoP" src="img/pictos/{{picto}}" alt="{{picto}}" />
+                          </div>
+                        {{/detalles}}
 
-           </div>
-           
-         {{/.}}
+                       </div> 
+                  </li>
+                {{/.}}
+          </ul>
+        </div>
       </div>
-      
     </div> 
     <footer>
       <h3>Copyright @Andrea Gutiérrez Muñoz 2015</h3>
