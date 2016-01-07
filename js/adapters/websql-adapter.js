@@ -141,7 +141,6 @@ var WebSqlAdapter = function () {
                     for (; i < len; i++) {
                         acciones[i] = results.rows.item(i);
                         var palabras =  localStorage.getItem('palabras');
-                        console.log("valor de palabras "+palabras);
                         
                         if (palabras == 2) {  // hay articulo y sujeto
                             acciones[i].arti = localStorage.getItem('articulo');
@@ -569,7 +568,6 @@ var WebSqlAdapter = function () {
         {"id": 44, "tipo": "animal", "picto": "cacarear.png"},   
         {"id": 45, "tipo": "cosa", "picto": "ser.png"},    
         {"id": 46, "tipo": "cosa", "picto": "estar.png"}
-            
     ];
 
         var l = acciones.length;
