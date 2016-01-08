@@ -3,6 +3,7 @@ var VerOrdenar= function (adapter, frases) {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
+        this.el.on('click', '#help', this.mostrarAyuda);
         this.el.on('click', '.next', this.cambiarFrase);
         this.el.on('click', '.imgFrase', this.mostrarPicto);
         this.el.on('click', '.salir', this.exitFromApp);
@@ -11,6 +12,9 @@ var VerOrdenar= function (adapter, frases) {
        // n=1;
         this.el.html(Handlebars.templates.verOrdenar(frases));
         return this.el;
+    };
+    this.mostrarAyuda = function() {
+         window.alert('Elige, de la parte inferior, el pictograma correspondiente para obtener la frase ordenada. Luego pasa a la frase siguiente pulsando el botón inferior derecha.','Ayuda');
     };
     this.cambiarFrase = function() {
         var frase = parseInt(localStorage['frase'])+1;

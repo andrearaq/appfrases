@@ -3,6 +3,7 @@ var VerComplementos= function (adapter, complementos) {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
+        this.el.on('click', '#help', this.mostrarAyuda);
         this.el.on('click', '.pictoP', this.mostrarPicto);
         this.el.on('click', '.new', this.iraSujetos);
         this.el.on('click', '.salir', this.exitFromApp);
@@ -11,7 +12,9 @@ var VerComplementos= function (adapter, complementos) {
         this.el.html(Handlebars.templates.verComplementos(complementos));
         return this.el;
     };
-      
+    this.mostrarAyuda = function() {
+         window.alert('Elige, de la parte inferior, el pictograma que desees para obtener el complemento o complementos (máximo 3 pictogramas) deseados de la frase inventada. La frase resultante tendrá como máximo 6 palabras. Para inventar una nueva frase pulsa el botón de la derecha con un +.','Ayuda');
+    };    
     this.mostrarPicto = function() {
         // comprobar tipo picto elegido
         var tipo =$(this).parent().parent().attr('id');

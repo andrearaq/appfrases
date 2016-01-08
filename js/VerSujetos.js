@@ -3,6 +3,7 @@ var VerSujetos= function (adapter, sujetos) {
         
         // Definimos un div para la vista. Lo usaremos para añadir eventos.
         this.el = $('<div/>');
+        this.el.on('click', '#help', this.mostrarAyuda);
         this.el.on('click', '.pictoP', this.mostrarPicto);
         this.el.on('click', '.salir', this.exitFromApp);
         localStorage.setItem('palabras','0');
@@ -11,7 +12,9 @@ var VerSujetos= function (adapter, sujetos) {
         this.el.html(Handlebars.templates.verSujetos(sujetos));
         return this.el;
     };
-      
+    this.mostrarAyuda = function() {
+         window.alert('Elige, de la parte inferior, el pictograma que desees para obtener el sujeto de la frase inventada. El sujeto puede tener una palabra o dos palabras (articulo + sustantivo).','Ayuda');
+    }; 
     this.mostrarPicto = function() {
         // comprobar tipo picto elegido
         var tipo =$(this).parent().parent().attr('id');

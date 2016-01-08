@@ -14,7 +14,7 @@ var HomeView = function (adapter) {
     };
     
     this.mostrarAyuda = function() {
-         window.alert('El juego tiene dos partes: Ordenar Frase e Inventar Frase. En << Ordenar Frase >> hay 4 niveles de dificultad (elegir el deseado). Una vez terminado ese nivel se puede pasar al siguiente. En << Inventar Frase >> se puede crear una nueva frase a partir de un Sujeto (persona, animal o cosa), una Acción (verbo) y unos Complementos (adjetivos, artículos y sustantivos). La frase puede tener hasta un máximo de 5 palabras.','Ayuda');
+         window.alert('El juego comienza al pulsar el botón de Ordenar Frase o Inventar Frase.','Ayuda');
     };
     
     this.exitFromApp = function() {

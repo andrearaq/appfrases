@@ -16,6 +16,8 @@ var WebSqlAdapter = function () {
                 insertarDatosA(tx);
                 crearTablaC(tx);
                 insertarDatosC(tx);
+                crearTablaV(tx);
+                insertarDatosV(tx);
             },
             function (error) {
                 console.log('Transacción Error: ' + error);
@@ -138,19 +140,24 @@ var WebSqlAdapter = function () {
                     var len = results.rows.length,
                        acciones = [],
                         i = 0;
+                    var actor = "";
                     for (; i < len; i++) {
                         acciones[i] = results.rows.item(i);
                         var palabras =  localStorage.getItem('palabras');
                         
                         if (palabras == 2) {  // hay articulo y sujeto
                             acciones[i].arti = localStorage.getItem('articulo');
+                            actor = localStorage.getItem('articulo');                            
                         } else {              // solo hay sujeto
-                           acciones[i].arti = '';
+                           acciones[i].arti = '';;
+                           actor = localStorage.getItem('sujeto'); 
                         }
                         
                         acciones[i].suj = localStorage.getItem('sujeto');
-                    }                
-                                       
+                    } 
+                     var partes = actor.split('/');
+                     actor = partes[2].split('.');
+                     localStorage.setItem('actor', actor[0]);                  
                     deferred.resolve(acciones);
                 });
             },
@@ -204,7 +211,6 @@ var WebSqlAdapter = function () {
                         var compObj = new Complemento(tipo, arti, suj, accion);
                         var leng = lista.length,
                             i = 0;
-                        console.log("longitud lista:"+leng);
                         for (; i < leng; i = i + 1) {
                            if(lista[i].tipo == tipo) {
                               compObj.addDetalles(new Detalles(lista[i].id, lista[i].picto)); 
@@ -255,7 +261,32 @@ var WebSqlAdapter = function () {
         return deferred.promise();
     };
     
-        
+    // encontrar verbo de una accion
+    this.encontrarVerbo = function (verbo, actor) {
+        var deferred = $.Deferred();
+        this.db.transaction(
+            function (tx) {
+                var sql="";
+                sql = "SELECT "+ actor + " FROM verbos WHERE verbo=?";
+                tx.executeSql(sql, [verbo], function (tx, results) {
+                    var len = results.rows.length,
+                        accion = [],
+                        i = 0;
+                    for (; i < len; i++) {
+                        accion[i] = results.rows.item(i);
+                    }
+                    
+                    deferred.resolve(accion);
+                });
+            },
+            function (error) {
+                deferred.reject("Transacción Error: " + error.message);
+            }
+        );
+        return deferred.promise();
+    };
+    
+    
     //crear tabla Frases
     var crearTablaF = function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS frases');
@@ -320,6 +351,28 @@ var WebSqlAdapter = function () {
             });
     }
     
+    //crear tabla Verbos
+    var crearTablaV = function (tx) {
+        tx.executeSql('DROP TABLE IF EXISTS verbos');
+        var sql = "CREATE TABLE IF NOT EXISTS verbos ( " +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +    
+            "verbo VARCHAR(20), "+
+            "yo VARCHAR(20), "+
+            "tu VARCHAR(20), "+
+            "el VARCHAR(20), "+
+            "ella VARCHAR(20), "+
+            "nosotros VARCHAR(20), "+
+            "vosotros VARCHAR(20), "+
+            "ellos VARCHAR(20), "+
+            "ellas VARCHAR(30))";
+        tx.executeSql(sql, null,
+            function () {
+                console.log('Crear tabla verbos OK');
+            },
+            function (tx, error) {
+                alert('Crear tabla error: ' + error.message);
+            });
+    }
    
     //insertar datos de Frases
     var insertarDatosF = function (tx, frases) {
@@ -710,6 +763,73 @@ var WebSqlAdapter = function () {
         }
     } // fin insertar complementos
     
-    
+    //insertar datos de Verbos
+    var insertarDatosV = function (tx, verbos) {
+
+        var verbos = [
+        {"id": 1, "verbo": "llorar.png", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 2, "verbo": "reir.png", "yo": "río", "tu": "ries", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 3, "verbo": "cortar.png", "yo": "corto", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 4, "verbo": "escribir.png", "yo": "escribo", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran" },
+        {"id": 5, "verbo": "leer", "yo": "leo", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 6, "verbo": "cocinar", "yo": "cocino", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 7, "verbo": "besar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 8, "verbo": "apagar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 9, "verbo": "conducir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 10, "verbo": "gritar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 11, "verbo": "encender", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 12, "verbo": "limpiar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 13, "verbo": "lavar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 14, "verbo": "viajar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 15, "verbo": "apagar fuego", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},   
+        {"id": 16, "verbo": "comer", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 17, "verbo": "correr", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 18, "verbo": "saltar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 19, "verbo": "cantar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 20, "verbo": "morder", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 21, "verbo": "chupar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 22, "verbo": "andar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 23, "verbo": "hacer", "yo": "hago", "tu": "haces", "el": "hace", "ella": "hace", "nosotros": "hacemos", "vosotros": "hacéis", "ellos": "hacen", "ellas": "hacenn"},
+        {"id": 24, "verbo": "parar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 25, "verbo": "tener", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 26, "verbo": "chillar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 27, "verbo": "silbar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 28, "verbo": "ver", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 29, "verbo": "dormir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 30, "verbo": "ir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 31, "verbo": "subir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 32, "verbo": "bajar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 33, "verbo": "ser", "yo": "soy", "tu": "eres", "el": "es", "ella": "es", "nosotros": "somos", "vosotros": "sois", "ellos": "son", "ellas": "son"},    
+        {"id": 34, "verbo": "estar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 35, "verbo": "balar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 36, "verbo": "ladrar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 37, "verbo": "maullar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 38, "verbo": "volar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 39, "verbo": "picar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 40, "verbo": "croar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 41, "verbo": "mugir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 42, "verbo": "relinchar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 43, "verbo": "rugir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 44, "verbo": "cacarear", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},   
+        {"id": 45, "verbo": "ser", "yo": "soy", "tu": "eres", "el": "es", "ella": "es", "nosotros": "somos", "vosotros": "sois", "ellos": "son", "ellas": "son"},    
+        {"id": 46, "verbo": "estar", "yo": "soy", "tu": "eres", "el": "es", "ella": "es", "nosotros": "somos", "vosotros": "sois", "ellos": "son", "ellas": "son"}
+    ];
+
+        var l = verbos.length;
+        var sql = "INSERT OR REPLACE INTO verbos " +
+            "(id, verbo, yo, tu, el, ella, nosotros, vosotros, ellos, ellas) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var e;
+        for (var i = 0; i < l; i++) {
+            e = verbos[i];
+            tx.executeSql(sql, [e.id, e.verbo, e.yo, e.tu, e.el, e.ella, e.nosotros, e.vosotros, e.ellos, e.ellas],
+                function () {
+                    console.log('INSERT verbos OK');
+                },
+                function (tx, error) {
+                    alert('INSERT verbos error: ' + error.message);
+                });
+        }
+    } // fin insertar verbos
     
 } // fin websql-adapter
