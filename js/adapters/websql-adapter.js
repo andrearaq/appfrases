@@ -38,6 +38,7 @@ var WebSqlAdapter = function () {
         var deferred = $.Deferred();
         localStorage['nivel'] = niv;
         var idf = parseInt(fra);
+        console.log("valor idf:"+idf);
         this.db.transaction(
             function (tx) {
                 var sql="";
@@ -48,13 +49,57 @@ var WebSqlAdapter = function () {
                         i = 0;
                     for (; i < len; i++) {
                         frases[i] = results.rows.item(i);
-                        var palabras = frases[i].texto.split(' ');
-                        for(j=0; j<palabras.length; j++) {
-                            eval("frases[i].p" + j + " = palabras[j];");
-                        }
                     }
                     
-                    deferred.resolve(frases[idf]);
+                    // codigo para crear el objeto Frase
+                    var Palabras = function(idp, texto){
+                        this.idp = idp;
+                        this.texto = texto;
+                    }
+                    var Frase = function(id, nivel, p0){
+                        this.id = id;
+                        this.nivel = nivel;
+                        this.p0 = p0;
+                        this.palabras = new Array();
+                    }
+                    Frase.prototype.addPalabras = function(palabras){
+                       this.palabras.push(palabras);
+                    }
+                    function getFormJson2(id, nivel, frases){
+                        var palabras = frases[id].texto.split(' ');
+                        var pal = new Array();  // array asociativo pNº y palabra
+                        
+                        for(j=0; j<palabras.length; j++) {
+                            eval("pal['p"+j+"'] = palabras[j];");
+                        }
+                        
+                        var fraseObj = new Frase(id, nivel, pal.p0);  // crear objeto frase
+                        var leng = palabras.length,
+                            i = 1;                        
+                        if (leng == 3){  // frase del nivel 1
+                            fraseObj.addPalabras(new Palabras('p2',palabras[2]));
+                            fraseObj.addPalabras(new Palabras('p1',palabras[1])); 
+                        } else { // frase del resto de niveles 
+                           var alea = '';
+                           for (; i < leng; i = i + 1) {
+                               alea = Math.floor(Math.random()*(palabras.length-1)+1);
+                               var idp = '';
+                               for (index in pal) {     // buscar la palabra para saber su pNº correspondiente
+                                  if (pal[index] == palabras[alea]){
+                                      idp = index;
+                                  }   
+                                }
+                               fraseObj.addPalabras(new Palabras(idp,palabras[alea])); 
+                               palabras.splice(alea, 1);
+                            }  
+                        }
+                                      
+                        return fraseObj;
+                    }; // fin funcion getFormJson2        
+                    var fra = [];
+                    fra [0] = getFormJson2(idf, frases[idf].nivel, frases); 
+                    
+                    deferred.resolve(fra);
                 });
             },
             function (error) {

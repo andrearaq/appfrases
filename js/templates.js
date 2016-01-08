@@ -212,7 +212,7 @@ function program3(depth0,data) {
     + "\" id=\"cajaNivel\">\r\n       <div class=\"fraseordenada\">\r\n          ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " \r\n       </div>\r\n       <div class=\"listapalabras\">\r\n            ";
+  buffer += " \r\n       </div>\r\n       <div class=\"listapalabras\" id=\"pictos\">\r\n        ";
   stack1 = ((stack1 = (typeof depth0 === functionType ? depth0.apply(depth0) : depth0)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data}));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n        </div>\r\n        \r\n    </div>\r\n    <div class=\"clearfix next nivel";
@@ -239,77 +239,32 @@ function program4(depth0,data) {
 
 function program6(depth0,data) {
   
-  var buffer = "", stack1, helper;
-  buffer += "\r\n              <div class=\"pictos clearfix\" id=\"pictos\">\r\n                    <img class=\"imgFrase\" src=\"img/frases/";
-  if (helper = helpers.p2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + ".png\" alt=\"";
-  if (helper = helpers.p2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\" id=\"p2\"/>\r\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.p5), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
+  var buffer = "", stack1, helper, options;
+  buffer += "\r\n            ";
+  options={hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data}
+  if (helper = helpers.palabras) { stack1 = helper.call(depth0, options); }
+  else { helper = (depth0 && depth0.palabras); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
+  if (!helpers.palabras) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.p4), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                    ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.p3), {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                    <img class=\"imgFrase\" src=\"img/frases/";
-  if (helper = helpers.p1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + ".png\" alt=\"";
-  if (helper = helpers.p1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\" id=\"p1\" />\r\n              </div>\r\n            ";
+  buffer += "\r\n         ";
   return buffer;
   }
 function program7(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n                        <img class=\"imgFrase\" src=\"img/frases/";
-  if (helper = helpers.p5) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p5); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += "\r\n                    <img class=\"imgFrase\" src=\"img/frases/";
+  if (helper = helpers.texto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.texto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + ".png\" alt=\"";
-  if (helper = helpers.p5) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p5); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.texto) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.texto); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" id=\"p5\"/>\r\n                    ";
-  return buffer;
-  }
-
-function program9(depth0,data) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "\r\n                        <img class=\"imgFrase\" src=\"img/frases/";
-  if (helper = helpers.p4) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p4); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+    + "\" id=\"";
+  if (helper = helpers.idp) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.idp); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ".png\" alt=\"";
-  if (helper = helpers.p4) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p4); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\" id=\"p4\"/>\r\n                    ";
-  return buffer;
-  }
-
-function program11(depth0,data) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "\r\n                        <img class=\"imgFrase\" src=\"img/frases/";
-  if (helper = helpers.p3) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p3); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + ".png\" alt=\"";
-  if (helper = helpers.p3) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.p3); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\" id=\"p3\"/>\r\n                    ";
+    + "\"/>\r\n            ";
   return buffer;
   }
 

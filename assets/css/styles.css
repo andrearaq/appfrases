@@ -29,6 +29,7 @@
         margin-left: 1%;
         margin-top: 1%;
         margin-bottom: 10px;
+        text-align: left;
     }
     .listapalabras img {
         width: 170px;
@@ -37,10 +38,6 @@
     .fraseordenada img{
         width: 180px;
         height: 190px;
-    }
-    .bien {
-        margin-left: 450px;
-        padding: 3px;
     }
     .next-button {
         top: 360px;
@@ -127,17 +124,12 @@
         margin-top: 2%;
     }
     .listapalabras img {
-        width: 130px;
-        height: 130px;
-    }
-    .fraseordenada img{
         width: 140px;
         height: 140px;
     }
-    .bien {
-        margin-top: 10px;
-        margin-left: 400px;
-        padding: 3px;
+    .fraseordenada img{
+        width: 135px;
+        height: 135px;
     }
     .next-button {
         top: 330px;
@@ -320,7 +312,10 @@
     border-color: #58ACFA;
 }
 .pictos {
-    text-align: center;
+    float: left;
+}
+.bien {        
+    padding: 3px;
 }
 .bien img {
    border: 3px solid #0040FF;

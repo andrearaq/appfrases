@@ -53,6 +53,8 @@
             frase = localStorage['frase'];
             nivel = match[1];
             localStorage['nivel']=nivel;
+            console.log('nivel'+nivel);
+            console.log("frase: "+frase);
             adapter.encontrarFrasesOrdenar(nivel,frase).done(function(datos) {
                 $('body').html(new VerOrdenar(adapter, datos).render());
             });
