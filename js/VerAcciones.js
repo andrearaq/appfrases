@@ -28,10 +28,10 @@ var VerAcciones= function (adapter, acciones) {
         console.log("verbo de la accion: "+ verbo[0]);
         var actor = localStorage.getItem('actor');
         console.log("actor: "+actor);
-        
+        // buscar el tiempo verbal correcto de la acción
         adapter.encontrarVerbo(verbo[0], actor).done(function(dato){
-            console.log("tiempo verbal correcto: "+dato);
-            $('#fraseIn').append('<div>'+dato+'</div>');
+            console.log("tiempo verbal correcto: "+dato[0].tiempoV);
+            localStorage.setItem('tiempoV',dato[0].tiempoV);
         });
         
         localStorage['palabras'] =parseInt(localStorage['palabras'])+1;
