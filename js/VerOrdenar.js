@@ -18,7 +18,6 @@ var VerOrdenar= function (adapter, frases) {
     };
     this.cambiarFrase = function() {
         var frase = parseInt(localStorage['frase'])+1;
-        console.log("nueva frase");
         var nivel = localStorage['nivel'];
         localStorage['frase']=frase;
         if (frase<12) {
@@ -41,7 +40,6 @@ var VerOrdenar= function (adapter, frases) {
             $('#fraseC').append(imagen);
             $('#'+id).remove();
             var c = $('#pictos').children('img').size();
-            console.log("pictos que quedan: "+c);
             if (c==0){  // frase terminada correctamente
                 var bien = '<div class="bien"><img src="img/pictos/bien.png" /></div>';
                 $('#pictos').append(bien);

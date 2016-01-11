@@ -7,6 +7,7 @@ var HomeView = function (adapter) {
         localStorage.setItem('articulo','');
         localStorage.setItem('sujeto','');
         localStorage.setItem('accion','');
+        localStorage.setItem('actor','');
     };
     this.render = function() {
         this.el.html(Handlebars.templates.home());

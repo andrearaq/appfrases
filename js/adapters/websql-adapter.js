@@ -38,7 +38,6 @@ var WebSqlAdapter = function () {
         var deferred = $.Deferred();
         localStorage['nivel'] = niv;
         var idf = parseInt(fra);
-        console.log("valor idf:"+idf);
         this.db.transaction(
             function (tx) {
                 var sql="";
@@ -202,16 +201,19 @@ var WebSqlAdapter = function () {
                     } 
                      var partes = actor.split('/');
                      actor = partes[2].split('.');
-                    if (actor[0] == 'los'){
+                    localStorage.setItem('actor',actor[0]);
+                    if (actor[0] == 'los' || actor[0] == 'unos'){
                         localStorage.setItem('actor', 'ellos'); 
                     }
-                    if (actor[0] == 'las'){
+                    if (actor[0] == 'las' || actor[0] == 'unas'){
                         localStorage.setItem('actor', 'ellas'); 
                     }          
-                    if (actor[0] == 'la'){
+                    if (actor[0] == 'la' || actor[0] == 'una' || actor[0]=='mama'){
                         localStorage.setItem('actor', 'ella'); 
                     } 
-                    
+                    if (actor[0] == 'un' || actor[0]=='papa'){
+                        localStorage.setItem('actor', 'el');
+                    }
                     deferred.resolve(acciones);
                 });
             },
@@ -281,7 +283,6 @@ var WebSqlAdapter = function () {
                     var verbo = partes[3].split('.');
                     var tipo = "";
                     if (verbo[0]=='ser' || verbo[0]=='estar' ) {
-                        console.log('verbo ser o estar:'+verbo[0]);
                         tipo = "adjetivo";
                         comp[0] = getFormJson(tipo, complementos);
                         if (tipoAc == 'cosa') {
@@ -319,23 +320,17 @@ var WebSqlAdapter = function () {
     
     // encontrar verbo de una accion
     this.encontrarVerbo = function (verbo, actor) {
-        console.log("dentro de encontrar verbo");
-        console.log("verbo a buscar:"+verbo);
         var deferred = $.Deferred();
         this.db.transaction(
             function (tx) {
                 var sql="";
                 sql = "SELECT id, "+ actor + " as tiempoV FROM verbos WHERE verbo=?";
-                console.log("consulta: "+sql);
                 tx.executeSql(sql, [verbo], function (tx, results) {
                     var len = results.rows.length,
                         accion = [],
                         i = 0;
-                    console.log("encontrados : "+len);
                     for (; i < len; i++) {
                         accion[i] = results.rows.item(i);
-                        console.log("verbo id: "+accion[i].id);
-                        console.log("tiempo verbal recuperado: "+accion[i].tiempoV);
                     }
                     
                     deferred.resolve(accion);
@@ -787,25 +782,31 @@ var WebSqlAdapter = function () {
         {"id": 79, "tipo": "sustantivo", "picto": "silla.png"},
         {"id": 80, "tipo": "sustantivo", "picto": "ventana.png"},
         {"id": 81, "tipo": "sustantivo", "picto": "ropa.png"},
-        {"id": 82, "tipo": "nexo", "picto": "el.png"},
-        {"id": 83, "tipo": "nexo", "picto": "la.png"},
-        {"id": 84, "tipo": "nexo", "picto": "los.png"},
-        {"id": 85, "tipo": "nexo", "picto": "las.png"},
-        {"id": 86, "tipo": "nexo", "picto": "un.png"},
-        {"id": 87, "tipo": "nexo", "picto": "una.png"},
-        {"id": 88, "tipo": "nexo", "picto": "unos.png"},
-        {"id": 89, "tipo": "nexo", "picto": "unas.png"},
-        {"id": 90, "tipo": "nexo", "picto": "en.png"},
-        {"id": 91, "tipo": "nexo", "picto": "de.png"},
-        {"id": 92, "tipo": "nexo", "picto": "a.png"},
-        {"id": 93, "tipo": "nexo", "picto": "con.png"},
-        {"id": 94, "tipo": "nexo", "picto": "del.png"},
-        {"id": 95, "tipo": "nexo", "picto": "al.png"},
-        {"id": 96, "tipo": "nexo", "picto": "por.png"},
-        {"id": 97, "tipo": "nexo", "picto": "entre.png"},
-        {"id": 98, "tipo": "nexo", "picto": "para.png"},
-        {"id": 99, "tipo": "nexo", "picto": "sobre.png"},
-        {"id": 100, "tipo": "nexo", "picto": "y.png"}   
+        {"id": 82, "tipo": "sustantivo", "picto": "coche.png"}, 
+        {"id": 83, "tipo": "sustantivo", "picto": "bici.png"}, 
+        {"id": 84, "tipo": "sustantivo", "picto": "moto.png"}, 
+        {"id": 85, "tipo": "sustantivo", "picto": "avion.png"}, 
+        {"id": 86, "tipo": "sustantivo", "picto": "tren.png"}, 
+        {"id": 87, "tipo": "sustantivo", "picto": "barco.png"},
+        {"id": 88, "tipo": "nexo", "picto": "el.png"},
+        {"id": 89, "tipo": "nexo", "picto": "la.png"},
+        {"id": 90, "tipo": "nexo", "picto": "los.png"},
+        {"id": 91, "tipo": "nexo", "picto": "las.png"},
+        {"id": 92, "tipo": "nexo", "picto": "un.png"},
+        {"id": 93, "tipo": "nexo", "picto": "una.png"},
+        {"id": 94, "tipo": "nexo", "picto": "unos.png"},
+        {"id": 95, "tipo": "nexo", "picto": "unas.png"},
+        {"id": 96, "tipo": "nexo", "picto": "en.png"},
+        {"id": 97, "tipo": "nexo", "picto": "de.png"},
+        {"id": 98, "tipo": "nexo", "picto": "a.png"},
+        {"id": 99, "tipo": "nexo", "picto": "con.png"},
+        {"id": 100, "tipo": "nexo", "picto": "del.png"},
+        {"id": 101, "tipo": "nexo", "picto": "al.png"},
+        {"id": 102, "tipo": "nexo", "picto": "por.png"},
+        {"id": 103, "tipo": "nexo", "picto": "entre.png"},
+        {"id": 104, "tipo": "nexo", "picto": "para.png"},
+        {"id": 105, "tipo": "nexo", "picto": "sobre.png"},
+        {"id": 106, "tipo": "nexo", "picto": "y.png"}   
     ];
 
         var l = complementos.length;
@@ -830,51 +831,50 @@ var WebSqlAdapter = function () {
 
         var verbos = [
         {"id": 1, "verbo": "llorar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 2, "verbo": "reir", "yo": "río", "tu": "ries", "el": "ríe", "ella": "ríe", "nosotros": "reimos", "vosotros": "reis", "ellos": "rien", "ellas": "rien"},
+        {"id": 2, "verbo": "reir", "yo": "rio", "tu": "ries", "el": "ríe", "ella": "ríe", "nosotros": "reimos", "vosotros": "reis", "ellos": "rien", "ellas": "rien"},
         {"id": 3, "verbo": "cortar", "yo": "corto", "tu": "cortas", "el": "corta", "ella": "corta", "nosotros": "cortamos", "vosotros": "cortáis", "ellos": "cortan", "ellas": "cortan"},
-        {"id": 4, "verbo": "escribir", "yo": "escribo", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran" },
-        {"id": 5, "verbo": "leer", "yo": "leo", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 6, "verbo": "cocinar", "yo": "cocino", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 7, "verbo": "besar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 8, "verbo": "apagar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 9, "verbo": "conducir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 10, "verbo": "gritar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 11, "verbo": "encender", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 12, "verbo": "limpiar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 13, "verbo": "lavar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 14, "verbo": "viajar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 15, "verbo": "apagar fuego", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},   
-        {"id": 16, "verbo": "comer", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 4, "verbo": "escribir", "yo": "escribo", "tu": "escribes", "el": "escribe", "ella": "escribe", "nosotros": "escribimos", "vosotros": "escribis", "ellos": "escriben", "ellas": "escriben" },
+        {"id": 5, "verbo": "leer", "yo": "leo", "tu": "lees", "el": "lee", "ella": "lee", "nosotros": "leemos", "vosotros": "leéis", "ellos": "leen", "ellas": "leen"},
+        {"id": 6, "verbo": "cocinar", "yo": "cocino", "tu": "cocinas", "el": "cocina", "ella": "cocina", "nosotros": "cocinamos", "vosotros": "cocináis", "ellos": "cocinan", "ellas": "cocinan"},
+        {"id": 7, "verbo": "besar", "yo": "beso", "tu": "besas", "el": "besaa", "ella": "besa", "nosotros": "besamos", "vosotros": "besáis", "ellos": "besan", "ellas": "besan"},
+        {"id": 8, "verbo": "apagar", "yo": "apago", "tu": "apagas", "el": "apaga", "ella": "apaga", "nosotros": "apagamos", "vosotros": "apagáis", "ellos": "apagan", "ellas": "apagan"},
+        {"id": 9, "verbo": "conducir", "yo": "conduzco", "tu": "conduces", "el": "conduce", "ella": "conduce", "nosotros": "conducimos", "vosotros": "conducis", "ellos": "conducen", "ellas": "conducen"},
+        {"id": 10, "verbo": "gritar", "yo": "grito", "tu": "gritas", "el": "grita", "ella": "grita", "nosotros": "gritamos", "vosotros": "gritáis", "ellos": "gritan", "ellas": "gritan"},
+        {"id": 11, "verbo": "encender", "yo": "enciendo", "tu": "enciendes", "el": "enciende", "ella": "enciende", "nosotros": "encendemos", "vosotros": "encendéis", "ellos": "encienden", "ellas": "encienden"},
+        {"id": 12, "verbo": "limpiar", "yo": "limpio", "tu": "limpias", "el": "limpia", "ella": "limpia", "nosotros": "limpiamos", "vosotros": "limpiáis", "ellos": "limpian", "ellas": "limpian"},
+        {"id": 13, "verbo": "lavar", "yo": "lavo", "tu": "lavas", "el": "lavaa", "ella": "lava", "nosotros": "lavamos", "vosotros": "laváis", "ellos": "lavan", "ellas": "lavan"},
+        {"id": 14, "verbo": "viajar", "yo": "viajo", "tu": "viajas", "el": "viaja", "ella": "viaja", "nosotros": "viajamos", "vosotros": "viajáis", "ellos": "viajan", "ellas": "viajan"},
+        {"id": 15, "verbo": "apagar fuego", "yo": "apago", "tu": "apagas", "el": "apaga", "ella": "apaga", "nosotros": "apagamos", "vosotros": "apagáis", "ellos": "apagan", "ellas": "apagan"},   
+        {"id": 16, "verbo": "comer", "yo": "como", "tu": "comes", "el": "come", "ella": "come", "nosotros": "comemos", "vosotros": "coméis", "ellos": "comen", "ellas": "comen"},
         {"id": 17, "verbo": "correr", "yo": "corre", "tu": "corres", "el": "corre", "ella": "corre", "nosotros": "corremos", "vosotros": "correis", "ellos": "corren", "ellas": "corren"},
-        {"id": 18, "verbo": "saltar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 19, "verbo": "cantar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 20, "verbo": "morder", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 21, "verbo": "chupar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 22, "verbo": "andar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 23, "verbo": "hacer", "yo": "hago", "tu": "haces", "el": "hace", "ella": "hace", "nosotros": "hacemos", "vosotros": "hacéis", "ellos": "hacen", "ellas": "hacenn"},
+        {"id": 18, "verbo": "saltar", "yo": "salto", "tu": "saltas", "el": "salta", "ella": "salta", "nosotros": "saltamos", "vosotros": "saltáis", "ellos": "saltan", "ellas": "saltan"},
+        {"id": 19, "verbo": "cantar", "yo": "canto", "tu": "cantas", "el": "canta", "ella": "canta", "nosotros": "cantamos", "vosotros": "cantáis", "ellos": "cantan", "ellas": "cantan"},
+        {"id": 20, "verbo": "morder", "yo": "muerdo", "tu": "muerdes", "el": "muerde", "ella": "muerde", "nosotros": "mordemos", "vosotros": "mordéis", "ellos": "muerden", "ellas": "muerden"},
+        {"id": 21, "verbo": "chupar", "yo": "chupo", "tu": "chupas", "el": "chupa", "ella": "chupa", "nosotros": "chupamos", "vosotros": "chupáis", "ellos": "chupan", "ellas": "chupan"},
+        {"id": 22, "verbo": "andar", "yo": "ando", "tu": "andaas", "el": "anda", "ella": "anda", "nosotros": "andamos", "vosotros": "andáis", "ellos": "andan", "ellas": "andan"},
+        {"id": 23, "verbo": "hacer", "yo": "hago", "tu": "haces", "el": "hace", "ella": "hace", "nosotros": "hacemos", "vosotros": "hacéis", "ellos": "hacen", "ellas": "hacen"},
         {"id": 24, "verbo": "parar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 25, "verbo": "tener", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 26, "verbo": "chillar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 27, "verbo": "silbar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 28, "verbo": "ver", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 29, "verbo": "dormir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 30, "verbo": "ir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 31, "verbo": "subir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 32, "verbo": "bajar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
+        {"id": 25, "verbo": "tener", "yo": "tengo", "tu": "tienes", "el": "tiene", "ella": "tiene", "nosotros": "tenemos", "vosotros": "tenéis", "ellos": "tienen", "ellas": "tienen"},
+        {"id": 26, "verbo": "chillar", "yo": "chillo", "tu": "chillas", "el": "chilla", "ella": "chilla", "nosotros": "chillamos", "vosotros": "chilláis", "ellos": "chillan", "ellas": "chillan"},
+        {"id": 27, "verbo": "silbar", "yo": "silbo", "tu": "silbas", "el": "silba", "ella": "silba", "nosotros": "silbamos", "vosotros": "silbáis", "ellos": "silban", "ellas": "silban"},
+        {"id": 28, "verbo": "ver", "yo": "veo", "tu": "ves", "el": "ve", "ella": "ve", "nosotros": "vemos", "vosotros": "veis", "ellos": "ven", "ellas": "ven"},
+        {"id": 29, "verbo": "dormir", "yo": "duermo", "tu": "duermes", "el": "duerme", "ella": "duerme", "nosotros": "dormimos", "vosotros": "dormis", "ellos": "duermen", "ellas": "duermen"},
+        {"id": 30, "verbo": "ir", "yo": "voy", "tu": "vas", "el": "va", "ella": "va", "nosotros": "vamos", "vosotros": "vais", "ellos": "van", "ellas": "van"},
+        {"id": 31, "verbo": "subir", "yo": "subo", "tu": "subes", "el": "sube", "ella": "sube", "nosotros": "subimos", "vosotros": "subis", "ellos": "suben", "ellas": "suben"},
+        {"id": 32, "verbo": "bajar", "yo": "bajo", "tu": "bajas", "el": "baja", "ella": "baja", "nosotros": "bajamos", "vosotros": "bajáis", "ellos": "bajan", "ellas": "bajan"},
         {"id": 33, "verbo": "ser", "yo": "soy", "tu": "eres", "el": "es", "ella": "es", "nosotros": "somos", "vosotros": "sois", "ellos": "son", "ellas": "son"},    
-        {"id": 34, "verbo": "estar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 35, "verbo": "balar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 36, "verbo": "ladrar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 37, "verbo": "maullar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 38, "verbo": "volar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 39, "verbo": "picar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 40, "verbo": "croar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 41, "verbo": "mugir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 42, "verbo": "relinchar", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 43, "verbo": "rugir", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},
-        {"id": 44, "verbo": "cacarear", "yo": "lloro", "tu": "lloras", "el": "llora", "ella": "llora", "nosotros": "lloramos", "vosotros": "lloráis", "ellos": "lloran", "ellas": "lloran"},   
-        {"id": 45, "verbo": "ser", "yo": "soy", "tu": "eres", "el": "es", "ella": "es", "nosotros": "somos", "vosotros": "sois", "ellos": "son", "ellas": "son"},    
-        {"id": 46, "verbo": "estar", "yo": "soy", "tu": "eres", "el": "es", "ella": "es", "nosotros": "somos", "vosotros": "sois", "ellos": "son", "ellas": "son"}
+        {"id": 34, "verbo": "estar", "yo": "estoy", "tu": "estás", "el": "está", "ella": "está", "nosotros": "estamos", "vosotros": "estáis", "ellos": "están", "ellas": "están"},
+        {"id": 35, "verbo": "balar", "yo": "balo", "tu": "balas", "el": "bala", "ella": "bala", "nosotros": "balamos", "vosotros": "baláis", "ellos": "balan", "ellas": "balan"},
+        {"id": 36, "verbo": "ladrar", "yo": "ladro", "tu": "ladras", "el": "ladra", "ella": "ladra", "nosotros": "ladramos", "vosotros": "ladráis", "ellos": "ladran", "ellas": "ladran"},
+        {"id": 37, "verbo": "maullar", "yo": "maullo", "tu": "maullas", "el": "maulla", "ella": "maulla", "nosotros": "maullamos", "vosotros": "maulláis", "ellos": "maullan", "ellas": "maullan"},
+        {"id": 38, "verbo": "volar", "yo": "vuelo", "tu": "vuelas", "el": "vuela", "ella": "vuela", "nosotros": "volamos", "vosotros": "voláis", "ellos": "vuelan", "ellas": "vuelan"},
+        {"id": 39, "verbo": "picar", "yo": "pico", "tu": "picas", "el": "pica", "ella": "pica", "nosotros": "picamos", "vosotros": "picáis", "ellos": "pican", "ellas": "pican"},
+        {"id": 40, "verbo": "croar", "yo": "croo", "tu": "croas", "el": "croa", "ella": "croa", "nosotros": "croamos", "vosotros": "croáis", "ellos": "croan", "ellas": "croan"},
+        {"id": 41, "verbo": "mugir", "yo": "mujo", "tu": "muges", "el": "muge", "ella": "muge", "nosotros": "mugimos", "vosotros": "mugis", "ellos": "mugen", "ellas": "mugen"},
+        {"id": 42, "verbo": "relinchar", "yo": "relincho", "tu": "relinchas", "el": "relincha", "ella": "relincha", "nosotros": "relinchamos", "vosotros": "relincháis", "ellos": "relinchan", "ellas": "relinchan"},
+        {"id": 43, "verbo": "rugir", "yo": "rujo", "tu": "ruges", "el": "ruge", "ella": "ruge", "nosotros": "rugimos", "vosotros": "rugis", "ellos": "rugen", "ellas": "rugen"},
+        {"id": 44, "verbo": "cacarear", "yo": "cacareo", "tu": "cacareas", "el": "cacarea", "ella": "cacarea", "nosotros": "cacareamos", "vosotros": "cacareáis", "ellos": "cacarean", "ellas": "cacarean"}  
+        
     ];
 
         var l = verbos.length;

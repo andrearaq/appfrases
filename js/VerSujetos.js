@@ -20,7 +20,7 @@ var VerSujetos= function (adapter, sujetos) {
         var tipo =$(this).parent().parent().attr('id');
         // picto elegido
         var src = $(this).attr('src');
-        var imagen = '<img class="imgFrase" src="'+src+'" />'; 
+        var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         
         $('#fraseI').append(imagen);
         if (tipo=='articulo') {
