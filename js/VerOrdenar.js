@@ -46,7 +46,7 @@ var VerOrdenar= function (adapter, frases) {
                
             }
         } else {
-            navigator.notification.beep(3);
+            navigator.notification.beep(1);
         }    
     };
     

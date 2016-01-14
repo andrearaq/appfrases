@@ -81,7 +81,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n            <div class=\"clearfix\" id=\"fraseInv\">\r\n             \r\n               <div class=\"sujeto\">\r\n                 ";
+  buffer += "\r\n            <div class=\"clearfix\" id=\"fraseInv\">\r\n               <div class=\"sujeto\">\r\n                 ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.arti), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n                   <img class=\"imgFrase3\" src=\"";
@@ -104,7 +104,7 @@ function program1(depth0,data) {
   if (helper = helpers.tiempoV) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tiempoV); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span></p>\r\n              </div>\r\n              \r\n            </div>\r\n           ";
+    + "</span></p>\r\n              </div>\r\n              <div class=\"comple\" id=\"complemen\">\r\n              </div>\r\n            </div>\r\n           ";
   return buffer;
   }
 function program2(depth0,data) {
@@ -125,7 +125,7 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\r\n                 <li class=\"topcoat-list__item\">\r\n                        <div class=\"tipoPicto ";
+  buffer += "\r\n                 <li class=\"topcoat-list__item\">\r\n                    <div class=\"tipoPicto ";
   if (helper = helpers.tipo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.tipo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)

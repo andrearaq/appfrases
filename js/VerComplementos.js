@@ -20,9 +20,11 @@ var VerComplementos= function (adapter, complementos) {
         var tipo =$(this).parent().parent().attr('id');
         // picto elegido
         var src = $(this).attr('src');
-        var imagen = '<img src="'+src+'" />'; 
+        var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         
-        $('#fraseInv').append('<div class="comple">'+imagen+'</div>');
+    //    $('#fraseInv').append('<div class="comple">'+imagen+'</div>');
+        $('#complemen').css('display','inline');
+        $('#complemen').append(imagen);
         localStorage['palabras'] =parseInt(localStorage['palabras'])+1;
         var palabras = parseInt(localStorage['palabras']);
         if (palabras == 6) {
