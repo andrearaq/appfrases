@@ -10,7 +10,7 @@ var VerNivelesOrden= function (adapter) {
         return this.el;
     };
     this.mostrarAyuda = function() {
-         window.alert('Elige el nivel de dificultad para ordenar frases.','Ayuda');
+         window.alert('Elige el nivel de dificultad para ordenar frases. Activa el sonido de las notificaciones antes de empezar a jugar.','Ayuda');
     };
     this.exitFromApp = function() {
 	    navigator.app.exitApp();

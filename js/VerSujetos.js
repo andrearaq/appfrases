@@ -22,6 +22,7 @@ var VerSujetos= function (adapter, sujetos) {
         var src = $(this).attr('src');
         var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         
+        $('#fraseI').css('display','inline');
         $('#fraseI').append(imagen);
         if (tipo=='articulo') {
             $('#articulo').css('display', 'none');

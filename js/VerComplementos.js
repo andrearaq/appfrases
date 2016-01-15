@@ -22,7 +22,6 @@ var VerComplementos= function (adapter, complementos) {
         var src = $(this).attr('src');
         var imagen = '<img class="imgFrase3" src="'+src+'" />'; 
         
-    //    $('#fraseInv').append('<div class="comple">'+imagen+'</div>');
         $('#complemen').css('display','inline');
         $('#complemen').append(imagen);
         localStorage['palabras'] =parseInt(localStorage['palabras'])+1;

@@ -1,8 +1,11 @@
 /* media queries */
 @media all and (max-width: 1280px) {       /* tablet con resolucion 1280x800 */
     .botones {
-        padding-top: 90px;
-        padding-bottom: 90px;
+        padding-top: 110px;
+        padding-bottom: 110px;
+    }
+    .fondo {
+        padding: 20px;
     }
     .topcoat-button--large {
         font-size: 3.8rem;
@@ -61,9 +64,9 @@
         margin-top: 5px;
         margin-bottom: 5px;
     }
-    .fraseordenada2 img{
+   .fraseordenada2 img{
         width: 160px;
-        height: 160x;
+        height: 160px;
     }
     .sujeto img {
         border: 0;
@@ -71,8 +74,8 @@
     }
     .accion2 img {
         border: 0;
-        width: 155px;
-      /*  height: 156px;*/
+        width: 160px;
+        height: 144px;
     }
     .comple img {
         padding: 2px;
@@ -114,7 +117,7 @@
         margin-top: 25px;
         margin-bottom: 25px;
         max-width: 980px;
-        max-height: 540px;
+        max-height: 500px;
     }
     .topcoat-button--large {
         font-size: 3.4rem;
@@ -151,29 +154,27 @@
     }
     .fraseordenada2 {
         max-width: 90%;
-        height: 162px;
+        height: 160px;
         padding: 3px;
         margin-left: 1%;
         margin-top: 5px;
         margin-bottom: 5px;
     }
- /*   .fraseordenada2 img{
-        width: 130px;
-        height: 130x;
-    }*/
-    .sujeto img {
-        border: 0;
-        width: 130px;
-    }
     .accion2 img {
         border: 0;
-        width: 130px;
+        width: 135px;
         height: 115px;
+    }
+    .sujeto img {
+        border: 0;
+        width: 135px;
+        height: 135px;
     }
     .comple img {
         padding: 2px;
         border: 0;
-        width: 130px;
+        width: 135px;
+        height: 135px;
     }
     .topcoat-navigation-bar__title {
       font-size: 2.5rem;
@@ -392,6 +393,7 @@
 .fraseordenada2 {
     overflow: hidden;
     border: 5px solid white;
+    border-radius: 6px;
 }
 .listapictos {
     max-width: 92%;
@@ -422,8 +424,8 @@
     float: left;
 }
 .picto2 img {
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     padding: 1px;
     margin: 0px;
     border: 2px solid #D8D8D8;
@@ -455,7 +457,9 @@
 .cosa {
     background-color: coral;
 }
-
+#fraseI {
+    display: none;
+}
 /* clases de la vista verAcciones */
 .accion {
    background-color: #C42F2F;
@@ -469,7 +473,6 @@
 .imgFrase3 {
     padding: 3px;
     border: 3px solid #A5FF7F;
-    border-radius: 6px;
 }   
 .pictosAccion {
     padding: 3px;
@@ -493,10 +496,6 @@
     margin-left: 5px;
     text-align: center;
     padding: 1px;
-}
-.accion2 img {
-    width: 160px;
-    height: 145px;
 }
 .accion2 p {
     margin-top: -13px;
@@ -575,13 +574,17 @@ footer {
 .more-half {
     width: 60%;
 }
+.more-half2 {
+    width: 63%;
+}
 .half-quarter {
-  /*  width: 15%;*/
-    width: 8%;
+    width: 5%;
+    margin: 0;
 }
 .two-third {
     width: 66.666%;
 }
+    
 .less-three-quarters {
     width: 70%;
 }
